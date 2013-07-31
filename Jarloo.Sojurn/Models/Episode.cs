@@ -8,19 +8,30 @@ namespace Jarloo.Sojurn.Models
     [DataContract]
     public class Episode : PropertyChangedBase
     {
-        private System.DateTime? airDate;
+        private DateTime? airDate;
         private int episodeNumber;
+        private int episodeNumberThisSeason;
+        private bool hasBeenViewed;
         private ImageSource imageSource;
         private string imageUrl;
         private bool isLoading;
         private string link;
-        private string title;
-        private string showName;
         private int seasonNumber;
-        private bool hasBeenViewed;
-        
+        private string showName;
+        private string title;
 
-         
+
+        [DataMember]
+        public int EpisodeNumberThisSeason
+        {
+            get { return episodeNumberThisSeason; }
+            set
+            {
+                episodeNumberThisSeason = value;
+                NotifyOfPropertyChange(() => HasBeenViewed);
+            }
+        }
+
         [DataMember]
         public bool HasBeenViewed
         {
@@ -28,10 +39,10 @@ namespace Jarloo.Sojurn.Models
             set
             {
                 hasBeenViewed = value;
-                NotifyOfPropertyChange(()=>HasBeenViewed);
+                NotifyOfPropertyChange(() => HasBeenViewed);
             }
         }
-        
+
         [DataMember]
         public int SeasonNumber
         {
@@ -39,10 +50,10 @@ namespace Jarloo.Sojurn.Models
             set
             {
                 seasonNumber = value;
-                NotifyOfPropertyChange(()=>SeasonNumber);
+                NotifyOfPropertyChange(() => SeasonNumber);
             }
         }
- 
+
         [DataMember]
         public string ShowName
         {
@@ -50,10 +61,10 @@ namespace Jarloo.Sojurn.Models
             set
             {
                 showName = value;
-                NotifyOfPropertyChange(()=>ShowName);
+                NotifyOfPropertyChange(() => ShowName);
             }
         }
-        
+
         [IgnoreDataMember]
         public bool IsLoading
         {
@@ -102,7 +113,7 @@ namespace Jarloo.Sojurn.Models
         }
 
         [DataMember]
-        public System.DateTime? AirDate
+        public DateTime? AirDate
         {
             get { return airDate; }
             set

@@ -96,9 +96,9 @@ namespace Jarloo.Sojurn.Helpers
                                         {
                                             if (extension.ToUpper() == ".PNG")
                                             {
-                                                Stream imageStreamSource = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read);
-                                                PngBitmapDecoder decoder = new PngBitmapDecoder(imageStreamSource, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
-                                                e.ImageSource = decoder.Frames[0];
+                                        Stream imageStreamSource = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read);
+                                        PngBitmapDecoder decoder = new PngBitmapDecoder(imageStreamSource, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
+                                        e.ImageSource = decoder.Frames[0];
                                             }
                                             else
                                             {

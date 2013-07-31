@@ -33,21 +33,21 @@ namespace Jarloo.Sojurn.InformationProviders
             string url = string.Format("{0}full_show_info.php?sid={1}", BASE_URL, showId);
             XDocument doc = XDocument.Load(url);
 
-            var s = doc.Root;
+            var seas = doc.Root;
 
             Show show = new Show
                 {
-                    ShowId = Get<int>(s.Element("showid")),
-                    Name = Get<string>(s.Element("name")),
-                    Started = GetDate(s.Element("started")),
-                    Ended = GetDate(s.Element("ended")),
-                    Country = Get<string>(s.Element("origin_country")),
-                    Status = Get<string>(s.Element("status")),
-                    ImageUrl = Get<string>(s.Element("image")),
-                    AirTimeHour = GetTime(s.Element("airtime"),'H'),
-                    AirTimeMinute = GetTime(s.Element("airtime"),'M'),
+                    ShowId = Get<int>(seas.Element("showid")),
+                    Name = Get<string>(seas.Element("name")),
+                    Started = GetDate(seas.Element("started")),
+                    Ended = GetDate(seas.Element("ended")),
+                    Country = Get<string>(seas.Element("origin_country")),
+                    Status = Get<string>(seas.Element("status")),
+                    ImageUrl = Get<string>(seas.Element("image")),
+                    AirTimeHour = GetTime(seas.Element("airtime"),'H'),
+                    AirTimeMinute = GetTime(seas.Element("airtime"),'M'),
 
-                    Seasons = (from season in s.Element("Episodelist").Elements("Season")
+                    Seasons = (from season in seas.Element("Episodelist").Elements("Season")
                                select new Season
                                    {
                                        SeasonNumber = Convert.ToInt32(season.Attribute("no").Value),
@@ -59,15 +59,22 @@ namespace Jarloo.Sojurn.InformationProviders
                                                            Title = Get<string>(e.Element("title")),
                                                            Link = Get<string>(e.Element("link")),
                                                            ImageUrl = Get<string>(e.Element("screencap")),
-                                                           ShowName = Get<string>(s.Element("name")),
+                                                           ShowName = Get<string>(seas.Element("name")),
                                                            SeasonNumber = Convert.ToInt32(season.Attribute("no").Value)
                                                        }).OrderBy(w => w.EpisodeNumber).ToList()
                                    }).ToList()
                 };
 
+
+
+            for (int s = 0 ; s < show.Seasons.Count; s++)
+            {
+                for (int e = 0; e < show.Seasons[s].Episodes.Count; e++)
+                {
+                    show.Seasons[s].Episodes[e].EpisodeNumberThisSeason = e+1;
+                }
+            }
             
-
-
             return show;
         }
 

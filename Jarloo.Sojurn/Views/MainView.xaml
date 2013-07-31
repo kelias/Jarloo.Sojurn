@@ -195,7 +195,7 @@
                                             <StackPanel Cursor="Hand">
                                                 <Grid>
                                                     <Image Source="{Binding ImageSource}" Width="150" Height="80" Stretch="Uniform" VerticalAlignment="Center"/>
-                                                    <TextBlock Text="{Binding EpisodeNumber}" FontSize="60" Foreground="#64FFFFFF" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    <TextBlock Text="{Binding EpisodeNumberThisSeason}" FontSize="60" Foreground="#96FFFFFF" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                                     <Controls:ProgressRing IsActive="{Binding IsLoading}" />
                                                 </Grid>
                                                 <StackPanel>
