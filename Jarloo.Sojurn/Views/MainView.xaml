@@ -27,17 +27,17 @@
     <Grid>
     	<Grid.ColumnDefinitions>
     		<ColumnDefinition/>
-    		<ColumnDefinition Width="229"/>
+    		<ColumnDefinition Width="219"/>
+    		<ColumnDefinition Width="214"/>
     	</Grid.ColumnDefinitions>
     	<Grid.RowDefinitions>
     		<RowDefinition Height="55"/>
     		<RowDefinition/>
     	</Grid.RowDefinitions>
 
-        <Rectangle Fill="#FFF09609" Stroke="Black" Grid.ColumnSpan="2"/>
-        <Rectangle Fill="#FFF09609" Stroke="Black" Grid.Column="1" Grid.Row="1"/>
+        <Rectangle Fill="#FFF09609" Stroke="Black" Grid.ColumnSpan="3"/>
 
-        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
+        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="3">
     	    <Button HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="46" Cursor="Hand" x:Name="AddShow" Margin="0,4,0,0">
     		    <Button.Template>
     			    <ControlTemplate>
@@ -46,7 +46,7 @@
 			    </Button.Template>
     	    </Button>
 
-            <Button HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="46" Cursor="Hand" x:Name="RefreshAllShows" Margin="5,4,0,0">
+            <Button HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="46" Cursor="Hand" x:Name="RefreshAllShows" Margin="5,4,0,0" FontSize="32">
                 <Button.Template>
                     <ControlTemplate>
                         <Image Source="/Images/appbar.refresh.clockwise.down.png" x:Name="imgRefresh" RenderTransformOrigin=".5,.5">
@@ -69,7 +69,7 @@
             </Button>
         </StackPanel>
 
-        <ListBox Background="{x:Null}" ItemsSource="{Binding Shows.View}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="1" SelectedItem="{Binding SelectedShow}" Margin="0,0,5,0">
+        <ListBox Background="{x:Null}" ItemsSource="{Binding Shows.View}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="1" SelectedItem="{Binding SelectedShow}">
             <i:Interaction.Behaviors>
                 <behaviors:ScrollIntoViewBehavior />
             </i:Interaction.Behaviors>
@@ -307,90 +307,178 @@
                 </Style>
             </ListBox.Style>
         </ListBox>
+        <Rectangle Fill="#FFF09609" Stroke="Black" Grid.Row="1" Grid.Column="2"/>
         
-        <ListBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding TimeLine.View}">
-            <ListBox.GroupStyle>
-                <GroupStyle>
-                    <GroupStyle.ContainerStyle>
-                        <Style TargetType="{x:Type GroupItem}">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type GroupItem}">
-                                        <StackPanel Margin="5,5,5,5">
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="{Binding Name, StringFormat=\{0:ddd\}}" FontSize="40"/>
-                                                <TextBlock Text="{Binding Name, StringFormat=\{0:MMM dd\}}" Margin="10,20,0,0" FontSize="14"/>
-                                            </StackPanel>
-                                            <ItemsPresenter/>
-                                        </StackPanel>
-                                    </ControlTemplate>
-                                 </Setter.Value>
-                           </Setter>
-                        </Style>
-                    </GroupStyle.ContainerStyle>
-                    <GroupStyle.Panel>
-                        <ItemsPanelTemplate>
-                            <StackPanel>
-                                <i:Interaction.Behaviors>
-                                    <ei:FluidMoveBehavior AppliesTo="Children" Duration="00:00:00.5">
-                                        <ei:FluidMoveBehavior.EaseX>
-                                            <CircleEase EasingMode="EaseOut"/>
-                                        </ei:FluidMoveBehavior.EaseX>
-                                    </ei:FluidMoveBehavior>
-                                </i:Interaction.Behaviors>
-                            </StackPanel>
-                        </ItemsPanelTemplate>
-                    </GroupStyle.Panel>
-                </GroupStyle>
-            </ListBox.GroupStyle>
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Show.AirTimeHour, StringFormat=\{0:00\}}"/>
-                        <TextBlock Text=":"/>
-                        <TextBlock Text="{Binding Show.AirTimeMinute, StringFormat=\{0:00\}}"/>
-                        <TextBlock Text="{Binding Show.Name}" Margin="20,0,0,0"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
+        <ListBox ItemsSource="{Binding TimeLine.View}" Grid.Column="2" Grid.Row="1" Margin="0,58,0,0">
+        	<ListBox.GroupStyle>
+        		<GroupStyle>
+        			<GroupStyle.ContainerStyle>
+        				<Style TargetType="{x:Type GroupItem}">
+        					<Setter Property="Template">
+        						<Setter.Value>
+        							<ControlTemplate TargetType="{x:Type GroupItem}">
+        								<StackPanel Margin="5,5,5,5">
+        									<StackPanel Orientation="Horizontal">
+        										<TextBlock Text="{Binding Name, StringFormat=\{0:ddd\}}" FontSize="40"/>
+        										<TextBlock Text="{Binding Name, StringFormat=\{0:MMM dd\}}" Margin="10,20,0,0" FontSize="14"/>
+        									</StackPanel>
+        									<ItemsPresenter/>
+        								</StackPanel>
+        							</ControlTemplate>
+        						</Setter.Value>
+        					</Setter>
+        				</Style>
+        			</GroupStyle.ContainerStyle>
+        			<GroupStyle.Panel>
+        				<ItemsPanelTemplate>
+        					<StackPanel>
+        						<i:Interaction.Behaviors>
+        							<ei:FluidMoveBehavior AppliesTo="Children" Duration="00:00:00.5">
+        								<ei:FluidMoveBehavior.EaseX>
+        									<CircleEase EasingMode="EaseOut"/>
+        								</ei:FluidMoveBehavior.EaseX>
+        							</ei:FluidMoveBehavior>
+        						</i:Interaction.Behaviors>
+        					</StackPanel>
+        				</ItemsPanelTemplate>
+        			</GroupStyle.Panel>
+        		</GroupStyle>
+        	</ListBox.GroupStyle>
+        	<ListBox.ItemTemplate>
+        		<DataTemplate>
+        			<StackPanel Orientation="Horizontal">
+        				<TextBlock Text="{Binding Show.AirTimeHour, StringFormat=\{0:00\}}"/>
+        				<TextBlock Text=":"/>
+        				<TextBlock Text="{Binding Show.AirTimeMinute, StringFormat=\{0:00\}}"/>
+        				<TextBlock Text="{Binding Show.Name}" Margin="20,0,0,0"/>
+        			</StackPanel>
+        		</DataTemplate>
+        	</ListBox.ItemTemplate>
             
-            <ListBox.Style>
-                <Style TargetType="{x:Type ItemsControl}">
+        	<ListBox.Style>
+        		<Style TargetType="{x:Type ItemsControl}">
 
-                    <Style.Resources>
-                        <Style TargetType="{x:Type ListBoxItem}">
-                            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-                            <Setter Property="Background" Value="#FFC77B03"/>
-                            <Setter Property="BorderBrush" Value="Transparent"/>
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                        <Grid Margin="4,0,4,4">
-                                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" SnapsToDevicePixels="True"/>
-                                            <ContentPresenter Margin="8,5"/>
-                                        </Grid>
-                                        <ControlTemplate.Triggers>
-                                            <MultiTrigger>
-                                                <MultiTrigger.Conditions>
-                                                    <Condition Property="IsMouseOver" Value="True" />
-                                                </MultiTrigger.Conditions>
+        			<Style.Resources>
+        				<Style TargetType="{x:Type ListBoxItem}">
+        					<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        					<Setter Property="Background" Value="#FFC77B03"/>
+        					<Setter Property="BorderBrush" Value="Transparent"/>
+        					<Setter Property="Template">
+        						<Setter.Value>
+        							<ControlTemplate TargetType="{x:Type ListBoxItem}">
+        								<Grid Margin="4,0,4,4">
+        									<Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" SnapsToDevicePixels="True"/>
+        									<ContentPresenter Margin="8,5"/>
+        								</Grid>
+        								<ControlTemplate.Triggers>
+        									<MultiTrigger>
+        										<MultiTrigger.Conditions>
+        											<Condition Property="IsMouseOver" Value="True" />
+        										</MultiTrigger.Conditions>
                                                 <Setter Property="Background" Value="#FFF1A327" />
                                                 <Setter Property="BorderBrush" Value="#FFFFD799" />
                                             </MultiTrigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </Style.Resources>
+        								</ControlTemplate.Triggers>
+        							</ControlTemplate>
+        						</Setter.Value>
+        					</Setter>
+        				</Style>
+        			</Style.Resources>
 
-                    <Setter Property="Background" Value="Transparent"/>
-                    <Setter Property="BorderThickness" Value="0"/>
-                </Style>
-            </ListBox.Style>
+        			<Setter Property="Background" Value="Transparent"/>
+        			<Setter Property="BorderThickness" Value="0"/>
+        		</Style>
+        	</ListBox.Style>
+        </ListBox>
+
+        <Rectangle Fill="#FFF09609" Stroke="Black" Grid.Column="1" Margin="0,0,1,0" Grid.Row="1"/>
+        
+        <ListBox ItemsSource="{Binding Backlog.View}" Grid.Column="1" Grid.Row="1" Margin="0,58,1,0">
+        	<ListBox.GroupStyle>
+        		<GroupStyle>
+        			<GroupStyle.ContainerStyle>
+        				<Style TargetType="{x:Type GroupItem}">
+        					<Setter Property="Template">
+        						<Setter.Value>
+        							<ControlTemplate TargetType="{x:Type GroupItem}">
+        								<StackPanel Margin="5,5,5,5">
+        									<TextBlock Text="{Binding Name}" FontSize="20"/>
+        									<ItemsPresenter/>
+        								</StackPanel>
+        							</ControlTemplate>
+        						</Setter.Value>
+        					</Setter>
+        				</Style>
+        			</GroupStyle.ContainerStyle>
+        			<GroupStyle.Panel>
+        				<ItemsPanelTemplate>
+        					<StackPanel>
+        						<i:Interaction.Behaviors>
+        							<ei:FluidMoveBehavior AppliesTo="Children" Duration="00:00:00.5">
+        								<ei:FluidMoveBehavior.EaseX>
+        									<CircleEase EasingMode="EaseOut"/>
+        								</ei:FluidMoveBehavior.EaseX>
+        							</ei:FluidMoveBehavior>
+        						</i:Interaction.Behaviors>
+        					</StackPanel>
+        				</ItemsPanelTemplate>
+        			</GroupStyle.Panel>
+        		</GroupStyle>
+        	</ListBox.GroupStyle>
+        	<ListBox.ItemTemplate>
+        		<DataTemplate>
+        			<StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="S" FontSize="14"/>
+                            <TextBlock Text="{Binding SeasonNumber, StringFormat=\{0:00\}}" FontSize="14"/>
+                            <TextBlock Text="E" FontSize="14"/>
+                            <TextBlock Text="{Binding EpisodeNumberThisSeason, StringFormat=\{0:00\}}" FontSize="14"/>
+                        </StackPanel>
+
+                        <TextBlock Text="{Binding Path=Episode.Title}" FontSize="10"/>
+                    </StackPanel>
+        		</DataTemplate>
+        	</ListBox.ItemTemplate>
+            
+        	<ListBox.Style>
+        		<Style TargetType="{x:Type ItemsControl}">
+
+        			<Style.Resources>
+        				<Style TargetType="{x:Type ListBoxItem}">
+        					<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        					<Setter Property="Background" Value="#FFC77B03"/>
+        					<Setter Property="BorderBrush" Value="Transparent"/>
+        					<Setter Property="Template">
+        						<Setter.Value>
+        							<ControlTemplate TargetType="{x:Type ListBoxItem}">
+        								<Grid Margin="4,0,4,4">
+        									<Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" SnapsToDevicePixels="True"/>
+        									<ContentPresenter Margin="8,5"/>
+        								</Grid>
+        								<ControlTemplate.Triggers>
+        									<MultiTrigger>
+        										<MultiTrigger.Conditions>
+        											<Condition Property="IsMouseOver" Value="True" />
+        										</MultiTrigger.Conditions>
+        										<Setter Property="Background" Value="#FFF1A327" />
+        										<Setter Property="BorderBrush" Value="#FFFFD799" />
+        									</MultiTrigger>
+        								</ControlTemplate.Triggers>
+        							</ControlTemplate>
+        						</Setter.Value>
+        					</Setter>
+        				</Style>
+        			</Style.Resources>
+
+        			<Setter Property="Background" Value="Transparent"/>
+        			<Setter Property="BorderThickness" Value="0"/>
+        		</Style>
+        	</ListBox.Style>
 
 
         </ListBox>
+        <TextBlock Grid.Column="1" Height="43" Margin="50,10,53,0" Grid.Row="1" TextWrapping="Wrap" Text="backlog" VerticalAlignment="Top" FontSize="32"/>
+        <TextBlock Grid.Column="2" Height="43" Margin="49,10,49,0" Grid.Row="1" TextWrapping="Wrap" Text="timeline" VerticalAlignment="Top" FontSize="32"/>
         
     </Grid>
 </UserControl>

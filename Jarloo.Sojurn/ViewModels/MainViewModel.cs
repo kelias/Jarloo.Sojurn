@@ -27,9 +27,11 @@ namespace Jarloo.Sojurn.ViewModels
 
         private BindableCollection<Show> shows = new BindableCollection<Show>();
         private BindableCollection<TimeLineItem> timeLine = new BindableCollection<TimeLineItem>();
+        private BindableCollection<BacklogItem> backlog = new BindableCollection<BacklogItem>();
 
         public CollectionViewSource Shows { get; set; }
         public CollectionViewSource TimeLine { get; set; }
+        public CollectionViewSource Backlog { get; set; }
         
 
         private Show selectedShow;
@@ -65,6 +67,12 @@ namespace Jarloo.Sojurn.ViewModels
             TimeLine = new CollectionViewSource {Source = timeLine};
             TimeLine.SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Ascending));
             TimeLine.GroupDescriptions.Add(new PropertyGroupDescription("Date"));
+
+            Backlog = new CollectionViewSource { Source = backlog };
+            Backlog.GroupDescriptions.Add(new PropertyGroupDescription("ShowName"));
+            Backlog.SortDescriptions.Add(new SortDescription("ShowName", ListSortDirection.Ascending));
+            Backlog.SortDescriptions.Add(new SortDescription("SeasonNumber", ListSortDirection.Ascending));
+            Backlog.SortDescriptions.Add(new SortDescription("EpisodeNumberThisSeason", ListSortDirection.Ascending));
         }
         
         public void AddShow()
@@ -89,6 +97,7 @@ namespace Jarloo.Sojurn.ViewModels
             ImageHelper.GetEpisodeImages(show);
 
             UpdateTimeline();
+            UpdateBacklog();
         }
 
         protected override void OnActivate()
@@ -121,6 +130,7 @@ namespace Jarloo.Sojurn.ViewModels
             }
 
             UpdateTimeline();
+            UpdateBacklog();
         }
 
         private void SaveShows()
@@ -146,6 +156,7 @@ namespace Jarloo.Sojurn.ViewModels
         public void RemoveShow(Show s)
         {
             RemoveFromTimeLine(s);
+            RemoveFromBacklog(s);
             shows.Remove(s);
         }
 
@@ -215,8 +226,12 @@ namespace Jarloo.Sojurn.ViewModels
         {
             foreach (var episode in s.Seasons.SelectMany(season => season.Episodes))
             {
+                if (episode.AirDate > DateTime.Today) continue;
+                
                 episode.HasBeenViewed = true;
             }
+
+            UpdateBacklog();
         }
 
         public void MarkAllAsNotViewed(Show s)
@@ -225,25 +240,64 @@ namespace Jarloo.Sojurn.ViewModels
             {
                 episode.HasBeenViewed = false;
             }
+
+            UpdateBacklog();
         }
 
         public void ToggleViewed(Episode e)
         {
             e.HasBeenViewed = !e.HasBeenViewed;
+
+            if (e.HasBeenViewed)
+            {
+                for (int i = 0; i < backlog.Count; i++)
+                {
+                    if (backlog[i].Episode != e) continue;
+                    backlog.RemoveAt(i);
+                    break;
+                }
+            }
+            else
+            {
+                var show = shows.FirstOrDefault(w => w.Name == e.ShowName);
+                var season = show.Seasons.FirstOrDefault(w => w.SeasonNumber == e.SeasonNumber);
+
+                backlog.Add(new BacklogItem{Show=show, Episode = e, Season=season});
+            }
         }
 
         public void UpdateTimeline()
         {
+            timeLine.Clear();
+
             foreach (var show in shows)
             {
-                Season latestSeason = show.Seasons[show.Seasons.Count - 1];
+                var latestSeason = show.Seasons[show.Seasons.Count - 1];
 
-                List<Episode> futureEpisodes = latestSeason.Episodes.Where(w => w.AirDate!=null && w.AirDate > DateTime.Now).OrderBy(w=>w.AirDate).ToList();
+                var futureEpisodes = latestSeason.Episodes.Where(w => w.AirDate!=null && w.AirDate >= DateTime.Today).OrderBy(w=>w.AirDate).ToList();
 
-                foreach (Episode episode in futureEpisodes)
+                foreach (var episode in futureEpisodes)
                 {
                     if (timeLine.Any(w => w.Episode == episode)) continue;
                     timeLine.Add(new TimeLineItem{Show=show,Episode = episode});
+                }
+            }
+        }
+
+        public void UpdateBacklog()
+        {
+            backlog.Clear();
+
+            foreach (var show in shows)
+            {
+                foreach (var season in show.Seasons)
+                {
+                    foreach (var episode in season.Episodes)
+                    {
+                        if (episode.HasBeenViewed || episode.AirDate > DateTime.Today) continue;
+
+                        backlog.Add(new BacklogItem { Show = show, Episode = episode, Season = season });    
+                    }
                 }
             }
         }
@@ -253,6 +307,14 @@ namespace Jarloo.Sojurn.ViewModels
             for (int i = timeLine.Count-1; i >= 0; i--)
             {
                 if(timeLine[i].Show==show) timeLine.RemoveAt(i);
+            }
+        }
+
+        private void RemoveFromBacklog(Show show)
+        {
+            for (int i = backlog.Count - 1; i >= 0; i--)
+            {
+                if (backlog[i].Show == show) backlog.RemoveAt(i);
             }
         }
     }
