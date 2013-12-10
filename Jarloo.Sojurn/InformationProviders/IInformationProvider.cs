@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Media.Imaging;
+﻿using System.Collections.Generic;
 using Jarloo.Sojurn.Models;
 
 namespace Jarloo.Sojurn.InformationProviders

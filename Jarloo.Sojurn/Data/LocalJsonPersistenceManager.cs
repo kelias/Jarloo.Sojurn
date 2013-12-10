@@ -15,6 +15,13 @@ namespace Jarloo.Sojurn.Data
             if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
             string filename = Path.Combine(folder, key + ".json");
 
+            //Backup the file in case something happens
+            if (File.Exists(filename))
+            {
+                string backup = Path.Combine(folder, DateTime.Today.ToString("yyyyMMdd_") + key + ".json");
+                File.Copy(filename,backup,true);
+            }
+
             File.WriteAllText(filename, json);
         }
 
