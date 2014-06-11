@@ -1,7 +1,7 @@
 Jarloo.Sojurn
 =============
 
-![alt text](https://github.com/kelias/Jarloo.Sojurn/blob/master/images/screenshot1.png)
+![alt tag](/images/screenshot1.png)
 
 
 
