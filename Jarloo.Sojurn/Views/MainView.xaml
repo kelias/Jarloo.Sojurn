@@ -38,7 +38,7 @@
         <Rectangle Fill="#FFF09609" Stroke="Black" Grid.ColumnSpan="3"/>
 
         <StackPanel Orientation="Horizontal" Grid.ColumnSpan="3">
-    	    <Button HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="46" Cursor="Hand" x:Name="AddShow" Margin="0,4,0,0">
+    	    <Button HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="46" Cursor="Hand" x:Name="AddShow" Margin="0,4,0,0" ToolTip="Add Show...">
     		    <Button.Template>
     			    <ControlTemplate>
     				    <Image Source="/Images/appbar.add.png" />
@@ -46,7 +46,7 @@
 			    </Button.Template>
     	    </Button>
 
-            <Button HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="46" Cursor="Hand" x:Name="RefreshAllShows" Margin="5,4,0,0" FontSize="32">
+            <Button HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="46" Cursor="Hand" x:Name="RefreshAllShows" Margin="5,4,0,0" FontSize="32" ToolTip="Refresh All Shows">
                 <Button.Template>
                     <ControlTemplate>
                         <Image Source="/Images/appbar.refresh.clockwise.down.png" x:Name="imgRefresh" RenderTransformOrigin=".5,.5">
@@ -80,7 +80,7 @@
                     <!--SHOWS-->
                     <DockPanel>
                         <StackPanel DockPanel.Dock="Left">
-                            <Button Height="24" Width="24" Cursor="Hand" cal:Message.Attach="[Event Click] = [Action RemoveShow($this)]"  VerticalAlignment="Top">
+                            <Button Height="24" Width="24" Cursor="Hand" cal:Message.Attach="[Event Click] = [Action RemoveShow($this)]"  VerticalAlignment="Top" ToolTip="Delete Show">
                                 <Button.Template>
                                     <ControlTemplate>
                                         <Image Source="/Images/appbar.close.png"/>
@@ -88,7 +88,7 @@
                                 </Button.Template>
                             </Button>
 
-                            <Button Height="24" Width="24" Cursor="Hand" cal:Message.Attach="[Event Click] = [Action RefreshShow($this)]" VerticalAlignment="Top" Margin="0,10,0,0">
+                            <Button Height="24" Width="24" Cursor="Hand" cal:Message.Attach="[Event Click] = [Action RefreshShow($this)]" VerticalAlignment="Top" Margin="0,10,0,0" ToolTip="Refresh all Episodes">
                                 <Button.Template>
                                     <ControlTemplate>
                                         <Image Source="/Images/appbar.refresh.clockwise.down.png" RenderTransformOrigin=".5,.5" x:Name="imgRefresh">
@@ -110,7 +110,7 @@
                                 </Button.Template>
                             </Button>
 
-                            <Button Height="24" Width="24" Cursor="Hand" cal:Message.Attach="[Event Click] = [Action MarkAllAsViewed($this)]" VerticalAlignment="Top" Margin="0,2,0,0">
+                            <Button Height="24" Width="24" Cursor="Hand" cal:Message.Attach="[Event Click] = [Action MarkAllAsViewed($this)]" VerticalAlignment="Top" Margin="0,2,0,0" ToolTip="Mark All Episodes as Watched">
                                 <Button.Template>
                                     <ControlTemplate>
                                         <Image Source="/Images/appbar.eye.png"/>
@@ -118,7 +118,7 @@
                                 </Button.Template>
                             </Button>
 
-                            <Button Height="24" Width="24" Cursor="Hand" cal:Message.Attach="[Event Click] = [Action MarkAllAsNotViewed($this)]" VerticalAlignment="Top" Margin="0,2,0,0">
+                            <Button Height="24" Width="24" Cursor="Hand" cal:Message.Attach="[Event Click] = [Action MarkAllAsNotViewed($this)]" VerticalAlignment="Top" Margin="0,2,0,0" ToolTip="Mark All Episodes as Unwatched">
                                 <Button.Template>
                                     <ControlTemplate>
                                         <Image Source="/Images/appbar.eye.hide.png"/>
@@ -429,7 +429,7 @@
         		<DataTemplate>
         			<StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <Button Height="16" Width="16" Cursor="Hand" cal:Message.Attach="[Event Click] = [Action ToggleViewedBacklog($this)]" VerticalAlignment="Top" Margin="0,0,10,0">
+                            <Button Height="16" Width="16" Cursor="Hand" cal:Message.Attach="[Event Click] = [Action ToggleViewedBacklog($this)]" VerticalAlignment="Top" Margin="0,0,10,0" ToolTip="Mark as read">
                                 <Button.Template>
                                     <ControlTemplate>
                                         <Image>
