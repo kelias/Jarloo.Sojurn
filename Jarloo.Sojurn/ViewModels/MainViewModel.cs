@@ -265,6 +265,12 @@ namespace Jarloo.Sojurn.ViewModels
             }
         }
 
+        public void ToggleViewedBacklog(BacklogItem i)
+        {
+            ToggleViewed(i.Episode);
+        }
+
+
         public void UpdateTimeline()
         {
             timeLine.Clear();

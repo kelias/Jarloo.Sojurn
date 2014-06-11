@@ -433,6 +433,27 @@
                             <TextBlock Text="{Binding SeasonNumber, StringFormat=\{0:00\}}" FontSize="14"/>
                             <TextBlock Text="E" FontSize="14"/>
                             <TextBlock Text="{Binding EpisodeNumberThisSeason, StringFormat=\{0:00\}}" FontSize="14"/>
+                            <Button Height="16" Width="16" Cursor="Hand" cal:Message.Attach="[Event Click] = [Action ToggleViewedBacklog($this)]" VerticalAlignment="Top" Margin="10,0,0,0">
+                                <Button.Template>
+                                    <ControlTemplate>
+                                        <Image>
+                                            <Image.Style>
+                                                <Style TargetType="{x:Type Image}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Path=Episode.HasBeenViewed}" Value="true">
+                                                            <Setter Property="Source" Value="/Images/appbar.eye.png"/>
+                                                        </DataTrigger>
+
+                                                        <DataTrigger Binding="{Binding Path=Episode.HasBeenViewed}" Value="false">
+                                                            <Setter Property="Source" Value="/Images/appbar.eye.hide.png"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Image.Style>
+                                        </Image>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
                         </StackPanel>
 
                         <TextBlock Text="{Binding Path=Episode.Title}" FontSize="10"/>
