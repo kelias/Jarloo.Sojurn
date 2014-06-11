@@ -19,13 +19,13 @@ namespace Jarloo.Sojurn.Controls
 
         private void imgIcon_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            Window win = Window.GetWindow(this);
+            var win = Window.GetWindow(this);
             MakeTopMost(!win.Topmost);
         }
 
         public void MakeTopMost(bool topmost)
         {
-            Window win = Window.GetWindow(this);
+            var win = Window.GetWindow(this);
 
             if (!topmost)
             {

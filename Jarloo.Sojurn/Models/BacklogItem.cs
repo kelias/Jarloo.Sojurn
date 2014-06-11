@@ -1,5 +1,4 @@
-﻿using System;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 
 namespace Jarloo.Sojurn.Models
 {
@@ -56,6 +55,5 @@ namespace Jarloo.Sojurn.Models
                 NotifyOfPropertyChange(() => SeasonNumber);
             }
         }
-
     }
 }

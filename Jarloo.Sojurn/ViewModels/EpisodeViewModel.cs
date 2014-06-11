@@ -19,14 +19,12 @@ namespace Jarloo.Sojurn.ViewModels
                 NotifyOfPropertyChange(() => Episode);
             }
         }
-        
+
         [ImportingConstructor]
         public EpisodeViewModel(Episode e)
         {
             episode = e;
             DisplayName = e.ShowName;
         }
-
-        
     }
 }

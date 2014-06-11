@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Caliburn.Micro;
 using Jarloo.Sojurn.InformationProviders;
 using Jarloo.Sojurn.Models;
-using Jarloo.Sojurn.Views;
 
 namespace Jarloo.Sojurn.ViewModels
 {
@@ -27,17 +24,17 @@ namespace Jarloo.Sojurn.ViewModels
         private Show show;
         private string error;
         private List<Show> currentShows;
-         
+
         public string Error
         {
             get { return error; }
             set
             {
                 error = value;
-                NotifyOfPropertyChange(()=>Error);
+                NotifyOfPropertyChange(() => Error);
             }
         }
-        
+
         public bool CanAddShow
         {
             get { return SelectedShow != null && isWorking == false; }
@@ -114,45 +111,45 @@ namespace Jarloo.Sojurn.ViewModels
         {
             TryClose(false);
         }
-        
+
         public async void SearchShow()
         {
             IsSearchCompleted = false;
             IsWorking = true;
-            
-            string query = ShowName;
-            List<Show> shows = await Task<List<Show>>.Factory.StartNew(() =>
+
+            var query = ShowName;
+            var shows = await Task<List<Show>>.Factory.StartNew(() =>
+            {
+                try
                 {
-                    try
-                    {
-                        return informationProvider.GetShows(query);
-                    }
-                    catch
-                    {
-                        return null;
-                    }
-                });
+                    return informationProvider.GetShows(query);
+                }
+                catch
+                {
+                    return null;
+                }
+            });
 
             IsWorking = false;
-            
-            Execute.BeginOnUIThread(() =>
-                {
-                    Shows.Clear();
-                    IsSearchCompleted = true;
 
-                    if (shows == null)
-                    {
-                        Error = "Provider failed to return information.";
-                        return;
-                    }
-                    
-                    Error = null;
-                    
-                    foreach (Show show in shows)
-                    {
-                        Shows.Add(show);
-                    }
-                });
+            Execute.BeginOnUIThread(() =>
+            {
+                Shows.Clear();
+                IsSearchCompleted = true;
+
+                if (shows == null)
+                {
+                    Error = "Provider failed to return information.";
+                    return;
+                }
+
+                Error = null;
+
+                foreach (var show in shows)
+                {
+                    Shows.Add(show);
+                }
+            });
         }
 
         public async void AddShow()
@@ -169,23 +166,23 @@ namespace Jarloo.Sojurn.ViewModels
             }
 
             Execute.BeginOnUIThread(() =>
+            {
+                IsWorking = true;
+                IsSearchCompleted = false;
+            });
+
+            var newShow = await Task<Show>.Factory.StartNew(() =>
+            {
+                try
                 {
-                    IsWorking = true;
-                    IsSearchCompleted = false;
-                });
-            
-            Show newShow = await Task<Show>.Factory.StartNew(() =>
+                    return informationProvider.GetFullDetails(SelectedShow.ShowId);
+                }
+                catch
                 {
-                    try
-                    {
-                        return informationProvider.GetFullDetails(SelectedShow.ShowId);
-                    }
-                    catch
-                    {
-                        return null;
-                    }
-                });
-            
+                    return null;
+                }
+            });
+
             Show = newShow;
 
             if (newShow != null)

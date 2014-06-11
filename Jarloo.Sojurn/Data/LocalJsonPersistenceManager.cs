@@ -10,16 +10,17 @@ namespace Jarloo.Sojurn.Data
     {
         public void Save<T>(string key, T o)
         {
-            string json = ToJson(o);
-            string folder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConfigurationManager.AppSettings["DATA_LOCATION"]);
+            var json = ToJson(o);
+            var folder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                ConfigurationManager.AppSettings["DATA_LOCATION"]);
             if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
-            string filename = Path.Combine(folder, key + ".json");
+            var filename = Path.Combine(folder, key + ".json");
 
             //Backup the file in case something happens
             if (File.Exists(filename))
             {
-                string backup = Path.Combine(folder, DateTime.Today.ToString("yyyyMMdd_") + key + ".json");
-                File.Copy(filename,backup,true);
+                var backup = Path.Combine(folder, DateTime.Today.ToString("yyyyMMdd_") + key + ".json");
+                File.Copy(filename, backup, true);
             }
 
             File.WriteAllText(filename, json);
@@ -27,20 +28,21 @@ namespace Jarloo.Sojurn.Data
 
         public T Retrieve<T>(string key) where T : new()
         {
-            string filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConfigurationManager.AppSettings["DATA_LOCATION"], key + ".json");
+            var filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                ConfigurationManager.AppSettings["DATA_LOCATION"], key + ".json");
             if (!File.Exists(filename)) return default(T);
 
-            string json = File.ReadAllText(filename);
+            var json = File.ReadAllText(filename);
             return FromJson<T>(json);
         }
 
         private static string ToJson<T>(T obj)
         {
-            MemoryStream stream = new MemoryStream();
+            var stream = new MemoryStream();
 
             try
             {
-                DataContractJsonSerializer jsSerializer = new DataContractJsonSerializer(typeof (T));
+                var jsSerializer = new DataContractJsonSerializer(typeof (T));
                 jsSerializer.WriteObject(stream, obj);
 
                 return Encoding.UTF8.GetString(stream.ToArray());
@@ -54,13 +56,13 @@ namespace Jarloo.Sojurn.Data
 
         private static T FromJson<T>(string input)
         {
-            MemoryStream stream = new MemoryStream();
+            var stream = new MemoryStream();
 
             try
             {
-                DataContractJsonSerializer jsSerializer = new DataContractJsonSerializer(typeof (T));
+                var jsSerializer = new DataContractJsonSerializer(typeof (T));
                 stream = new MemoryStream(Encoding.UTF8.GetBytes(input));
-                T obj = (T) jsSerializer.ReadObject(stream);
+                var obj = (T) jsSerializer.ReadObject(stream);
 
                 return obj;
             }

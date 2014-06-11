@@ -12,7 +12,7 @@ namespace Jarloo.Sojurn.Converters
             {
                 return (!((bool) value));
             }
-            catch 
+            catch
             {
                 return true;
             }

@@ -23,17 +23,17 @@ namespace Jarloo.Sojurn
                 else
                 {
                     window = new BaseWindow
-                        {
-                            Content = view,
-                            SizeToContent = SizeToContent.Manual
-                        };
+                    {
+                        Content = view,
+                        SizeToContent = SizeToContent.Manual
+                    };
                 }
 
                 window.SetValue(View.IsGeneratedProperty, true);
             }
             else
             {
-                Window owner2 = InferOwnerOf(window);
+                var owner2 = InferOwnerOf(window);
                 if (owner2 != null && isDialog)
                 {
                     window.Owner = owner2;

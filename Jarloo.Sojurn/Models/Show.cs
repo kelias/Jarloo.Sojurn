@@ -13,12 +13,12 @@ namespace Jarloo.Sojurn.Models
         public List<Season> Seasons { get; set; }
 
         private string country;
-        private System.DateTime? ended;
+        private DateTime? ended;
         private ImageSource imageSource;
         private string link;
         private string name;
         private int showId;
-        private System.DateTime? started;
+        private DateTime? started;
         private string status;
         private string imageUrl;
         private bool isLoading;
@@ -34,7 +34,7 @@ namespace Jarloo.Sojurn.Models
             set
             {
                 timezone = value;
-                NotifyOfPropertyChange(()=>Timezone);
+                NotifyOfPropertyChange(() => Timezone);
             }
         }
 
@@ -45,10 +45,10 @@ namespace Jarloo.Sojurn.Models
             set
             {
                 airTimeMinute = value;
-                NotifyOfPropertyChange(()=>AirTimeMinute);
+                NotifyOfPropertyChange(() => AirTimeMinute);
             }
         }
- 
+
         [DataMember]
         public int AirTimeHour
         {
@@ -56,7 +56,7 @@ namespace Jarloo.Sojurn.Models
             set
             {
                 airTimeHour = value;
-                NotifyOfPropertyChange(()=>AirTimeHour);
+                NotifyOfPropertyChange(() => AirTimeHour);
             }
         }
 
@@ -65,7 +65,7 @@ namespace Jarloo.Sojurn.Models
         {
             Seasons = new List<Season>();
         }
-        
+
         [IgnoreDataMember]
         public Season SelectedSeason
         {
@@ -73,10 +73,10 @@ namespace Jarloo.Sojurn.Models
             set
             {
                 selectedSeason = value;
-                NotifyOfPropertyChange(()=>SelectedSeason);
+                NotifyOfPropertyChange(() => SelectedSeason);
             }
         }
-        
+
         [IgnoreDataMember]
         public bool IsLoading
         {
@@ -84,10 +84,10 @@ namespace Jarloo.Sojurn.Models
             set
             {
                 isLoading = value;
-                NotifyOfPropertyChange(()=>IsLoading);
+                NotifyOfPropertyChange(() => IsLoading);
             }
         }
-        
+
         [DataMember]
         public string ImageUrl
         {
@@ -95,12 +95,12 @@ namespace Jarloo.Sojurn.Models
             set
             {
                 imageUrl = value;
-                NotifyOfPropertyChange(()=>ImageUrl);
+                NotifyOfPropertyChange(() => ImageUrl);
             }
         }
 
         [DataMember]
-        public System.DateTime? Started
+        public DateTime? Started
         {
             get { return started; }
             set
@@ -111,7 +111,7 @@ namespace Jarloo.Sojurn.Models
         }
 
         [DataMember]
-        public System.DateTime? Ended
+        public DateTime? Ended
         {
             get { return ended; }
             set

@@ -13,7 +13,5 @@ namespace Jarloo.Sojurn.Models
         {
             Shows = new List<Show>();
         }
-
-        
     }
 }

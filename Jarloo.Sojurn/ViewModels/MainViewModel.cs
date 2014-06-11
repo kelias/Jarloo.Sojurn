@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -80,7 +79,7 @@ namespace Jarloo.Sojurn.ViewModels
             if (wm.ShowDialog(win) != true) return;
             if (win.Show == null) return;
 
-            Show show = win.Show;
+            var show = win.Show;
             if (show.Seasons.Count > 0)
             {
                 show.SelectedSeason = show.Seasons[show.Seasons.Count - 1];
@@ -117,7 +116,7 @@ namespace Jarloo.Sojurn.ViewModels
             if (userSettings == null) return;
             if (userSettings.Shows == null) return;
 
-            foreach (Show show in userSettings.Shows)
+            foreach (var show in userSettings.Shows)
             {
                 if (show.Seasons.Count > 0) show.SelectedSeason = show.Seasons[show.Seasons.Count - 1];
 
@@ -161,7 +160,7 @@ namespace Jarloo.Sojurn.ViewModels
 
         public void RefreshAllShows()
         {
-            foreach (Show show in shows)
+            foreach (var show in shows)
             {
                 RefreshShow(show);
             }
@@ -171,7 +170,7 @@ namespace Jarloo.Sojurn.ViewModels
         {
             oldShow.IsLoading = true;
 
-            Show newShow = await Task<Show>.Factory.StartNew(() => infoProvider.GetFullDetails(oldShow.ShowId));
+            var newShow = await Task<Show>.Factory.StartNew(() => infoProvider.GetFullDetails(oldShow.ShowId));
 
             oldShow.Country = newShow.Country;
             oldShow.Ended = newShow.Ended;
@@ -181,9 +180,9 @@ namespace Jarloo.Sojurn.ViewModels
             oldShow.Status = newShow.Status;
             oldShow.ImageUrl = newShow.ImageUrl;
 
-            foreach (Season newSeason in newShow.Seasons)
+            foreach (var newSeason in newShow.Seasons)
             {
-                Season oldSeason = oldShow.Seasons.FirstOrDefault(w => w.SeasonNumber == newSeason.SeasonNumber);
+                var oldSeason = oldShow.Seasons.FirstOrDefault(w => w.SeasonNumber == newSeason.SeasonNumber);
 
                 if (oldSeason == null)
                 {
@@ -191,9 +190,9 @@ namespace Jarloo.Sojurn.ViewModels
                     continue;
                 }
 
-                foreach (Episode newEpisode in newSeason.Episodes)
+                foreach (var newEpisode in newSeason.Episodes)
                 {
-                    Episode oldEpisode =
+                    var oldEpisode =
                         oldSeason.Episodes.FirstOrDefault(w => w.EpisodeNumber == newEpisode.EpisodeNumber);
 
                     if (oldEpisode == null)
@@ -224,7 +223,7 @@ namespace Jarloo.Sojurn.ViewModels
 
         public void MarkAllAsViewed(Show s)
         {
-            foreach (Episode episode in s.Seasons.SelectMany(season => season.Episodes))
+            foreach (var episode in s.Seasons.SelectMany(season => season.Episodes))
             {
                 if (episode.AirDate > DateTime.Today) continue;
 
@@ -236,7 +235,7 @@ namespace Jarloo.Sojurn.ViewModels
 
         public void MarkAllAsNotViewed(Show s)
         {
-            foreach (Episode episode in s.Seasons.SelectMany(season => season.Episodes))
+            foreach (var episode in s.Seasons.SelectMany(season => season.Episodes))
             {
                 episode.HasBeenViewed = false;
             }
@@ -250,7 +249,7 @@ namespace Jarloo.Sojurn.ViewModels
 
             if (e.HasBeenViewed)
             {
-                for (int i = 0; i < backlog.Count; i++)
+                for (var i = 0; i < backlog.Count; i++)
                 {
                     if (backlog[i].Episode != e) continue;
                     backlog.RemoveAt(i);
@@ -259,8 +258,8 @@ namespace Jarloo.Sojurn.ViewModels
             }
             else
             {
-                Show show = shows.FirstOrDefault(w => w.Name == e.ShowName);
-                Season season = show.Seasons.FirstOrDefault(w => w.SeasonNumber == e.SeasonNumber);
+                var show = shows.FirstOrDefault(w => w.Name == e.ShowName);
+                var season = show.Seasons.FirstOrDefault(w => w.SeasonNumber == e.SeasonNumber);
 
                 backlog.Add(new BacklogItem {Show = show, Episode = e, Season = season});
             }
@@ -270,16 +269,16 @@ namespace Jarloo.Sojurn.ViewModels
         {
             timeLine.Clear();
 
-            foreach (Show show in shows)
+            foreach (var show in shows)
             {
-                Season latestSeason = show.Seasons[show.Seasons.Count - 1];
+                var latestSeason = show.Seasons[show.Seasons.Count - 1];
 
-                List<Episode> futureEpisodes =
+                var futureEpisodes =
                     latestSeason.Episodes.Where(w => w.AirDate != null && w.AirDate >= DateTime.Today)
                         .OrderBy(w => w.AirDate)
                         .ToList();
 
-                foreach (Episode episode in futureEpisodes)
+                foreach (var episode in futureEpisodes)
                 {
                     if (timeLine.Any(w => w.Episode == episode)) continue;
                     timeLine.Add(new TimeLineItem {Show = show, Episode = episode});
@@ -291,11 +290,11 @@ namespace Jarloo.Sojurn.ViewModels
         {
             backlog.Clear();
 
-            foreach (Show show in shows)
+            foreach (var show in shows)
             {
-                foreach (Season season in show.Seasons)
+                foreach (var season in show.Seasons)
                 {
-                    foreach (Episode episode in season.Episodes)
+                    foreach (var episode in season.Episodes)
                     {
                         if (episode.HasBeenViewed || episode.AirDate > DateTime.Today || episode.AirDate == null)
                             continue;
@@ -308,7 +307,7 @@ namespace Jarloo.Sojurn.ViewModels
 
         private void RemoveFromTimeLine(Show show)
         {
-            for (int i = timeLine.Count - 1; i >= 0; i--)
+            for (var i = timeLine.Count - 1; i >= 0; i--)
             {
                 if (timeLine[i].Show == show) timeLine.RemoveAt(i);
             }
@@ -316,7 +315,7 @@ namespace Jarloo.Sojurn.ViewModels
 
         private void RemoveFromBacklog(Show show)
         {
-            for (int i = backlog.Count - 1; i >= 0; i--)
+            for (var i = backlog.Count - 1; i >= 0; i--)
             {
                 if (backlog[i].Show == show) backlog.RemoveAt(i);
             }

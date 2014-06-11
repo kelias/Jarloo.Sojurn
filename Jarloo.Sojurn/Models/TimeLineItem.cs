@@ -7,12 +7,12 @@ namespace Jarloo.Sojurn.Models
     {
         private Show show;
         private Episode episode;
-        
+
         public DateTime? Date
         {
             get { return episode.AirDate; }
         }
-        
+
         public Episode Episode
         {
             get { return episode; }

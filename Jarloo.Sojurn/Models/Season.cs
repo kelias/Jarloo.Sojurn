@@ -9,10 +9,11 @@ namespace Jarloo.Sojurn.Models
     {
         [DataMember]
         public List<Episode> Episodes { get; set; }
+
         private int seasonNumber;
 
         private Episode selectedEpisode;
-         
+
         [IgnoreDataMember]
         public Episode SelectedEpisode
         {
@@ -20,10 +21,10 @@ namespace Jarloo.Sojurn.Models
             set
             {
                 selectedEpisode = value;
-                NotifyOfPropertyChange(()=>SelectedEpisode);
+                NotifyOfPropertyChange(() => SelectedEpisode);
             }
         }
-        
+
         [DataMember]
         public int SeasonNumber
         {
@@ -31,15 +32,13 @@ namespace Jarloo.Sojurn.Models
             set
             {
                 seasonNumber = value;
-                NotifyOfPropertyChange(()=>SeasonNumber);
+                NotifyOfPropertyChange(() => SeasonNumber);
             }
         }
-        
+
         public Season()
         {
             Episodes = new List<Episode>();
         }
-
-        
     }
 }

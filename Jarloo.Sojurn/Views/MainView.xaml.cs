@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace Jarloo.Sojurn.Views
 {
@@ -12,11 +11,11 @@ namespace Jarloo.Sojurn.Views
 
         public void ScrollIntoView(object o, SelectionChangedEventArgs e)
         {
-            ListBox b = (ListBox) o;
+            var b = (ListBox) o;
 
             if (b.SelectedItem == null) return;
 
-            ListBoxItem item = (ListBoxItem)((ListBox)o).ItemContainerGenerator.ContainerFromItem(((ListBox)o).SelectedItem);
+            var item = (ListBoxItem) ((ListBox) o).ItemContainerGenerator.ContainerFromItem(((ListBox) o).SelectedItem);
             if (item != null) item.BringIntoView();
         }
     }
