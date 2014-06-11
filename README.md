@@ -12,7 +12,9 @@ Sojurn keeps track of what TV shows you've watched. It features a backlog so you
 About the code
 --------------
 
-Sojurn is written in C# using WPF and MVVM. It requires a .NET 4.5.1 or greater.
+Sojurn is written in C# using WPF and MVVM. It uses Caliburn.micro and MahApps.metro.
+
+Requires .NET Framework 4.5.1 or greater.
 
 
 http://www.jarloo.com/sojurn-the-tv-app/
