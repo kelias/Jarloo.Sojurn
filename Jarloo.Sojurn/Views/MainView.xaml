@@ -27,8 +27,8 @@
     <Grid>
     	<Grid.ColumnDefinitions>
     		<ColumnDefinition/>
-    		<ColumnDefinition Width="241"/>
-    		<ColumnDefinition Width="234"/>
+    		<ColumnDefinition Width="281"/>
+    		<ColumnDefinition Width="258"/>
     	</Grid.ColumnDefinitions>
     	<Grid.RowDefinitions>
     		<RowDefinition Height="55"/>
@@ -429,11 +429,7 @@
         		<DataTemplate>
         			<StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="S" FontSize="14"/>
-                            <TextBlock Text="{Binding SeasonNumber, StringFormat=\{0:00\}}" FontSize="14"/>
-                            <TextBlock Text="E" FontSize="14"/>
-                            <TextBlock Text="{Binding EpisodeNumberThisSeason, StringFormat=\{0:00\}}" FontSize="14"/>
-                            <Button Height="16" Width="16" Cursor="Hand" cal:Message.Attach="[Event Click] = [Action ToggleViewedBacklog($this)]" VerticalAlignment="Top" Margin="10,0,0,0">
+                            <Button Height="16" Width="16" Cursor="Hand" cal:Message.Attach="[Event Click] = [Action ToggleViewedBacklog($this)]" VerticalAlignment="Top" Margin="0,0,10,0">
                                 <Button.Template>
                                     <ControlTemplate>
                                         <Image>
@@ -454,9 +450,13 @@
                                     </ControlTemplate>
                                 </Button.Template>
                             </Button>
+                            <TextBlock Text="S" FontSize="14"/>
+                            <TextBlock Text="{Binding SeasonNumber, StringFormat=\{0:00\}}" FontSize="14"/>
+                            <TextBlock Text="E" FontSize="14"/>
+                            <TextBlock Text="{Binding EpisodeNumberThisSeason, StringFormat=\{0:00\}}" FontSize="14"/>
                         </StackPanel>
 
-                        <TextBlock Text="{Binding Path=Episode.Title}" FontSize="10"/>
+                        <TextBlock Text="{Binding Path=Episode.Title}" FontSize="10" Margin="25,0,0,0"/>
                     </StackPanel>
         		</DataTemplate>
         	</ListBox.ItemTemplate>
@@ -498,8 +498,8 @@
 
 
         </ListBox>
-        <TextBlock Grid.Column="1" Height="43" Margin="50,10,53,0" Grid.Row="1" TextWrapping="Wrap" Text="backlog" VerticalAlignment="Top" FontSize="32"/>
-        <TextBlock Grid.Column="2" Height="43" Margin="49,10,49,0" Grid.Row="1" TextWrapping="Wrap" Text="timeline" VerticalAlignment="Top" FontSize="32"/>
+        <TextBlock Grid.Column="1" Height="43" Margin="50,10,53,0" Grid.Row="1" TextWrapping="Wrap" Text="backlog" VerticalAlignment="Top" FontSize="32" TextAlignment="Center"/>
+        <TextBlock Grid.Column="2" Height="43" Margin="49,10,49,0" Grid.Row="1" TextWrapping="Wrap" Text="timeline" VerticalAlignment="Top" FontSize="32" TextAlignment="Center"/>
         
     </Grid>
 </UserControl>
