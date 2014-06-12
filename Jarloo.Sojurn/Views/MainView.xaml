@@ -113,7 +113,7 @@
                             <Button Height="24" Width="24" Cursor="Hand" cal:Message.Attach="[Event Click] = [Action MarkAllAsViewed($this)]" VerticalAlignment="Top" Margin="0,2,0,0" ToolTip="Mark All Episodes as Watched">
                                 <Button.Template>
                                     <ControlTemplate>
-                                        <Image Source="/Images/appbar.eye.png"/>
+                                        <Image Source="/Images/appbar.eye.hide.png"/>
                                     </ControlTemplate>
                                 </Button.Template>
                             </Button>
@@ -121,7 +121,7 @@
                             <Button Height="24" Width="24" Cursor="Hand" cal:Message.Attach="[Event Click] = [Action MarkAllAsNotViewed($this)]" VerticalAlignment="Top" Margin="0,2,0,0" ToolTip="Mark All Episodes as Unwatched">
                                 <Button.Template>
                                     <ControlTemplate>
-                                        <Image Source="/Images/appbar.eye.hide.png"/>
+                                        <Image Source="/Images/appbar.eye.png"/>
                                     </ControlTemplate>
                                 </Button.Template>
                             </Button>
@@ -178,11 +178,11 @@
                                                                     <Style TargetType="{x:Type Image}">
                                                                         <Style.Triggers>
                                                                             <DataTrigger Binding="{Binding HasBeenViewed}" Value="true">
-                                                                                <Setter Property="Source" Value="/Images/appbar.eye.png"/>
+                                                                                <Setter Property="Source" Value="/Images/appbar.eye.hide.png"/>
                                                                             </DataTrigger>
 
                                                                             <DataTrigger Binding="{Binding HasBeenViewed}" Value="false">
-                                                                                <Setter Property="Source" Value="/Images/appbar.eye.hide.png"/>
+                                                                                <Setter Property="Source" Value="/Images/appbar.eye.png"/>
                                                                             </DataTrigger>
                                                                         </Style.Triggers>
                                                                     </Style>
@@ -437,11 +437,11 @@
                                                 <Style TargetType="{x:Type Image}">
                                                     <Style.Triggers>
                                                         <DataTrigger Binding="{Binding Path=Episode.HasBeenViewed}" Value="true">
-                                                            <Setter Property="Source" Value="/Images/appbar.eye.png"/>
+                                                            <Setter Property="Source" Value="/Images/appbar.eye.hide.png"/>
                                                         </DataTrigger>
 
                                                         <DataTrigger Binding="{Binding Path=Episode.HasBeenViewed}" Value="false">
-                                                            <Setter Property="Source" Value="/Images/appbar.eye.hide.png"/>
+                                                            <Setter Property="Source" Value="/Images/appbar.eye.png"/>
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>
