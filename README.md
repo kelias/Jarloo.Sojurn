@@ -13,7 +13,7 @@ You can explore your favorite shows, browsing by season and episode.
 Why was it made?
 ----------------
 
-Sojurn was developed as an experment to explore Caliburn.micro and Mahapps.metro, and as such provides a great example application to get you familiar with these technologies. With that in mind it is a fully flushed out, and functional application.
+Sojurn was developed as an experiment to explore Caliburn.micro and Mahapps.metro, and as such provides a great example application to get you familiar with these technologies. With that in mind it is a fully flushed out, and functional application.
 
 
 About the code
