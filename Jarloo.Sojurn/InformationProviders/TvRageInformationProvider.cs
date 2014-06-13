@@ -64,11 +64,11 @@ namespace Jarloo.Sojurn.InformationProviders
             };
 
 
-            for (var s = 0; s < show.Seasons.Count; s++)
+            foreach (Season t in show.Seasons)
             {
-                for (var e = 0; e < show.Seasons[s].Episodes.Count; e++)
+                for (var e = 0; e < t.Episodes.Count; e++)
                 {
-                    show.Seasons[s].Episodes[e].EpisodeNumberThisSeason = e + 1;
+                    t.Episodes[e].EpisodeNumberThisSeason = e + 1;
                 }
             }
 
