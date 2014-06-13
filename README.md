@@ -46,7 +46,7 @@ Integration with streaming sites to watch the full episode or a preview would be
 
 Additional information such as cast etc...
 
-Localization that tell people when the show is on in there timezone.
+Localization that tells people when the show is on in there timezone.
 
 Localization that displays TV listing information to show exactly what channel and when the show will appear.
 
