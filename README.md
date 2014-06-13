@@ -39,5 +39,10 @@ Where do we go from here?
 There is plenty more that can be done, but the most obvious would be the addition of movie information, so you can track your movies and tv shows side by side. A recommendation engine would be a great addition, mobile, web based, the list goes on and on like always. No great software is ever complete.
 
 
+Can I Contribute?
+-----------------
+
+Absolutely! Thats why the project is here on GitHub! Fork it, play with it and if you think you got something good do a Pull Request. The more the better.
+
 
 
