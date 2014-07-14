@@ -8,23 +8,8 @@
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
              xmlns:behaviors="clr-namespace:Jarloo.Sojurn.Behaviors"
-             mc:Ignorable="d" d:DesignHeight="900" d:DesignWidth="1300">
-
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/VS/Colours.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/VS/Styles.xaml" />
-                <ResourceDictionary
-                    Source="pack://application:,,,/Jarloo.Sojurn;component/Resources/LocalResources.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-
-    </UserControl.Resources>
-
+             mc:Ignorable="d" d:DesignHeight="900" d:DesignWidth="1800">
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -36,7 +21,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Rectangle Fill="#FFF09609" Stroke="Black" Grid.ColumnSpan="3" />
+        <Rectangle Fill="{StaticResource OrangeBrush}" Stroke="Black" Grid.ColumnSpan="3" />
 
         <StackPanel Orientation="Horizontal" Grid.ColumnSpan="3">
             <Button HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="46" Cursor="Hand"
@@ -147,7 +132,7 @@
                         </StackPanel>
 
                         <StackPanel DockPanel.Dock="Left" Cursor="Hand"
-                                    cal:Message.Attach="[Event MouseUp] = [Action ShowShow($this)]">
+                                    cal:Message.Attach="[Event MouseUp] = [Action ShowShow($this)]" Margin="15,0,0,0">
                             <Grid>
                                 <Image Source="{Binding ImageSource}" Width="267" Height="189" Stretch="Uniform"
                                        VerticalAlignment="Center" />
@@ -243,7 +228,7 @@
                                                     <TextBlock
                                                         Text="{Binding AirDate, StringFormat=\{0:MMM dd\, yyyy\}}"
                                                         TextAlignment="Center" Margin="0,2,0,0" FontSize="12"
-                                                        Foreground="#FFF09609" />
+                                                        Foreground="{StaticResource OrangeBrush}" />
                                                 </StackPanel>
                                             </StackPanel>
                                         </DockPanel>
@@ -260,7 +245,6 @@
                                         <Style.Resources>
                                             <Style TargetType="{x:Type ListBoxItem}">
                                                 <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                                                <Setter Property="Background" Value="{StaticResource BackgroundNormal}" />
                                                 <Setter Property="BorderBrush" Value="Transparent" />
                                                 <Setter Property="Template">
                                                     <Setter.Value>
@@ -271,17 +255,6 @@
                                                                         BorderThickness="1" SnapsToDevicePixels="True" />
                                                                 <ContentPresenter Margin="8,5" />
                                                             </Grid>
-                                                            <ControlTemplate.Triggers>
-                                                                <MultiTrigger>
-                                                                    <MultiTrigger.Conditions>
-                                                                        <Condition Property="IsMouseOver" Value="True" />
-                                                                    </MultiTrigger.Conditions>
-                                                                    <Setter Property="Background"
-                                                                            Value="{StaticResource BackgroundHighlighted}" />
-                                                                    <Setter Property="BorderBrush"
-                                                                            Value="{StaticResource BorderBrushHighlighted}" />
-                                                                </MultiTrigger>
-                                                            </ControlTemplate.Triggers>
                                                         </ControlTemplate>
                                                     </Setter.Value>
                                                 </Setter>
@@ -319,7 +292,6 @@
                     <Style.Resources>
                         <Style TargetType="{x:Type ListBoxItem}">
                             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                            <Setter Property="Background" Value="{StaticResource BackgroundNormal}" />
                             <Setter Property="BorderBrush" Value="Transparent" />
                             <Setter Property="Template">
                                 <Setter.Value>
@@ -357,7 +329,7 @@
                 </Style>
             </ListBox.Style>
         </ListBox>
-        <Rectangle Fill="#FFF09609" Stroke="Black" Grid.Row="1" Grid.Column="2" />
+        <Rectangle Fill="{StaticResource OrangeBrush}" Stroke="Black" Grid.Row="1" Grid.Column="2" />
 
         <ListBox ItemsSource="{Binding TimeLine.View}" Grid.Column="2" Grid.Row="1" Margin="0,58,0,0">
             <ListBox.GroupStyle>
@@ -412,7 +384,7 @@
                     <Style.Resources>
                         <Style TargetType="{x:Type ListBoxItem}">
                             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                            <Setter Property="Background" Value="#FFC77B03" />
+                            <Setter Property="Background" Value="{StaticResource OrangeBackgroundBrush}" />
                             <Setter Property="BorderBrush" Value="Transparent" />
                             <Setter Property="Template">
                                 <Setter.Value>
@@ -444,7 +416,7 @@
             </ListBox.Style>
         </ListBox>
 
-        <Rectangle Fill="#FFF09609" Stroke="Black" Grid.Column="1" Margin="0,0,1,0" Grid.Row="1" />
+        <Rectangle Fill="{StaticResource OrangeBrush}" Stroke="Black" Grid.Column="1" Margin="0,0,1,0" Grid.Row="1" />
 
         <ListBox ItemsSource="{Binding Backlog.View}" Grid.Column="1" Grid.Row="1" Margin="0,58,1,0">
             <ListBox.GroupStyle>
@@ -525,7 +497,7 @@
                     <Style.Resources>
                         <Style TargetType="{x:Type ListBoxItem}">
                             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                            <Setter Property="Background" Value="#FFC77B03" />
+                            <Setter Property="Background" Value="{StaticResource OrangeBackgroundBrush}" />
                             <Setter Property="BorderBrush" Value="Transparent" />
                             <Setter Property="Template">
                                 <Setter.Value>

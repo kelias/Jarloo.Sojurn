@@ -4,18 +4,7 @@
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       Title="Sojurn" ShowInTaskbar="False" ShowIconOnTitleBar="False"
                       WindowStartupLocation="CenterScreen" ShowMinButton="False" ShowMaxRestoreButton="False"
-                      ResizeMode="NoResize" TitleCaps="False">
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/VS/Colours.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/VS/Styles.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
-
+                      ResizeMode="NoResize" TitleCaps="False" GlowBrush="{StaticResource OrangeBrush}">
+    
     <Grid />
 </Controls:MetroWindow>
