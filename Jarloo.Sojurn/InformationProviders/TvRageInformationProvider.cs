@@ -64,7 +64,7 @@ namespace Jarloo.Sojurn.InformationProviders
             };
 
 
-            foreach (Season t in show.Seasons)
+            foreach (var t in show.Seasons)
             {
                 for (var e = 0; e < t.Episodes.Count; e++)
                 {

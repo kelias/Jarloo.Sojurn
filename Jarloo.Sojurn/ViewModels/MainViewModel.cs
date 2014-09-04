@@ -116,6 +116,8 @@ namespace Jarloo.Sojurn.ViewModels
             if (userSettings == null) return;
             if (userSettings.Shows == null) return;
 
+            ImageHelper.DeleteUnusedImages(userSettings.Shows);
+
             foreach (var show in userSettings.Shows)
             {
                 if (show.Seasons.Count > 0) show.SelectedSeason = show.Seasons[show.Seasons.Count - 1];

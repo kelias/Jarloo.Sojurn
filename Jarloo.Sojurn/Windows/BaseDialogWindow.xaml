@@ -5,6 +5,6 @@
                       Title="Sojurn" ShowInTaskbar="False" ShowIconOnTitleBar="False"
                       WindowStartupLocation="CenterScreen" ShowMinButton="False" ShowMaxRestoreButton="False"
                       ResizeMode="NoResize" TitleCaps="False" GlowBrush="{StaticResource OrangeBrush}">
-    
+
     <Grid />
 </Controls:MetroWindow>

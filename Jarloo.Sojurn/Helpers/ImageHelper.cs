@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -134,6 +135,49 @@ namespace Jarloo.Sojurn.Helpers
                     }
                 }
             });
+        }
+
+        public static void DeleteUnusedImages(List<Show> shows)
+        {
+            var dict = shows.ToDictionary(show => show.ShowId, show => show.ShowId);
+
+            var folder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                ConfigurationManager.AppSettings["IMAGE_CACHE"]);
+
+            var files = Directory.GetFiles(folder);
+
+            foreach (var f in files)
+            {
+                try
+                {
+                    var name = Path.GetFileName(f);
+                    if (string.IsNullOrWhiteSpace(name)) continue;
+
+                    string substr;
+
+                    var idx = name.IndexOf('_');
+
+                    if (idx > 0)
+                    {
+                        substr = name.Substring(0, idx);
+                        if (string.IsNullOrWhiteSpace(substr)) continue;
+                    }
+                    else
+                    {
+                        substr = Path.GetFileNameWithoutExtension(f);
+                    }
+
+                    int id;
+                    if (!int.TryParse(substr, out id)) continue;
+                    if (dict.ContainsKey(id)) continue;
+
+                    File.Delete(f);
+                }
+                catch
+                {
+                    //supress
+                }
+            }
         }
     }
 }

@@ -6,7 +6,7 @@
                       Title="Sojurn" Icon="/Images/logo.ico" ShowIconOnTitleBar="True"
                       WindowStartupLocation="CenterScreen" TitleCaps="False" GlowBrush="{StaticResource OrangeBrush}">
 
-    
+
     <Controls:MetroWindow.WindowCommands>
         <Controls:WindowCommands>
             <StackPanel Orientation="Horizontal" Margin="0,5,10,0">

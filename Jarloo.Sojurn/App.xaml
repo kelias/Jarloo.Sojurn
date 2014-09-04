@@ -13,7 +13,7 @@
                 <ResourceDictionary Source="/MahApps.Metro;component/Styles/Colors.xaml" />
                 <ResourceDictionary Source="/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
 
-                <ResourceDictionary Source="/Resources/LocalResources.xaml"/>
+                <ResourceDictionary Source="/Resources/LocalResources.xaml" />
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

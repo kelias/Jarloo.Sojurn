@@ -9,8 +9,8 @@
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
              xmlns:behaviors="clr-namespace:Jarloo.Sojurn.Behaviors"
              mc:Ignorable="d" d:DesignHeight="900" d:DesignWidth="1800">
-    
-    <Grid>
+
+    <Grid xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="281" />

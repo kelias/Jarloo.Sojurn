@@ -3,56 +3,54 @@
 
     <Color x:Key="Orange">#FFF09609</Color>
     <Color x:Key="OrangeBackground">#FFC77B03</Color>
-    <SolidColorBrush x:Key="OrangeBrush" Color="{StaticResource Orange}"/>
-    <SolidColorBrush x:Key="OrangeBackgroundBrush" Color="{StaticResource OrangeBackground}"/>
-    
-    
+    <SolidColorBrush x:Key="OrangeBrush" Color="{StaticResource Orange}" />
+    <SolidColorBrush x:Key="OrangeBackgroundBrush" Color="{StaticResource OrangeBackground}" />
+
+
     <Style x:Key="OrangeMetroListBox"
            TargetType="{x:Type ListBox}">
-        <Setter Property="Background" Value="{StaticResource OrangeBrush}"></Setter>
+        <Setter Property="Background" Value="{StaticResource OrangeBrush}" />
         <Style.Resources>
-        <Style TargetType="{x:Type ItemsControl}">
+            <Style TargetType="{x:Type ItemsControl}">
 
-            <Style.Resources>
-                <Style TargetType="{x:Type ListBoxItem}">
-                    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                    <Setter Property="Background" Value="{StaticResource OrangeBackgroundBrush}" />
-                    <Setter Property="BorderBrush" Value="Transparent" />
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                <Grid Margin="4,0,4,4">
-                                    <Border Background="{TemplateBinding Background}"
-                                                    BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1"
-                                                    SnapsToDevicePixels="True" />
-                                    <ContentPresenter Margin="8,5" />
-                                </Grid>
-                                <ControlTemplate.Triggers>
-                                    <MultiTrigger>
-                                        <MultiTrigger.Conditions>
-                                            <Condition Property="IsMouseOver" Value="True" />
-                                        </MultiTrigger.Conditions>
-                                        <Setter Property="Background" Value="#FFF1A327" />
-                                        <Setter Property="BorderBrush" Value="#FFFFD799" />
-                                    </MultiTrigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </Style.Resources>
+                <Style.Resources>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                        <Setter Property="Background" Value="{StaticResource OrangeBackgroundBrush}" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <Grid Margin="4,0,4,4">
+                                        <Border Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1"
+                                                SnapsToDevicePixels="True" />
+                                        <ContentPresenter Margin="8,5" />
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="IsMouseOver" Value="True" />
+                                            </MultiTrigger.Conditions>
+                                            <Setter Property="Background" Value="#FFF1A327" />
+                                            <Setter Property="BorderBrush" Value="#FFFFD799" />
+                                        </MultiTrigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Style.Resources>
 
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="BorderThickness" Value="0" />
-        </Style>
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0" />
+            </Style>
 
         </Style.Resources>
 
     </Style>
 
 
-    
-    
     <!--ACCENT COLORS-->
     <Color x:Key="HighlightColor">#FF086F9E</Color>
     <!--80%-->
@@ -90,6 +88,6 @@
     <SolidColorBrush x:Key="IdealForegroundColorBrush" Color="{StaticResource IdealForegroundColor}" />
 
     <BitmapImage UriSource="/Jarloo.Sojurn;component/Images/appbar.add.png" x:Key="Add" />
-    
-    
+
+
 </ResourceDictionary>
