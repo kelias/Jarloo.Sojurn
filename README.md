@@ -33,32 +33,3 @@ Data Sources
 
 Currently the data used is from the TVRage API. Sojurn has been written to easily allow the injection of different data sources, so if you'd prefer another feel free to add it.
 
-Where do we go from here?
--------------------------
-
-There is plenty more that can be done, but the most obvious would be the addition of movie information, so you can track your movies and tv shows side by side. (RottenTomatoes has a good API)
-
-More providers, such as theTvDb etc...
-
-A recommendation engine would be a great addition.
-
-Integration with streaming sites to watch the full episode or a preview would be amazing.
-
-Additional information such as cast etc...
-
-Localization that tells people when the show is on in there timezone.
-
-Localization that displays TV listing information to show exactly what channel and when the show will appear.
-
-This is just a small bit of what could be done. So many cool features are out there and waiting. If your interested please roll up you sleves, grab your favorite beverage, and make something beautiful.
-
-
-Can I Contribute?
------------------
-
-Absolutely! Thats why the project is here on GitHub! Fork it, play with it and if you think you got something good do a Pull Request. The more the better. I can't stress this enough, the more people that look at something the more flushed out the design and features will be, and we all benifit. So question everything, code anything, play and have fun. Lets make something great together. 
-
-
-
-
-
