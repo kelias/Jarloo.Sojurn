@@ -166,6 +166,9 @@ namespace Jarloo.Sojurn.ViewModels
             {
                 RefreshShow(show);
             }
+
+            UpdateTimeline();
+            UpdateBacklog();
         }
 
         public async void RefreshShow(Show oldShow)
