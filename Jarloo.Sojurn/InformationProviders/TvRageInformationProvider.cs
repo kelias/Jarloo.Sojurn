@@ -29,50 +29,57 @@ namespace Jarloo.Sojurn.InformationProviders
 
         public Show GetFullDetails(int showId)
         {
-            var url = string.Format("{0}full_show_info.php?sid={1}", BASE_URL, showId);
-            var doc = XDocument.Load(url);
-
-            var seas = doc.Root;
-
-            var show = new Show
+            try
             {
-                ShowId = Get<int>(seas.Element("showid")),
-                Name = Get<string>(seas.Element("name")),
-                Started = GetDate(seas.Element("started")),
-                Ended = GetDate(seas.Element("ended")),
-                Country = Get<string>(seas.Element("origin_country")),
-                Status = Get<string>(seas.Element("status")),
-                ImageUrl = Get<string>(seas.Element("image")),
-                AirTimeHour = GetTime(seas.Element("airtime"), 'H'),
-                AirTimeMinute = GetTime(seas.Element("airtime"), 'M'),
-                Seasons = (from season in seas.Element("Episodelist").Elements("Season")
-                    select new Season
-                    {
-                        SeasonNumber = Convert.ToInt32(season.Attribute("no").Value),
-                        Episodes = (from e in season.Elements("episode")
-                            select new Episode
-                            {
-                                EpisodeNumber = Get<int>(e.Element("epnum")),
-                                AirDate = GetDate(e.Element("airdate")),
-                                Title = Get<string>(e.Element("title")),
-                                Link = Get<string>(e.Element("link")),
-                                ImageUrl = Get<string>(e.Element("screencap")),
-                                ShowName = Get<string>(seas.Element("name")),
-                                SeasonNumber = Convert.ToInt32(season.Attribute("no").Value)
-                            }).OrderBy(w => w.EpisodeNumber).ToList()
-                    }).ToList()
-            };
+                var url = string.Format("{0}full_show_info.php?sid={1}", BASE_URL, showId);
+                var doc = XDocument.Load(url);
 
+                var seas = doc.Root;
 
-            foreach (var t in show.Seasons)
-            {
-                for (var e = 0; e < t.Episodes.Count; e++)
+                var show = new Show
                 {
-                    t.Episodes[e].EpisodeNumberThisSeason = e + 1;
-                }
-            }
+                    ShowId = Get<int>(seas.Element("showid")),
+                    Name = Get<string>(seas.Element("name")),
+                    Started = GetDate(seas.Element("started")),
+                    Ended = GetDate(seas.Element("ended")),
+                    Country = Get<string>(seas.Element("origin_country")),
+                    Status = Get<string>(seas.Element("status")),
+                    ImageUrl = Get<string>(seas.Element("image")),
+                    AirTimeHour = GetTime(seas.Element("airtime"), 'H'),
+                    AirTimeMinute = GetTime(seas.Element("airtime"), 'M'),
+                    Seasons = (from season in seas.Element("Episodelist").Elements("Season")
+                        select new Season
+                        {
+                            SeasonNumber = Convert.ToInt32(season.Attribute("no").Value),
+                            Episodes = (from e in season.Elements("episode")
+                                select new Episode
+                                {
+                                    EpisodeNumber = Get<int>(e.Element("epnum")),
+                                    AirDate = GetDate(e.Element("airdate")),
+                                    Title = Get<string>(e.Element("title")),
+                                    Link = Get<string>(e.Element("link")),
+                                    ImageUrl = Get<string>(e.Element("screencap")),
+                                    ShowName = Get<string>(seas.Element("name")),
+                                    SeasonNumber = Convert.ToInt32(season.Attribute("no").Value)
+                                }).OrderBy(w => w.EpisodeNumber).ToList()
+                        }).ToList()
+                };
 
-            return show;
+
+                foreach (var t in show.Seasons)
+                {
+                    for (var e = 0; e < t.Episodes.Count; e++)
+                    {
+                        t.Episodes[e].EpisodeNumberThisSeason = e + 1;
+                    }
+                }
+
+                return show;
+            }
+            catch 
+            {
+                return null;
+            }
         }
 
 

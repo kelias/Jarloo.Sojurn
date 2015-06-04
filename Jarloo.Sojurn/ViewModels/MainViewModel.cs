@@ -175,49 +175,56 @@ namespace Jarloo.Sojurn.ViewModels
         {
             oldShow.IsLoading = true;
 
-            var newShow = await Task<Show>.Factory.StartNew(() => infoProvider.GetFullDetails(oldShow.ShowId));
-
-            oldShow.Country = newShow.Country;
-            oldShow.Ended = newShow.Ended;
-            oldShow.Link = newShow.Link;
-            oldShow.Name = newShow.Name;
-            oldShow.Started = newShow.Started;
-            oldShow.Status = newShow.Status;
-            oldShow.ImageUrl = newShow.ImageUrl;
-
-            foreach (var newSeason in newShow.Seasons)
+            try
             {
-                var oldSeason = oldShow.Seasons.FirstOrDefault(w => w.SeasonNumber == newSeason.SeasonNumber);
+                var newShow = await Task<Show>.Factory.StartNew(() => infoProvider.GetFullDetails(oldShow.ShowId));
 
-                if (oldSeason == null)
+                if (newShow == null) return;
+
+                oldShow.Country = newShow.Country;
+                oldShow.Ended = newShow.Ended;
+                oldShow.Link = newShow.Link;
+                oldShow.Name = newShow.Name;
+                oldShow.Started = newShow.Started;
+                oldShow.Status = newShow.Status;
+                oldShow.ImageUrl = newShow.ImageUrl;
+
+                foreach (var newSeason in newShow.Seasons)
                 {
-                    oldShow.Seasons.Add(newSeason);
-                    continue;
-                }
+                    var oldSeason = oldShow.Seasons.FirstOrDefault(w => w.SeasonNumber == newSeason.SeasonNumber);
 
-                foreach (var newEpisode in newSeason.Episodes)
-                {
-                    var oldEpisode =
-                        oldSeason.Episodes.FirstOrDefault(w => w.EpisodeNumber == newEpisode.EpisodeNumber);
-
-                    if (oldEpisode == null)
+                    if (oldSeason == null)
                     {
-                        oldSeason.Episodes.Add(newEpisode);
+                        oldShow.Seasons.Add(newSeason);
                         continue;
                     }
 
-                    oldEpisode.AirDate = newEpisode.AirDate;
-                    oldEpisode.ImageUrl = newEpisode.ImageUrl;
-                    oldEpisode.Link = newEpisode.Link;
-                    oldEpisode.Title = newEpisode.Title;
+                    foreach (var newEpisode in newSeason.Episodes)
+                    {
+                        var oldEpisode =
+                            oldSeason.Episodes.FirstOrDefault(w => w.EpisodeNumber == newEpisode.EpisodeNumber);
+
+                        if (oldEpisode == null)
+                        {
+                            oldSeason.Episodes.Add(newEpisode);
+                            continue;
+                        }
+
+                        oldEpisode.AirDate = newEpisode.AirDate;
+                        oldEpisode.ImageUrl = newEpisode.ImageUrl;
+                        oldEpisode.Link = newEpisode.Link;
+                        oldEpisode.Title = newEpisode.Title;
+                    }
                 }
+
+                ImageHelper.LoadDefaultImages(oldShow);
+                ImageHelper.GetShowImage(oldShow);
+                ImageHelper.GetEpisodeImages(oldShow);
             }
-
-            ImageHelper.LoadDefaultImages(oldShow);
-            ImageHelper.GetShowImage(oldShow);
-            ImageHelper.GetEpisodeImages(oldShow);
-
-            oldShow.IsLoading = false;
+            finally
+            {
+                oldShow.IsLoading = false;
+            }
         }
 
         public void ScrollShowIntoView(object o, SelectionChangedEventArgs e)

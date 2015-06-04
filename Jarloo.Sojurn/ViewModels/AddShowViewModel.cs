@@ -182,7 +182,7 @@ namespace Jarloo.Sojurn.ViewModels
                     return null;
                 }
             });
-
+            
             Show = newShow;
 
             if (newShow != null)
