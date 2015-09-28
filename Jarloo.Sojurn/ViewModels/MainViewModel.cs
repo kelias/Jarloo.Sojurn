@@ -46,9 +46,7 @@ namespace Jarloo.Sojurn.ViewModels
 
         [ImportingConstructor]
         public MainViewModel(IWindowManager windowManager)
-            : this(windowManager, new TvRageInformationProvider(), new LocalJsonPersistenceManager())
-        {
-        }
+            : this(windowManager, new TvMazeInformationProvider(), new LocalJsonPersistenceManager()){}
 
         //Here to support dependency injection
         public MainViewModel(IWindowManager windowManager, IInformationProvider infoProvider,
@@ -59,14 +57,14 @@ namespace Jarloo.Sojurn.ViewModels
             pm = persistenceManager;
             this.infoProvider = infoProvider;
 
-            Shows = new CollectionViewSource {Source = shows};
+            Shows = new CollectionViewSource { Source = shows };
             Shows.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
 
-            TimeLine = new CollectionViewSource {Source = timeLine};
+            TimeLine = new CollectionViewSource { Source = timeLine };
             TimeLine.SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Ascending));
             TimeLine.GroupDescriptions.Add(new PropertyGroupDescription("Date"));
 
-            Backlog = new CollectionViewSource {Source = backlog};
+            Backlog = new CollectionViewSource { Source = backlog };
             Backlog.GroupDescriptions.Add(new PropertyGroupDescription("ShowName"));
             Backlog.SortDescriptions.Add(new SortDescription("ShowName", ListSortDirection.Ascending));
             Backlog.SortDescriptions.Add(new SortDescription("SeasonNumber", ListSortDirection.Ascending));
@@ -135,7 +133,7 @@ namespace Jarloo.Sojurn.ViewModels
 
         private void SaveShows()
         {
-            var userSettings = new UserSettings {Shows = shows.ToList()};
+            var userSettings = new UserSettings { Shows = shows.ToList() };
             pm.Save("index", userSettings);
         }
 
@@ -229,7 +227,7 @@ namespace Jarloo.Sojurn.ViewModels
 
         public void ScrollShowIntoView(object o, SelectionChangedEventArgs e)
         {
-            var item = (ListBoxItem) ((ListBox) o).ItemContainerGenerator.ContainerFromItem(SelectedShow);
+            var item = (ListBoxItem)((ListBox)o).ItemContainerGenerator.ContainerFromItem(SelectedShow);
             if (item != null) item.BringIntoView();
         }
 
@@ -273,7 +271,7 @@ namespace Jarloo.Sojurn.ViewModels
                 var show = shows.FirstOrDefault(w => w.Name == e.ShowName);
                 var season = show.Seasons.FirstOrDefault(w => w.SeasonNumber == e.SeasonNumber);
 
-                backlog.Add(new BacklogItem {Show = show, Episode = e, Season = season});
+                backlog.Add(new BacklogItem { Show = show, Episode = e, Season = season });
             }
         }
 
@@ -299,7 +297,7 @@ namespace Jarloo.Sojurn.ViewModels
                 foreach (var episode in futureEpisodes)
                 {
                     if (timeLine.Any(w => w.Episode == episode)) continue;
-                    timeLine.Add(new TimeLineItem {Show = show, Episode = episode});
+                    timeLine.Add(new TimeLineItem { Show = show, Episode = episode });
                 }
             }
         }
@@ -317,7 +315,7 @@ namespace Jarloo.Sojurn.ViewModels
                         if (episode.HasBeenViewed || episode.AirDate > DateTime.Today || episode.AirDate == null)
                             continue;
 
-                        backlog.Add(new BacklogItem {Show = show, Episode = episode, Season = season});
+                        backlog.Add(new BacklogItem { Show = show, Episode = episode, Season = season });
                     }
                 }
             }
