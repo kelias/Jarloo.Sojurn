@@ -1,15 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
-using System.Xml.Linq;
 using Jarloo.Sojurn.Models;
 using Newtonsoft.Json;
 
@@ -19,7 +12,7 @@ namespace Jarloo.Sojurn.InformationProviders
     {
         private const string BASE_URL = "http://api.tvmaze.com/";
 
-        public List<Models.Show> GetShows(string search)
+        public List<Show> GetShows(string search)
         {
             var requestUri = string.Format("{0}search/shows?q={1}", BASE_URL, HttpUtility.HtmlEncode(search));
             var data = GetJsonData(requestUri);
@@ -37,7 +30,7 @@ namespace Jarloo.Sojurn.InformationProviders
             return shows;
         }
 
-        public Models.Show GetFullDetails(int showId)
+        public Show GetFullDetails(int showId)
         {
             try
             {
@@ -54,10 +47,11 @@ namespace Jarloo.Sojurn.InformationProviders
                     Status = shdata.status,
                     ImageUrl = GetImage(shdata.image),
                     AirTimeHour = GetTime(shdata.schedule.time, 'H'),
-                    AirTimeMinute = GetTime(shdata.schedule.time, 'M'),
+                    AirTimeMinute = GetTime(shdata.schedule.time, 'M')
                 };
 
-                var requestShowEpisodsUri = string.Format("{0}shows/{1}/episodes", BASE_URL, HttpUtility.HtmlEncode(showId));
+                var requestShowEpisodsUri = string.Format("{0}shows/{1}/episodes", BASE_URL,
+                    HttpUtility.HtmlEncode(showId));
                 var epdata = GetJsonData(requestShowEpisodsUri);
 
                 //I could not use linq becuase the json data is dynamic
@@ -69,13 +63,13 @@ namespace Jarloo.Sojurn.InformationProviders
                 {
                     if (ep.season != seasonNumber)
                     {
-                        season = new Season { SeasonNumber = ep.season };
+                        season = new Season {SeasonNumber = ep.season};
                         show.Seasons.Add(season);
                         seasonNumber = ep.season;
                     }
                     //the season can't be null because the ep.season starts from 1 in TvMaze API
                     //and the 'if' statment above initialize the vavriable
-                    season.Episodes.Add(new Episode()
+                    season.Episodes.Add(new Episode
                     {
                         EpisodeNumber = ep.number,
                         AirDate = GetDate(ep.airdate),
@@ -93,7 +87,7 @@ namespace Jarloo.Sojurn.InformationProviders
 
                 //check if there are seasons
                 //if not return null for an exception
-                if (season==null)
+                if (season == null)
                     return null;
 
                 foreach (var t in show.Seasons)
@@ -113,7 +107,7 @@ namespace Jarloo.Sojurn.InformationProviders
 
         private static dynamic GetJsonData(string requestUri)
         {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(requestUri);
+            var httpWebRequest = (HttpWebRequest) WebRequest.Create(requestUri);
             httpWebRequest.Method = WebRequestMethods.Http.Get;
             httpWebRequest.Accept = "application/json";
             var response = httpWebRequest.GetResponse();
@@ -146,13 +140,7 @@ namespace Jarloo.Sojurn.InformationProviders
             //failesafe
             return DEFAULT_COUNTRY_CODE;
         }
-
-        private static T Get<T>(dynamic e)
-        {
-            if (e == null) return default(T);
-            return (T)Convert.ChangeType(e, typeof(T));
-        }
-
+        
         public static int GetTime(dynamic time, char type)
         {
             if ((time == null) || (time == "")) return 12;
@@ -179,6 +167,5 @@ namespace Jarloo.Sojurn.InformationProviders
             DateTime t = e;
             return t;
         }
-
     }
 }
