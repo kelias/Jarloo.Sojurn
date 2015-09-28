@@ -31,5 +31,5 @@ http://www.jarloo.com/sojurn-the-tv-app/
 Data Sources
 ------------
 
-Currently the data used is from the TVRage API. Sojurn has been written to easily allow the injection of different data sources, so if you'd prefer another feel free to add it.
+Currently the data used is from the TVMaze API. Sojurn has been written to easily allow the injection of different data sources, so if you'd prefer another feel free to add it.
 
