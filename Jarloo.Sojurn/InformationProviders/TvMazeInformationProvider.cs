@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Web;
+using Jarloo.Sojurn.Helpers;
 using Jarloo.Sojurn.Models;
 using Newtonsoft.Json;
 
@@ -141,7 +142,7 @@ namespace Jarloo.Sojurn.InformationProviders
             return DEFAULT_COUNTRY_CODE;
         }
         
-        public static int GetTime(dynamic time, char type)
+        private static int GetTime(dynamic time, char type)
         {
             if ((time == null) || (time == "")) return 12;
 
@@ -150,14 +151,12 @@ namespace Jarloo.Sojurn.InformationProviders
 
             if (strings.Length == 0) return 0;
 
-            return type == 'H' ? Convert.ToInt32(strings[0]) : Convert.ToInt32(strings[1]);
+            return type == 'H' ? strings[0].To<int>() : strings[1].To<int>();
         }
 
         private static string GetImage(dynamic img)
         {
-            if (img == null)
-                return "http://tvmazecdn.com/images/no-img/no-img-landscape-text.png";
-            return img.original;
+            return img == null ? null : img.original;
         }
 
         private static DateTime? GetDate(dynamic e)
