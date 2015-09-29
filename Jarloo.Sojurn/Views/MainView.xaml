@@ -10,7 +10,7 @@
              xmlns:behaviors="clr-namespace:Jarloo.Sojurn.Behaviors"
              mc:Ignorable="d" d:DesignHeight="900" d:DesignWidth="1800">
 
-    <Grid>
+    <Grid xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="281" />
@@ -28,7 +28,7 @@
                     x:Name="AddShow" Margin="0,4,0,0" ToolTip="Add Show...">
                 <Button.Template>
                     <ControlTemplate>
-                        <Image Source="{StaticResource Add}" />
+                        <Image Source="/Images/appbar.add.png" />
                     </ControlTemplate>
                 </Button.Template>
             </Button>
@@ -37,7 +37,7 @@
                     x:Name="RefreshAllShows" Margin="5,4,0,0" FontSize="32" ToolTip="Refresh All Shows">
                 <Button.Template>
                     <ControlTemplate>
-                        <Image Source="{StaticResource Refresh}" x:Name="imgRefresh"
+                        <Image Source="/Images/appbar.refresh.clockwise.down.png" x:Name="imgRefresh"
                                RenderTransformOrigin=".5,.5">
                             <Image.RenderTransform>
                                 <RotateTransform Angle="0" />
@@ -78,7 +78,7 @@
                                     VerticalAlignment="Top" ToolTip="Delete Show">
                                 <Button.Template>
                                     <ControlTemplate>
-                                        <Image Source="{StaticResource Close}" />
+                                        <Image Source="/Images/appbar.close.png" />
                                     </ControlTemplate>
                                 </Button.Template>
                             </Button>
@@ -88,7 +88,7 @@
                                     VerticalAlignment="Top" Margin="0,10,0,0" ToolTip="Refresh all Episodes">
                                 <Button.Template>
                                     <ControlTemplate>
-                                        <Image Source="{StaticResource Refresh}"
+                                        <Image Source="/Images/appbar.refresh.clockwise.down.png"
                                                RenderTransformOrigin=".5,.5" x:Name="imgRefresh">
                                             <Image.RenderTransform>
                                                 <RotateTransform Angle="0" />
@@ -115,7 +115,7 @@
                                     VerticalAlignment="Top" Margin="0,2,0,0" ToolTip="Mark All Episodes as Watched">
                                 <Button.Template>
                                     <ControlTemplate>
-                                        <Image Source="{StaticResource Hide}" />
+                                        <Image Source="/Images/appbar.eye.hide.png" />
                                     </ControlTemplate>
                                 </Button.Template>
                             </Button>
@@ -125,7 +125,7 @@
                                     VerticalAlignment="Top" Margin="0,2,0,0" ToolTip="Mark All Episodes as Unwatched">
                                 <Button.Template>
                                     <ControlTemplate>
-                                        <Image Source="{StaticResource Eye}" />
+                                        <Image Source="/Images/appbar.eye.png" />
                                     </ControlTemplate>
                                 </Button.Template>
                             </Button>
@@ -196,14 +196,14 @@
                                                                                 Binding="{Binding HasBeenViewed}"
                                                                                 Value="true">
                                                                                 <Setter Property="Source"
-                                                                                        Value="{StaticResource Hide}" />
+                                                                                        Value="/Images/appbar.eye.hide.png" />
                                                                             </DataTrigger>
 
                                                                             <DataTrigger
                                                                                 Binding="{Binding HasBeenViewed}"
                                                                                 Value="false">
                                                                                 <Setter Property="Source"
-                                                                                        Value="{StaticResource Eye}" />
+                                                                                        Value="/Images/appbar.eye.png" />
                                                                             </DataTrigger>
                                                                         </Style.Triggers>
                                                                     </Style>
@@ -466,12 +466,12 @@
                                                         <DataTrigger Binding="{Binding Path=Episode.HasBeenViewed}"
                                                                      Value="true">
                                                             <Setter Property="Source"
-                                                                    Value="{StaticResource Hide}" />
+                                                                    Value="/Images/appbar.eye.hide.png" />
                                                         </DataTrigger>
 
                                                         <DataTrigger Binding="{Binding Path=Episode.HasBeenViewed}"
                                                                      Value="false">
-                                                            <Setter Property="Source" Value="{StaticResource Eye}" />
+                                                            <Setter Property="Source" Value="/Images/appbar.eye.png" />
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>

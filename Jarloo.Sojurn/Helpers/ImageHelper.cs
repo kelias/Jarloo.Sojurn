@@ -13,26 +13,20 @@ namespace Jarloo.Sojurn.Helpers
 {
     public static class ImageHelper
     {
-
-        private static readonly BitmapImage showImage =
-            new BitmapImage(new Uri(@"pack://application:,,,/Jarloo.Sojurn;component/Images/image_show.png",
-                UriKind.Absolute));
-
-        private static readonly BitmapImage episodeImage = 
-        new BitmapImage(
-                            new Uri(@"pack://application:,,,/Jarloo.Sojurn;component/Images/image_episode.png",
-                                UriKind.Absolute));
-
         public static void LoadDefaultImages(Show show)
         {
-            show.ImageSource = showImage;
+            show.ImageSource =
+                new BitmapImage(new Uri(@"pack://application:,,,/Jarloo.Sojurn;component/Images/image_show.png",
+                    UriKind.Absolute));
 
             foreach (var season in show.Seasons)
             {
                 foreach (var episode in season.Episodes)
                 {
-                    episode.ImageSource = episodeImage;
-
+                    episode.ImageSource =
+                        new BitmapImage(
+                            new Uri(@"pack://application:,,,/Jarloo.Sojurn;component/Images/image_episode.png",
+                                UriKind.Absolute));
                 }
             }
         }

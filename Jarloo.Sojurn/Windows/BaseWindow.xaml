@@ -3,17 +3,17 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       xmlns:GenericControls="clr-namespace:Jarloo.Sojurn.Controls"
-                      Title="Sojurn" Icon="{StaticResource Logo}" ShowIconOnTitleBar="True"
+                      Title="Sojurn" Icon="/Images/logo.ico" ShowIconOnTitleBar="True"
                       WindowStartupLocation="CenterScreen" TitleCaps="False" GlowBrush="{StaticResource OrangeBrush}">
 
 
-    <Controls:MetroWindow.RightWindowCommands>
+    <Controls:MetroWindow.WindowCommands>
         <Controls:WindowCommands>
             <StackPanel Orientation="Horizontal" Margin="0,5,10,0">
                 <GenericControls:TopmostControl Margin="0,0,0,0" />
             </StackPanel>
         </Controls:WindowCommands>
-    </Controls:MetroWindow.RightWindowCommands>
+    </Controls:MetroWindow.WindowCommands>
 
     <Grid />
 </Controls:MetroWindow>
