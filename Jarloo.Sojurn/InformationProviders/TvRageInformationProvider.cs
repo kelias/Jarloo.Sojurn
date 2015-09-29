@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Xml.Linq;
+using Jarloo.Sojurn.Helpers;
 using Jarloo.Sojurn.Models;
 
 namespace Jarloo.Sojurn.InformationProviders
@@ -20,7 +21,7 @@ namespace Jarloo.Sojurn.InformationProviders
             var shows = (from s in doc.Root.Elements("show")
                 select new Show
                 {
-                    ShowId = Convert.ToInt32(s.Element("showid").Value),
+                    ShowId = s.Element("showid").Value.To<int>(),
                     Name = s.Element("name").Value
                 }).ToList();
 
@@ -50,7 +51,7 @@ namespace Jarloo.Sojurn.InformationProviders
                     Seasons = (from season in seas.Element("Episodelist").Elements("Season")
                         select new Season
                         {
-                            SeasonNumber = Convert.ToInt32(season.Attribute("no").Value),
+                            SeasonNumber = season.Attribute("no").Value.To<int>(),
                             Episodes = (from e in season.Elements("episode")
                                 select new Episode
                                 {
@@ -60,7 +61,7 @@ namespace Jarloo.Sojurn.InformationProviders
                                     Link = Get<string>(e.Element("link")),
                                     ImageUrl = Get<string>(e.Element("screencap")),
                                     ShowName = Get<string>(seas.Element("name")),
-                                    SeasonNumber = Convert.ToInt32(season.Attribute("no").Value)
+                                    SeasonNumber = season.Attribute("no").Value.To<int>()
                                 }).OrderBy(w => w.EpisodeNumber).ToList()
                         }).ToList()
                 };
@@ -112,7 +113,7 @@ namespace Jarloo.Sojurn.InformationProviders
 
             if (strings.Length == 0) return 0;
 
-            return type == 'H' ? Convert.ToInt32(strings[0]) : Convert.ToInt32(strings[1]);
+            return type == 'H' ? strings[0].To<int>() : strings[1].To<int>();
         }
     }
 }
