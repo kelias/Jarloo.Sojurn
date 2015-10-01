@@ -52,15 +52,15 @@
 
 
     <!--ACCENT COLORS-->
-    <Color x:Key="HighlightColor">#FF086F9E</Color>
+    <Color x:Key="HighlightColor">#FFeba02b</Color>
     <!--80%-->
-    <Color x:Key="AccentColor">#CC119EDA</Color>
+    <Color x:Key="AccentColor">#FFF09609</Color>
     <!--60%-->
-    <Color x:Key="AccentColor2">#99119EDA</Color>
+    <Color x:Key="AccentColor2">#FFe9aa46</Color>
     <!--40%-->
-    <Color x:Key="AccentColor3">#66119EDA</Color>
+    <Color x:Key="AccentColor3">#FFe9b25c</Color>
     <!--20%-->
-    <Color x:Key="AccentColor4">#33119EDA</Color>
+    <Color x:Key="AccentColor4">#FFe7ba74</Color>
 
 
     <Color x:Key="TitleColor">#00119EDA</Color>
@@ -88,6 +88,11 @@
     <SolidColorBrush x:Key="IdealForegroundColorBrush" Color="{StaticResource IdealForegroundColor}" />
 
     <BitmapImage UriSource="/Jarloo.Sojurn;component/Images/appbar.add.png" x:Key="Add" />
-
+    <BitmapImage UriSource="/Jarloo.Sojurn;component/Images/appbar.refresh.clockwise.down.png" x:Key="Refresh" />
+    <BitmapImage UriSource="/Jarloo.Sojurn;component/Images/appbar.eye.hide.png" x:Key="Hide" />
+    <BitmapImage UriSource="/Jarloo.Sojurn;component/Images/appbar.eye.png" x:Key="Show" />
+    <BitmapImage UriSource="/Jarloo.Sojurn;component/Images/appbar.page.search.png" x:Key="Search" />
+    <BitmapImage UriSource="/Jarloo.Sojurn;component/Images/appbar.close.png" x:Key="Close" />
+    <BitmapImage UriSource="/Jarloo.Sojurn;component/Images/logo.ico" x:Key="Logo" />
 
 </ResourceDictionary>

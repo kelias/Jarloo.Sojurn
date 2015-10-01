@@ -8,9 +8,14 @@
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
              xmlns:behaviors="clr-namespace:Jarloo.Sojurn.Behaviors"
+             xmlns:converters="clr-namespace:Jarloo.Sojurn.Converters"
              mc:Ignorable="d" d:DesignHeight="900" d:DesignWidth="1800">
 
-    <Grid xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <UserControl.Resources>
+        <converters:LastUpdatedConverter x:Key="LastUpdatedConverter"/>
+    </UserControl.Resources>
+    
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="281" />
@@ -28,7 +33,7 @@
                     x:Name="AddShow" Margin="0,4,0,0" ToolTip="Add Show...">
                 <Button.Template>
                     <ControlTemplate>
-                        <Image Source="/Images/appbar.add.png" />
+                        <Image Source="{StaticResource Add}" />
                     </ControlTemplate>
                 </Button.Template>
             </Button>
@@ -37,7 +42,7 @@
                     x:Name="RefreshAllShows" Margin="5,4,0,0" FontSize="32" ToolTip="Refresh All Shows">
                 <Button.Template>
                     <ControlTemplate>
-                        <Image Source="/Images/appbar.refresh.clockwise.down.png" x:Name="imgRefresh"
+                        <Image Source="{StaticResource Refresh}" x:Name="imgRefresh"
                                RenderTransformOrigin=".5,.5">
                             <Image.RenderTransform>
                                 <RotateTransform Angle="0" />
@@ -78,7 +83,7 @@
                                     VerticalAlignment="Top" ToolTip="Delete Show">
                                 <Button.Template>
                                     <ControlTemplate>
-                                        <Image Source="/Images/appbar.close.png" />
+                                        <Image Source="{StaticResource Close}" />
                                     </ControlTemplate>
                                 </Button.Template>
                             </Button>
@@ -88,7 +93,7 @@
                                     VerticalAlignment="Top" Margin="0,10,0,0" ToolTip="Refresh all Episodes">
                                 <Button.Template>
                                     <ControlTemplate>
-                                        <Image Source="/Images/appbar.refresh.clockwise.down.png"
+                                        <Image Source="{StaticResource Refresh}"
                                                RenderTransformOrigin=".5,.5" x:Name="imgRefresh">
                                             <Image.RenderTransform>
                                                 <RotateTransform Angle="0" />
@@ -115,7 +120,7 @@
                                     VerticalAlignment="Top" Margin="0,2,0,0" ToolTip="Mark All Episodes as Watched">
                                 <Button.Template>
                                     <ControlTemplate>
-                                        <Image Source="/Images/appbar.eye.hide.png" />
+                                        <Image Source="{StaticResource Hide}" />
                                     </ControlTemplate>
                                 </Button.Template>
                             </Button>
@@ -125,7 +130,7 @@
                                     VerticalAlignment="Top" Margin="0,2,0,0" ToolTip="Mark All Episodes as Unwatched">
                                 <Button.Template>
                                     <ControlTemplate>
-                                        <Image Source="/Images/appbar.eye.png" />
+                                        <Image Source="{StaticResource Show}" />
                                     </ControlTemplate>
                                 </Button.Template>
                             </Button>
@@ -134,7 +139,7 @@
                         <StackPanel DockPanel.Dock="Left" Cursor="Hand"
                                     cal:Message.Attach="[Event MouseUp] = [Action ShowShow($this)]" Margin="15,0,0,0">
                             <Grid>
-                                <Image Source="{Binding ImageSource}" Width="267" Height="189" Stretch="Uniform"
+                                <Image Source="{Binding ImageSource}" Width="150" Height="189" Stretch="Uniform"
                                        VerticalAlignment="Center" />
                                 <Controls:ProgressRing IsActive="{Binding IsLoading}" />
                             </Grid>
@@ -142,11 +147,16 @@
                             <TextBlock Text="{Binding Status}" FontSize="10" TextAlignment="Center" />
                         </StackPanel>
                         <StackPanel>
-
+                            
                             <!--SEASONS-->
+                            <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                                <TextBlock Text="Last Updated " FontSize="10" Foreground="Gray"/>
+                                <TextBlock Text="{Binding LastUpdated, Converter={StaticResource LastUpdatedConverter}}" FontSize="10" Foreground="Gray"/>
+                            </StackPanel>
+                            
                             <ListBox ItemsSource="{Binding Seasons}" DisplayMemberPath="SeasonNumber"
-                                     x:Name="SeasonSelector" SelectedItem="{Binding SelectedSeason, Mode=TwoWay}"
-                                     FontSize="14">
+                                        x:Name="SeasonSelector" SelectedItem="{Binding SelectedSeason, Mode=TwoWay}"
+                                        FontSize="14">
                                 <i:Interaction.Behaviors>
                                     <behaviors:IgnoreMouseWheelBehavior />
                                 </i:Interaction.Behaviors>
@@ -196,14 +206,14 @@
                                                                                 Binding="{Binding HasBeenViewed}"
                                                                                 Value="true">
                                                                                 <Setter Property="Source"
-                                                                                        Value="/Images/appbar.eye.hide.png" />
+                                                                                        Value="{StaticResource Hide}" />
                                                                             </DataTrigger>
 
                                                                             <DataTrigger
                                                                                 Binding="{Binding HasBeenViewed}"
                                                                                 Value="false">
                                                                                 <Setter Property="Source"
-                                                                                        Value="/Images/appbar.eye.png" />
+                                                                                        Value="{StaticResource Show}" />
                                                                             </DataTrigger>
                                                                         </Style.Triggers>
                                                                     </Style>
@@ -466,12 +476,12 @@
                                                         <DataTrigger Binding="{Binding Path=Episode.HasBeenViewed}"
                                                                      Value="true">
                                                             <Setter Property="Source"
-                                                                    Value="/Images/appbar.eye.hide.png" />
+                                                                    Value="{StaticResource Hide}" />
                                                         </DataTrigger>
 
                                                         <DataTrigger Binding="{Binding Path=Episode.HasBeenViewed}"
                                                                      Value="false">
-                                                            <Setter Property="Source" Value="/Images/appbar.eye.png" />
+                                                            <Setter Property="Source" Value="{StaticResource Show}" />
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>

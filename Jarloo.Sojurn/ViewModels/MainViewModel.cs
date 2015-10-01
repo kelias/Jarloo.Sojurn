@@ -186,6 +186,7 @@ namespace Jarloo.Sojurn.ViewModels
                 oldShow.Started = newShow.Started;
                 oldShow.Status = newShow.Status;
                 oldShow.ImageUrl = newShow.ImageUrl;
+                oldShow.LastUpdated = newShow.LastUpdated;
 
                 foreach (var newSeason in newShow.Seasons)
                 {

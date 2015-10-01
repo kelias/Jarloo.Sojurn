@@ -26,6 +26,18 @@ namespace Jarloo.Sojurn.Models
         private int airTimeHour;
         private int airTimeMinute;
         private int timezone;
+        private DateTime? lastUpdated;
+
+        [DataMember]
+        public DateTime? LastUpdated
+        {
+            get { return lastUpdated; }
+            set
+            {
+                lastUpdated = value;
+                NotifyOfPropertyChange(() => LastUpdated);
+            }
+        }
 
         [DataMember]
         public int Timezone

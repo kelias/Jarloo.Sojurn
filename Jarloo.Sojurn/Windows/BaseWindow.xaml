@@ -3,8 +3,9 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       xmlns:GenericControls="clr-namespace:Jarloo.Sojurn.Controls"
-                      Title="Sojurn" Icon="/Images/logo.ico" ShowIconOnTitleBar="True"
-                      WindowStartupLocation="CenterScreen" TitleCaps="False" GlowBrush="{StaticResource OrangeBrush}">
+                      Title="Sojurn" Icon="{StaticResource Logo}" ShowIconOnTitleBar="True"
+                      WindowStartupLocation="CenterScreen" TitleCaps="False" 
+                      GlowBrush="{StaticResource OrangeBrush}">
 
 
     <Controls:MetroWindow.WindowCommands>

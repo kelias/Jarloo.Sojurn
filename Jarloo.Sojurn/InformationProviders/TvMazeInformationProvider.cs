@@ -98,6 +98,9 @@ namespace Jarloo.Sojurn.InformationProviders
                         t.Episodes[e].EpisodeNumberThisSeason = e + 1;
                     }
                 }
+
+                show.LastUpdated = DateTime.Now;
+
                 return show;
             }
             catch

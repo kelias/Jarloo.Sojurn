@@ -6,8 +6,6 @@
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
              xmlns:converters="clr-namespace:Jarloo.Sojurn.Converters"
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             xmlns:ei="clr-namespace:Microsoft.Expression.Interactivity.Layout;assembly=Microsoft.Expression.Interactions"
              mc:Ignorable="d" Width="440" Height="495">
 
     <UserControl.Resources>
@@ -24,7 +22,7 @@
                 IsEnabled="{Binding IsWorking, Converter={StaticResource ReverseBooleanConverter}}">
             <Button.Template>
                 <ControlTemplate>
-                    <Image Source="/Jarloo.Sojurn;component/Images/appbar.page.search.png" />
+                    <Image Source="{StaticResource Search}" />
                 </ControlTemplate>
             </Button.Template>
         </Button>

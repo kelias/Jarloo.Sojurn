@@ -9,6 +9,8 @@ using Jarloo.Sojurn.Models;
 
 namespace Jarloo.Sojurn.InformationProviders
 {
+    //This Provider is unreliable, but the code is left here in the event it gets better
+
     public class TvRageInformationProvider : IInformationProvider
     {
         private const string BASE_URL = "http://services.tvrage.com/feeds/";
