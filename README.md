@@ -10,6 +10,12 @@ Sojurn keeps track of what TV shows you've watched, and which ones you haven't. 
 
 You can explore your favorite shows, browsing by season and episode.
 
+- Backlog
+The backlog shows what shows you have added but not watched yet.
+
+- Timeline
+The timeline lets you view what shows you have added that are upcoming.
+
 Why was it made?
 ----------------
 
