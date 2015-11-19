@@ -33,3 +33,8 @@ Data Sources
 
 Currently the data used is from the TVMaze API. Sojurn has been written to easily allow the injection of different data sources, so if you'd prefer another feel free to add it.
 
+
+Major Changes
+------------
+
+Converted to Visual Studio 2015 with C# 6 language features such as null propagation. If you need Visual Studio 2013 there was a branch created before the update.
