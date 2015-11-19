@@ -17,14 +17,14 @@ namespace Jarloo.Sojurn.InformationProviders
 
         public List<Show> GetShows(string search)
         {
-            var url = string.Format("{0}search.php?show={1}", BASE_URL, HttpUtility.HtmlEncode(search));
+            var url = $"{BASE_URL}search.php?show={HttpUtility.HtmlEncode(search)}";
             var doc = XDocument.Load(url);
 
-            var shows = (from s in doc.Root.Elements("show")
+            var shows = (from s in doc.Root?.Elements("show")
                 select new Show
                 {
                     ShowId = s.Element("showid").Value.To<int>(),
-                    Name = s.Element("name").Value
+                    Name = s.Element("name")?.Value
                 }).ToList();
 
             return shows;
@@ -34,23 +34,23 @@ namespace Jarloo.Sojurn.InformationProviders
         {
             try
             {
-                var url = string.Format("{0}full_show_info.php?sid={1}", BASE_URL, showId);
+                var url = $"{BASE_URL}full_show_info.php?sid={showId}";
                 var doc = XDocument.Load(url);
 
                 var seas = doc.Root;
 
                 var show = new Show
                 {
-                    ShowId = Get<int>(seas.Element("showid")),
-                    Name = Get<string>(seas.Element("name")),
-                    Started = GetDate(seas.Element("started")),
-                    Ended = GetDate(seas.Element("ended")),
-                    Country = Get<string>(seas.Element("origin_country")),
-                    Status = Get<string>(seas.Element("status")),
-                    ImageUrl = Get<string>(seas.Element("image")),
-                    AirTimeHour = GetTime(seas.Element("airtime"), 'H'),
-                    AirTimeMinute = GetTime(seas.Element("airtime"), 'M'),
-                    Seasons = (from season in seas.Element("Episodelist").Elements("Season")
+                    ShowId = Get<int>(seas?.Element("showid")),
+                    Name = Get<string>(seas?.Element("name")),
+                    Started = GetDate(seas?.Element("started")),
+                    Ended = GetDate(seas?.Element("ended")),
+                    Country = Get<string>(seas?.Element("origin_country")),
+                    Status = Get<string>(seas?.Element("status")),
+                    ImageUrl = Get<string>(seas?.Element("image")),
+                    AirTimeHour = GetTime(seas?.Element("airtime"), 'H'),
+                    AirTimeMinute = GetTime(seas?.Element("airtime"), 'M'),
+                    Seasons = (from season in seas?.Element("Episodelist")?.Elements("Season")
                         select new Season
                         {
                             SeasonNumber = season.Attribute("no").Value.To<int>(),
@@ -62,7 +62,7 @@ namespace Jarloo.Sojurn.InformationProviders
                                     Title = Get<string>(e.Element("title")),
                                     Link = Get<string>(e.Element("link")),
                                     ImageUrl = Get<string>(e.Element("screencap")),
-                                    ShowName = Get<string>(seas.Element("name")),
+                                    ShowName = Get<string>(seas?.Element("name")),
                                     SeasonNumber = season.Attribute("no").Value.To<int>()
                                 }).OrderBy(w => w.EpisodeNumber).ToList()
                         }).ToList()
@@ -79,7 +79,7 @@ namespace Jarloo.Sojurn.InformationProviders
 
                 return show;
             }
-            catch 
+            catch
             {
                 return null;
             }

@@ -14,39 +14,17 @@ using Jarloo.Sojurn.Models;
 namespace Jarloo.Sojurn.ViewModels
 {
     [Export]
-    public class MainViewModel : Screen
+    public sealed class MainViewModel : Screen
     {
         private readonly IInformationProvider infoProvider;
         private readonly IPersistenceManager pm;
         private readonly IWindowManager wm;
 
-        #region Properties
-
-        private readonly BindableCollection<BacklogItem> backlog = new BindableCollection<BacklogItem>();
-        private readonly BindableCollection<Show> shows = new BindableCollection<Show>();
-        private readonly BindableCollection<TimeLineItem> timeLine = new BindableCollection<TimeLineItem>();
-        private Show selectedShow;
-
-        public CollectionViewSource Shows { get; set; }
-        public CollectionViewSource TimeLine { get; set; }
-        public CollectionViewSource Backlog { get; set; }
-
-
-        public Show SelectedShow
-        {
-            get { return selectedShow; }
-            set
-            {
-                selectedShow = value;
-                NotifyOfPropertyChange(() => SelectedShow);
-            }
-        }
-
-        #endregion
-
         [ImportingConstructor]
         public MainViewModel(IWindowManager windowManager)
-            : this(windowManager, new TvMazeInformationProvider(), new LocalJsonPersistenceManager()){}
+            : this(windowManager, new TvMazeInformationProvider(), new LocalJsonPersistenceManager())
+        {
+        }
 
         //Here to support dependency injection
         public MainViewModel(IWindowManager windowManager, IInformationProvider infoProvider,
@@ -57,14 +35,14 @@ namespace Jarloo.Sojurn.ViewModels
             pm = persistenceManager;
             this.infoProvider = infoProvider;
 
-            Shows = new CollectionViewSource { Source = shows };
+            Shows = new CollectionViewSource {Source = shows};
             Shows.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
 
-            TimeLine = new CollectionViewSource { Source = timeLine };
+            TimeLine = new CollectionViewSource {Source = timeLine};
             TimeLine.SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Ascending));
             TimeLine.GroupDescriptions.Add(new PropertyGroupDescription("Date"));
 
-            Backlog = new CollectionViewSource { Source = backlog };
+            Backlog = new CollectionViewSource {Source = backlog};
             Backlog.GroupDescriptions.Add(new PropertyGroupDescription("ShowName"));
             Backlog.SortDescriptions.Add(new SortDescription("ShowName", ListSortDirection.Ascending));
             Backlog.SortDescriptions.Add(new SortDescription("SeasonNumber", ListSortDirection.Ascending));
@@ -111,8 +89,7 @@ namespace Jarloo.Sojurn.ViewModels
             shows.Clear();
 
             var userSettings = pm.Retrieve<UserSettings>("index");
-            if (userSettings == null) return;
-            if (userSettings.Shows == null) return;
+            if (userSettings?.Shows == null) return;
 
             ImageHelper.DeleteUnusedImages(userSettings.Shows);
 
@@ -133,7 +110,7 @@ namespace Jarloo.Sojurn.ViewModels
 
         private void SaveShows()
         {
-            var userSettings = new UserSettings { Shows = shows.ToList() };
+            var userSettings = new UserSettings {Shows = shows.ToList()};
             pm.Save("index", userSettings);
         }
 
@@ -228,8 +205,8 @@ namespace Jarloo.Sojurn.ViewModels
 
         public void ScrollShowIntoView(object o, SelectionChangedEventArgs e)
         {
-            var item = (ListBoxItem)((ListBox)o).ItemContainerGenerator.ContainerFromItem(SelectedShow);
-            if (item != null) item.BringIntoView();
+            var item = (ListBoxItem) ((ListBox) o).ItemContainerGenerator.ContainerFromItem(SelectedShow);
+            item?.BringIntoView();
         }
 
         public void MarkAllAsViewed(Show s)
@@ -272,7 +249,7 @@ namespace Jarloo.Sojurn.ViewModels
                 var show = shows.FirstOrDefault(w => w.Name == e.ShowName);
                 var season = show.Seasons.FirstOrDefault(w => w.SeasonNumber == e.SeasonNumber);
 
-                backlog.Add(new BacklogItem { Show = show, Episode = e, Season = season });
+                backlog.Add(new BacklogItem {Show = show, Episode = e, Season = season});
             }
         }
 
@@ -298,7 +275,7 @@ namespace Jarloo.Sojurn.ViewModels
                 foreach (var episode in futureEpisodes)
                 {
                     if (timeLine.Any(w => w.Episode == episode)) continue;
-                    timeLine.Add(new TimeLineItem { Show = show, Episode = episode });
+                    timeLine.Add(new TimeLineItem {Show = show, Episode = episode});
                 }
             }
         }
@@ -316,7 +293,7 @@ namespace Jarloo.Sojurn.ViewModels
                         if (episode.HasBeenViewed || episode.AirDate > DateTime.Today || episode.AirDate == null)
                             continue;
 
-                        backlog.Add(new BacklogItem { Show = show, Episode = episode, Season = season });
+                        backlog.Add(new BacklogItem {Show = show, Episode = episode, Season = season});
                     }
                 }
             }
@@ -337,5 +314,29 @@ namespace Jarloo.Sojurn.ViewModels
                 if (backlog[i].Show == show) backlog.RemoveAt(i);
             }
         }
+
+        #region Properties
+
+        private readonly BindableCollection<BacklogItem> backlog = new BindableCollection<BacklogItem>();
+        private readonly BindableCollection<Show> shows = new BindableCollection<Show>();
+        private readonly BindableCollection<TimeLineItem> timeLine = new BindableCollection<TimeLineItem>();
+        private Show selectedShow;
+
+        public CollectionViewSource Shows { get; set; }
+        public CollectionViewSource TimeLine { get; set; }
+        public CollectionViewSource Backlog { get; set; }
+
+
+        public Show SelectedShow
+        {
+            get { return selectedShow; }
+            set
+            {
+                selectedShow = value;
+                NotifyOfPropertyChange(() => SelectedShow);
+            }
+        }
+
+        #endregion
     }
 }

@@ -8,7 +8,13 @@ namespace Jarloo.Sojurn.ViewModels
     public class EpisodeViewModel : PropertyChangedBase, IHaveDisplayName
     {
         private Episode episode;
-        public string DisplayName { get; set; }
+
+        [ImportingConstructor]
+        public EpisodeViewModel(Episode e)
+        {
+            episode = e;
+            DisplayName = e.ShowName;
+        }
 
         public Episode Episode
         {
@@ -20,11 +26,6 @@ namespace Jarloo.Sojurn.ViewModels
             }
         }
 
-        [ImportingConstructor]
-        public EpisodeViewModel(Episode e)
-        {
-            episode = e;
-            DisplayName = e.ShowName;
-        }
+        public string DisplayName { get; set; }
     }
 }

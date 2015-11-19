@@ -7,12 +7,17 @@ namespace Jarloo.Sojurn.Models
     [DataContract]
     public class Season : PropertyChangedBase
     {
-        [DataMember]
-        public List<Episode> Episodes { get; set; }
-
         private int seasonNumber;
 
         private Episode selectedEpisode;
+
+        public Season()
+        {
+            Episodes = new List<Episode>();
+        }
+
+        [DataMember]
+        public List<Episode> Episodes { get; set; }
 
         [IgnoreDataMember]
         public Episode SelectedEpisode
@@ -34,11 +39,6 @@ namespace Jarloo.Sojurn.Models
                 seasonNumber = value;
                 NotifyOfPropertyChange(() => SeasonNumber);
             }
-        }
-
-        public Season()
-        {
-            Episodes = new List<Episode>();
         }
     }
 }

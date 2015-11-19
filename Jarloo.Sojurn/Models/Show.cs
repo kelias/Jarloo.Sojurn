@@ -9,24 +9,31 @@ namespace Jarloo.Sojurn.Models
     [DataContract]
     public class Show : PropertyChangedBase
     {
-        [DataMember]
-        public List<Season> Seasons { get; set; }
+        private int airTimeHour;
+        private int airTimeMinute;
 
         private string country;
         private DateTime? ended;
         private ImageSource imageSource;
+        private string imageUrl;
+        private bool isLoading;
+        private DateTime? lastUpdated;
         private string link;
         private string name;
+        private Season selectedSeason;
         private int showId;
         private DateTime? started;
         private string status;
-        private string imageUrl;
-        private bool isLoading;
-        private Season selectedSeason;
-        private int airTimeHour;
-        private int airTimeMinute;
         private int timezone;
-        private DateTime? lastUpdated;
+
+
+        public Show()
+        {
+            Seasons = new List<Season>();
+        }
+
+        [DataMember]
+        public List<Season> Seasons { get; set; }
 
         [DataMember]
         public DateTime? LastUpdated
@@ -70,12 +77,6 @@ namespace Jarloo.Sojurn.Models
                 airTimeHour = value;
                 NotifyOfPropertyChange(() => AirTimeHour);
             }
-        }
-
-
-        public Show()
-        {
-            Seasons = new List<Season>();
         }
 
         [IgnoreDataMember]

@@ -22,8 +22,10 @@ namespace Jarloo.Sojurn.Behaviors
         {
             e.Handled = true;
 
-            var e2 = new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta);
-            e2.RoutedEvent = UIElement.MouseWheelEvent;
+            var e2 = new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta)
+            {
+                RoutedEvent = UIElement.MouseWheelEvent
+            };
 
             AssociatedObject.RaiseEvent(e2);
         }

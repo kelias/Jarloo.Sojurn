@@ -12,9 +12,9 @@
              mc:Ignorable="d" d:DesignHeight="900" d:DesignWidth="1800">
 
     <UserControl.Resources>
-        <converters:LastUpdatedConverter x:Key="LastUpdatedConverter"/>
+        <converters:LastUpdatedConverter x:Key="LastUpdatedConverter" />
     </UserControl.Resources>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -147,16 +147,18 @@
                             <TextBlock Text="{Binding Status}" FontSize="10" TextAlignment="Center" />
                         </StackPanel>
                         <StackPanel>
-                            
+
                             <!--SEASONS-->
                             <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                                <TextBlock Text="Last Updated " FontSize="10" Foreground="Gray"/>
-                                <TextBlock Text="{Binding LastUpdated, Converter={StaticResource LastUpdatedConverter}}" FontSize="10" Foreground="Gray"/>
+                                <TextBlock Text="Last Updated " FontSize="10" Foreground="Gray" />
+                                <TextBlock
+                                    Text="{Binding LastUpdated, Converter={StaticResource LastUpdatedConverter}}"
+                                    FontSize="10" Foreground="Gray" />
                             </StackPanel>
-                            
+
                             <ListBox ItemsSource="{Binding Seasons}" DisplayMemberPath="SeasonNumber"
-                                        x:Name="SeasonSelector" SelectedItem="{Binding SelectedSeason, Mode=TwoWay}"
-                                        FontSize="14">
+                                     x:Name="SeasonSelector" SelectedItem="{Binding SelectedSeason, Mode=TwoWay}"
+                                     FontSize="14">
                                 <i:Interaction.Behaviors>
                                     <behaviors:IgnoreMouseWheelBehavior />
                                 </i:Interaction.Behaviors>

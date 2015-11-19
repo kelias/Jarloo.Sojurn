@@ -5,8 +5,8 @@ namespace Jarloo.Sojurn.Models
 {
     public class TimeLineItem : PropertyChangedBase
     {
-        private Show show;
         private Episode episode;
+        private Show show;
 
         public DateTime? Date
         {

@@ -4,24 +4,15 @@ namespace Jarloo.Sojurn.Models
 {
     public class BacklogItem : PropertyChangedBase
     {
-        private Show show;
         private Episode episode;
         private Season season;
+        private Show show;
 
-        public string ShowName
-        {
-            get { return show.Name; }
-        }
+        public string ShowName => show.Name;
 
-        public int SeasonNumber
-        {
-            get { return season.SeasonNumber; }
-        }
+        public int SeasonNumber => season.SeasonNumber;
 
-        public int EpisodeNumberThisSeason
-        {
-            get { return episode.EpisodeNumberThisSeason; }
-        }
+        public int EpisodeNumberThisSeason => episode.EpisodeNumberThisSeason;
 
         public Episode Episode
         {

@@ -11,7 +11,7 @@ namespace Jarloo.Sojurn.Converters
         {
             try
             {
-                return ((bool) value) ? Visibility.Visible : Visibility.Collapsed;
+                return (bool) value ? Visibility.Visible : Visibility.Collapsed;
             }
             catch
             {

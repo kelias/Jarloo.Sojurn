@@ -6,12 +6,12 @@ namespace Jarloo.Sojurn.Models
     [DataContract]
     public class UserSettings
     {
-        [DataMember]
-        public List<Show> Shows { get; set; }
-
         public UserSettings()
         {
             Shows = new List<Show>();
         }
+
+        [DataMember]
+        public List<Show> Shows { get; set; }
     }
 }

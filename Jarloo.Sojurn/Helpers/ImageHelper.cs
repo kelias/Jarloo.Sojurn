@@ -82,8 +82,7 @@ namespace Jarloo.Sojurn.Helpers
                         if (episode.ImageUrl != null)
                         {
                             var extension = Path.GetExtension(e.ImageUrl);
-                            var file = string.Format("{0}_{1}_{2}{3}", show.ShowId, season.SeasonNumber,
-                                e.EpisodeNumber, extension);
+                            var file = $"{show.ShowId}_{season.SeasonNumber}_{e.EpisodeNumber}{extension}";
                             var folder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
                                 ConfigurationManager.AppSettings["IMAGE_CACHE"]);
 
@@ -103,7 +102,7 @@ namespace Jarloo.Sojurn.Helpers
                             {
                                 try
                                 {
-                                    if (extension.ToUpper() == ".PNG")
+                                    if (extension?.ToUpper() == ".PNG")
                                     {
                                         Stream imageStreamSource = new FileStream(filename, FileMode.Open,
                                             FileAccess.Read, FileShare.Read);

@@ -15,7 +15,7 @@ namespace Jarloo.Sojurn.InformationProviders
 
         public List<Show> GetShows(string search)
         {
-            var requestUri = string.Format("{0}search/shows?q={1}", BASE_URL, HttpUtility.HtmlEncode(search));
+            var requestUri = $"{BASE_URL}search/shows?q={HttpUtility.HtmlEncode(search)}";
             var data = GetJsonData(requestUri);
 
             var shows = new List<Show>();
@@ -35,7 +35,7 @@ namespace Jarloo.Sojurn.InformationProviders
         {
             try
             {
-                var requestShowDetailUri = string.Format("{0}shows/{1}", BASE_URL, HttpUtility.HtmlEncode(showId));
+                var requestShowDetailUri = $"{BASE_URL}shows/{HttpUtility.HtmlEncode(showId)}";
                 var shdata = GetJsonData(requestShowDetailUri);
 
                 var show = new Show
@@ -51,8 +51,7 @@ namespace Jarloo.Sojurn.InformationProviders
                     AirTimeMinute = GetTime(shdata.schedule.time, 'M')
                 };
 
-                var requestShowEpisodsUri = string.Format("{0}shows/{1}/episodes", BASE_URL,
-                    HttpUtility.HtmlEncode(showId));
+                var requestShowEpisodsUri = $"{BASE_URL}shows/{HttpUtility.HtmlEncode(showId)}/episodes";
                 var epdata = GetJsonData(requestShowEpisodsUri);
 
                 //I could not use linq becuase the json data is dynamic
@@ -70,7 +69,7 @@ namespace Jarloo.Sojurn.InformationProviders
                     }
                     //the season can't be null because the ep.season starts from 1 in TvMaze API
                     //and the 'if' statment above initialize the vavriable
-                    season.Episodes.Add(new Episode
+                    season?.Episodes.Add(new Episode
                     {
                         EpisodeNumber = ep.number,
                         AirDate = GetDate(ep.airdate),
@@ -144,7 +143,7 @@ namespace Jarloo.Sojurn.InformationProviders
             //failesafe
             return DEFAULT_COUNTRY_CODE;
         }
-        
+
         private static int GetTime(dynamic time, char type)
         {
             if ((time == null) || (time == "")) return 12;
