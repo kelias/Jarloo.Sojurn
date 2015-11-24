@@ -38,38 +38,22 @@ namespace Jarloo.Sojurn.Data
 
         private static string ToJson<T>(T obj)
         {
-            var stream = new MemoryStream();
-
-            try
+            using (var stream = new MemoryStream())
             {
                 var jsSerializer = new DataContractJsonSerializer(typeof (T));
                 jsSerializer.WriteObject(stream, obj);
 
-                return Encoding.UTF8.GetString(stream.ToArray());
-            }
-            finally
-            {
-                stream.Close();
-                stream.Dispose();
+                return Encoding.UTF8.GetString(stream.ToArray());             
             }
         }
 
         private static T FromJson<T>(string input)
         {
-            var stream = new MemoryStream();
-
-            try
+            var jsSerializer = new DataContractJsonSerializer(typeof (T));
+            using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(input)))
             {
-                var jsSerializer = new DataContractJsonSerializer(typeof (T));
-                stream = new MemoryStream(Encoding.UTF8.GetBytes(input));
                 var obj = (T) jsSerializer.ReadObject(stream);
-
                 return obj;
-            }
-            finally
-            {
-                stream.Close();
-                stream.Dispose();
             }
         }
     }
