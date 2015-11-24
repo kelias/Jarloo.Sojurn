@@ -61,12 +61,20 @@
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Button.Template>
-
             </Button>
+
+            <Menu BorderThickness="0" Background="{StaticResource OrangeBrush}" Margin="0,2,0,2">
+                <MenuItem Background="Transparent">
+                    <MenuItem.Header>
+                        <Image Source="{StaticResource Settings}"/>
+                    </MenuItem.Header>
+                </MenuItem>
+            </Menu>
         </StackPanel>
 
         <ListBox Background="{x:Null}" ItemsSource="{Binding Shows.View}"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 ScrollViewer.CanContentScroll="False"
                  Grid.Row="1" SelectedItem="{Binding SelectedShow}">
             <i:Interaction.Behaviors>
                 <behaviors:ScrollIntoViewBehavior />
