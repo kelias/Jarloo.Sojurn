@@ -26,7 +26,7 @@ About the code
 Sojurn is written in C# using WPF and MVVM. It uses Caliburn.micro and MahApps.metro.
 
 
-Requires .NET Framework 4.5.1 or greater.
+Requires .NET Framework 4.6 for the current main branch. There is a branch for 4.5.1 as well.
 
 For more info:
 http://www.jarloo.com/sojurn-the-tv-app/
