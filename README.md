@@ -10,6 +10,10 @@ Sojurn keeps track of what TV shows you've watched, and which ones you haven't. 
 
 You can explore your favorite shows, browsing by season and episode.
 
+- Backlog : The backlog shows what shows you have added but not watched yet.
+
+- Timeline : The timeline lets you view what shows you have added that are upcoming.
+
 Why was it made?
 ----------------
 
@@ -22,7 +26,7 @@ About the code
 Sojurn is written in C# using WPF and MVVM. It uses Caliburn.micro and MahApps.metro.
 
 
-Requires .NET Framework 4.5.1 or greater.
+Requires .NET Framework 4.6 for the current main branch. There is a branch for 4.5.1 as well.
 
 For more info:
 http://www.jarloo.com/sojurn-the-tv-app/
@@ -32,4 +36,17 @@ Data Sources
 ------------
 
 Currently the data used is from the TVMaze API. Sojurn has been written to easily allow the injection of different data sources, so if you'd prefer another feel free to add it.
+
+
+Major Changes
+------------
+
+Converted to Visual Studio 2015 with C# 6 language features such as null propagation. If you need Visual Studio 2013 there was a branch created before the update.
+
+
+Trello Board
+-------------------
+
+There is a Trello board that can be used to see what ideas are out there, and allow you to vote for ideas. 
+https://trello.com/b/fT730hZT/sojurn
 
