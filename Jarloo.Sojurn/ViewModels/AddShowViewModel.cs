@@ -129,6 +129,7 @@ namespace Jarloo.Sojurn.ViewModels
         private Show show;
         private string error;
         private readonly List<Show> currentShows;
+        private bool isShowNameFocused = true;
 
         public string Error
         {
@@ -137,6 +138,15 @@ namespace Jarloo.Sojurn.ViewModels
             {
                 error = value;
                 NotifyOfPropertyChange(() => Error);
+            }
+        }
+
+        public bool IsShowNameFocused
+        {
+            get { return isShowNameFocused; }
+            set
+            {
+                NotifyOfPropertyChange(() => IsShowNameFocused);
             }
         }
 

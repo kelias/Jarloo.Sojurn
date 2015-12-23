@@ -6,6 +6,7 @@
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
              xmlns:converters="clr-namespace:Jarloo.Sojurn.Converters"
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:extensions="clr-namespace:Jarloo.Sojurn.Extensions"
              mc:Ignorable="d" Width="440" Height="495">
 
     <UserControl.Resources>
@@ -28,7 +29,8 @@
         </Button>
 
         <TextBox HorizontalAlignment="Left" Height="26" Margin="45,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top"
-                 Width="330" x:Name="ShowName" cal:Message.Attach="[Event KeyUp] = [Action TextModified($eventArgs)]" />
+                 Width="330" x:Name="ShowName" cal:Message.Attach="[Event KeyUp] = [Action TextModified($eventArgs)]" TabIndex="0"
+                 extensions:FocusExtension.IsFocused="{Binding IsShowNameFocused}"/>
 
         <ListBox HorizontalAlignment="Left" Height="193" Margin="45,202,0,0" VerticalAlignment="Top" Width="330"
                  Background="{x:Null}" x:Name="Shows" DisplayMemberPath="Name"

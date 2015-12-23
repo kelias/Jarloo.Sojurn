@@ -90,7 +90,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behaviors\FocusBehavior.cs" />
     <Compile Include="Converters\LastUpdatedConverter.cs" />
+    <Compile Include="Extensions\FocusExtension.cs" />
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="InformationProviders\TvMazeInformationProvider.cs" />
     <Compile Include="Models\BacklogItem.cs" />
@@ -247,6 +249,7 @@
   <ItemGroup>
     <Resource Include="Images\appbar.monitor.play.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
