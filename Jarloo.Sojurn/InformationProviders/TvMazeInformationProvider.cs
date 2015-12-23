@@ -163,10 +163,17 @@ namespace Jarloo.Sojurn.InformationProviders
 
         private static DateTime? GetDate(dynamic e)
         {
-            if (e == null)
+            try
+            {
+                if (e == null)
+                    return null;
+                DateTime t = e;
+                return t;
+            }
+            catch
+            {
                 return null;
-            DateTime t = e;
-            return t;
+            }
         }
     }
 }

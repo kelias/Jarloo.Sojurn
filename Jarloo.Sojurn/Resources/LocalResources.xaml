@@ -96,5 +96,6 @@
     <BitmapImage UriSource="/Jarloo.Sojurn;component/Images/appbar.close.png" x:Key="Close"  PresentationOptions:Freeze="True"/>
     <BitmapImage UriSource="/Jarloo.Sojurn;component/Images/logo.ico" x:Key="Logo"  PresentationOptions:Freeze="True"/>
     <BitmapImage UriSource="/Jarloo.Sojurn;component/Images/appbar.settings.png" x:Key="Settings"  PresentationOptions:Freeze="True"/>
+    <BitmapImage UriSource="/Jarloo.Sojurn;component/Images/appbar.monitor.play.png" x:Key="Play"  PresentationOptions:Freeze="True"/>
 
 </ResourceDictionary>

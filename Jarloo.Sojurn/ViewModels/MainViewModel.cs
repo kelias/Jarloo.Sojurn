@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -10,6 +11,7 @@ using Jarloo.Sojurn.Data;
 using Jarloo.Sojurn.Helpers;
 using Jarloo.Sojurn.InformationProviders;
 using Jarloo.Sojurn.Models;
+using Jarloo.Sojurn.StreamProviders;
 
 namespace Jarloo.Sojurn.ViewModels
 {
@@ -19,21 +21,49 @@ namespace Jarloo.Sojurn.ViewModels
         private readonly IInformationProvider infoProvider;
         private readonly IPersistenceManager pm;
         private readonly IWindowManager wm;
+        public IStreamProvider StreamProvider { get; set; }
+
+        #region Properties
+
+        private readonly BindableCollection<BacklogItem> backlog = new BindableCollection<BacklogItem>();
+        private readonly BindableCollection<Show> shows = new BindableCollection<Show>();
+        private readonly BindableCollection<TimeLineItem> timeLine = new BindableCollection<TimeLineItem>();
+        private Show selectedShow;
+
+        public CollectionViewSource Shows { get; set; }
+        public CollectionViewSource TimeLine { get; set; }
+        public CollectionViewSource Backlog { get; set; }
+
+
+        public Show SelectedShow
+        {
+            get { return selectedShow; }
+            set
+            {
+                selectedShow = value;
+                NotifyOfPropertyChange(() => SelectedShow);
+            }
+        }
+
+        #endregion
 
         [ImportingConstructor]
         public MainViewModel(IWindowManager windowManager)
-            : this(windowManager, new TvMazeInformationProvider(), new LocalJsonPersistenceManager())
+            : this(
+                windowManager, new TvMazeInformationProvider(), new LocalJsonPersistenceManager(),
+                new PutLockerStreamProvider())
         {
         }
 
         //Here to support dependency injection
         public MainViewModel(IWindowManager windowManager, IInformationProvider infoProvider,
-            IPersistenceManager persistenceManager)
+            IPersistenceManager persistenceManager, IStreamProvider streamProvider)
         {
             DisplayName = "Sojurn";
             wm = windowManager;
             pm = persistenceManager;
             this.infoProvider = infoProvider;
+            StreamProvider = streamProvider;
 
             Shows = new CollectionViewSource {Source = shows};
             Shows.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
@@ -315,28 +345,11 @@ namespace Jarloo.Sojurn.ViewModels
             }
         }
 
-        #region Properties
-
-        private readonly BindableCollection<BacklogItem> backlog = new BindableCollection<BacklogItem>();
-        private readonly BindableCollection<Show> shows = new BindableCollection<Show>();
-        private readonly BindableCollection<TimeLineItem> timeLine = new BindableCollection<TimeLineItem>();
-        private Show selectedShow;
-
-        public CollectionViewSource Shows { get; set; }
-        public CollectionViewSource TimeLine { get; set; }
-        public CollectionViewSource Backlog { get; set; }
-
-
-        public Show SelectedShow
+        public void ShowStreamProvider(BacklogItem item)
         {
-            get { return selectedShow; }
-            set
-            {
-                selectedShow = value;
-                NotifyOfPropertyChange(() => SelectedShow);
-            }
-        }
+            var url = StreamProvider.GetUrl(item.Show);
 
-        #endregion
+            Process.Start(url);
+        }
     }
 }

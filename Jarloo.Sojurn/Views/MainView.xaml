@@ -9,7 +9,9 @@
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
              xmlns:behaviors="clr-namespace:Jarloo.Sojurn.Behaviors"
              xmlns:converters="clr-namespace:Jarloo.Sojurn.Converters"
-             mc:Ignorable="d" d:DesignHeight="900" d:DesignWidth="1800">
+             xmlns:viewModels="clr-namespace:Jarloo.Sojurn.ViewModels"
+             mc:Ignorable="d" d:DesignHeight="900" d:DesignWidth="1800"
+             d:DataContext="{d:DesignInstance {x:Type viewModels:MainViewModel}}">
 
     <UserControl.Resources>
         <converters:LastUpdatedConverter x:Key="LastUpdatedConverter" />
@@ -28,7 +30,7 @@
 
         <Rectangle Fill="{StaticResource OrangeBrush}" Stroke="Black" Grid.ColumnSpan="3" />
 
-        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="3">
+        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="0">
             <Button HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="46" Cursor="Hand"
                     x:Name="AddShow" Margin="0,4,0,0" ToolTip="Add Show...">
                 <Button.Template>
@@ -67,7 +69,7 @@
         <ListBox Background="{x:Null}" ItemsSource="{Binding Shows.View}"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto"
                  ScrollViewer.CanContentScroll="False"
-                 Grid.Row="1" SelectedItem="{Binding SelectedShow}">
+                 Grid.Row="1" Grid.Column="0" SelectedItem="{Binding SelectedShow}">
             <i:Interaction.Behaviors>
                 <behaviors:ScrollIntoViewBehavior />
             </i:Interaction.Behaviors>
@@ -464,42 +466,60 @@
             </ListBox.GroupStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Button Height="16" Width="16" Cursor="Hand"
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="32"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <StackPanel Orientation="Horizontal">
+                                <Button Height="24" Width="24" Cursor="Hand"
                                     cal:Message.Attach="[Event Click] = [Action ToggleViewedBacklog($this)]"
                                     VerticalAlignment="Top" Margin="0,0,10,0" ToolTip="Mark as read">
-                                <Button.Template>
-                                    <ControlTemplate>
-                                        <Image>
-                                            <Image.Style>
-                                                <Style TargetType="{x:Type Image}">
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding Path=Episode.HasBeenViewed}"
+                                    <Button.Template>
+                                        <ControlTemplate>
+                                            <Image>
+                                                <Image.Style>
+                                                    <Style TargetType="{x:Type Image}">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Path=Episode.HasBeenViewed}"
                                                                      Value="true">
-                                                            <Setter Property="Source"
+                                                                <Setter Property="Source"
                                                                     Value="{StaticResource Hide}" />
-                                                        </DataTrigger>
+                                                            </DataTrigger>
 
-                                                        <DataTrigger Binding="{Binding Path=Episode.HasBeenViewed}"
+                                                            <DataTrigger Binding="{Binding Path=Episode.HasBeenViewed}"
                                                                      Value="false">
-                                                            <Setter Property="Source" Value="{StaticResource Show}" />
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Image.Style>
-                                        </Image>
-                                    </ControlTemplate>
-                                </Button.Template>
-                            </Button>
-                            <TextBlock Text="S" FontSize="14" />
-                            <TextBlock Text="{Binding SeasonNumber, StringFormat=\{0:00\}}" FontSize="14" />
-                            <TextBlock Text="E" FontSize="14" />
-                            <TextBlock Text="{Binding EpisodeNumberThisSeason, StringFormat=\{0:00\}}" FontSize="14" />
-                        </StackPanel>
+                                                                <Setter Property="Source" Value="{StaticResource Show}" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Image.Style>
+                                            </Image>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                                <TextBlock Text="S" FontSize="14" />
+                                <TextBlock Text="{Binding SeasonNumber, StringFormat=\{0:00\}}" FontSize="14" />
+                                <TextBlock Text="E" FontSize="14" />
+                                <TextBlock Text="{Binding EpisodeNumberThisSeason, StringFormat=\{0:00\}}" FontSize="14" />
 
-                        <TextBlock Text="{Binding Path=Episode.Title}" FontSize="10" Margin="25,0,0,0" />
-                    </StackPanel>
+                            </StackPanel>
+
+                            <TextBlock Text="{Binding Path=Episode.Title}" FontSize="10" Margin="32,0,0,0" />
+                        </StackPanel>
+                        <Button Grid.Column="1" Cursor="Hand"
+                                cal:Message.Attach="[Event Click] = [Action ShowStreamProvider($this)]"
+                                ToolTip="Watch it now!">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Image Source="{StaticResource Play}" Height="32" Width="32" />
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        
+                    </Grid>
+
                 </DataTemplate>
             </ListBox.ItemTemplate>
 

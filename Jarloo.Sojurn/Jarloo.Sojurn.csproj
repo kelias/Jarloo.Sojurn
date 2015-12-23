@@ -95,6 +95,9 @@
     <Compile Include="InformationProviders\TvMazeInformationProvider.cs" />
     <Compile Include="Models\BacklogItem.cs" />
     <Compile Include="Models\TimeLineItem.cs" />
+    <Compile Include="StreamProviders\IStreamProvider.cs" />
+    <Compile Include="StreamProviders\ProjectFreeTvStreamProvider.cs" />
+    <Compile Include="StreamProviders\PutLockerStreamProvider.cs" />
     <Compile Include="Windows\BaseDialogWindow.xaml.cs">
       <DependentUpon>BaseDialogWindow.xaml</DependentUpon>
     </Compile>
@@ -240,6 +243,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\appbar.settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\appbar.monitor.play.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
