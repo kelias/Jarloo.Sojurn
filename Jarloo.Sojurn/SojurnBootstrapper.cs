@@ -2,7 +2,9 @@
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Primitives;
+using System.Diagnostics;
 using System.Linq;
+using System.Windows;
 using Caliburn.Micro;
 using Jarloo.Sojurn.ViewModels;
 
@@ -11,6 +13,20 @@ namespace Jarloo.Sojurn
     public class SojurnBootstrapper : Bootstrapper<MainViewModel>
     {
         private CompositionContainer container;
+
+        protected override void OnStartup(object sender, StartupEventArgs e)
+        {
+            //Prevent Multiple Copies
+            var processName = Process.GetCurrentProcess().ProcessName;
+            var processes = Process.GetProcesses();
+
+            if (processes.Count(w => w.ProcessName == processName) > 1)
+            {
+                Application.Shutdown();
+            }
+
+            base.OnStartup(sender, e);
+        }
 
         protected override void Configure()
         {
