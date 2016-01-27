@@ -44,9 +44,3 @@ Major Changes
 Converted to Visual Studio 2015 with C# 6 language features such as null propagation. If you need Visual Studio 2013 there was a branch created before the update.
 
 
-Trello Board
--------------------
-
-There is a Trello board that can be used to see what ideas are out there, and allow you to vote for ideas. 
-https://trello.com/b/fT730hZT/sojurn
-
