@@ -90,7 +90,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Behaviors\FocusBehavior.cs" />
     <Compile Include="Converters\LastUpdatedConverter.cs" />
     <Compile Include="Extensions\FocusExtension.cs" />
     <Compile Include="Helpers\Extensions.cs" />
