@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
+using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -50,8 +51,10 @@ namespace Jarloo.Sojurn.ViewModels
         [ImportingConstructor]
         public MainViewModel(IWindowManager windowManager)
             : this(
-                windowManager, new TvMazeInformationProvider(), new LocalJsonPersistenceManager(),
-                new PutLockerStreamProvider())
+                windowManager, 
+                (IInformationProvider)Activator.CreateInstance(Type.GetType(ConfigurationManager.AppSettings["InformationProvider"])),
+                (IPersistenceManager)Activator.CreateInstance(Type.GetType(ConfigurationManager.AppSettings["PersistanceManager"])),
+                (IStreamProvider)Activator.CreateInstance(Type.GetType(ConfigurationManager.AppSettings["StreamProvider"])))
         {
         }
 
