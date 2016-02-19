@@ -31,7 +31,7 @@ namespace Jarloo.Sojurn.Helpers
             }
         }
 
-        public static void GetShowImage(Show show)
+        public static void GetShowImageUrl(Show show)
         {
             if (string.IsNullOrWhiteSpace(show.ImageUrl)) return;
 
@@ -40,7 +40,7 @@ namespace Jarloo.Sojurn.Helpers
             Task.Factory.StartNew(() =>
             {
                 var extension = Path.GetExtension(show.ImageUrl);
-                var file = string.Format("{0}{1}", show.ShowId, extension);
+                var file = $"{show.ShowId}{extension}";
                 var folder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
                     ConfigurationManager.AppSettings["IMAGE_CACHE"]);
 

@@ -100,7 +100,7 @@ namespace Jarloo.Sojurn.ViewModels
             SaveShows();
 
             ImageHelper.LoadDefaultImages(show);
-            ImageHelper.GetShowImage(show);
+            ImageHelper.GetShowImageUrl(show);
             ImageHelper.GetEpisodeImages(show);
 
             UpdateTimeline();
@@ -133,7 +133,7 @@ namespace Jarloo.Sojurn.ViewModels
                 shows.Add(show);
 
                 ImageHelper.LoadDefaultImages(show);
-                ImageHelper.GetShowImage(show);
+                ImageHelper.GetShowImageUrl(show);
                 ImageHelper.GetEpisodeImages(show);
             }
 
@@ -227,7 +227,7 @@ namespace Jarloo.Sojurn.ViewModels
                 }
 
                 ImageHelper.LoadDefaultImages(oldShow);
-                ImageHelper.GetShowImage(oldShow);
+                ImageHelper.GetShowImageUrl(oldShow);
                 ImageHelper.GetEpisodeImages(oldShow);
             }
             finally

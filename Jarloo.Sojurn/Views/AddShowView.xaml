@@ -1,13 +1,13 @@
-﻿<UserControl x:Class="Jarloo.Sojurn.Views.AddShowView"
+﻿<UserControl x:Class="Jarloo. Sojurn.Views.AddShowView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
              xmlns:converters="clr-namespace:Jarloo.Sojurn.Converters"
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:extensions="clr-namespace:Jarloo.Sojurn.Extensions"
-             mc:Ignorable="d" Width="440" Height="495">
+             mc:Ignorable="d" Width="723" Height="703">
 
     <UserControl.Resources>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisConverter" />
@@ -32,20 +32,35 @@
                  Width="330" x:Name="ShowName" cal:Message.Attach="[Event KeyUp] = [Action TextModified($eventArgs)]" TabIndex="0"
                  extensions:FocusExtension.IsFocused="{Binding IsShowNameFocused}"/>
 
-        <ListBox HorizontalAlignment="Left" Height="193" Margin="45,202,0,0" VerticalAlignment="Top" Width="330"
-                 Background="{x:Null}" x:Name="Shows" DisplayMemberPath="Name"
+        <ListBox Margin="10,202,10,100"
+                 Background="{x:Null}" x:Name="Shows" 
                  Visibility="{Binding IsSearchCompleted, Converter={StaticResource BoolToVisConverter}}"
-                 SelectedItem="{Binding SelectedShow}" />
+                 SelectedItem="{Binding SelectedShow}"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 ScrollViewer.CanContentScroll="False">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="10,10,10,10">
+                        <Image Source="{Binding ImageSource}" Width="75" Height="94" Stretch="Uniform"
+                                       VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding Name}" TextAlignment="Center"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
 
-        <Button x:Name="AddShow" Content="Add" HorizontalAlignment="Left" Height="34" Margin="225,440,0,0"
-                VerticalAlignment="Top" Width="94" />
-        <Button x:Name="Cancel" Content="Cancel" HorizontalAlignment="Left" Height="34" Margin="330,440,0,0"
-                VerticalAlignment="Top" Width="94" IsCancel="True" />
+        <Button x:Name="AddShow" Content="Add" Margin="0,0,121,21" HorizontalAlignment="Right" Width="94" Height="34" VerticalAlignment="Bottom" />
+        <Button x:Name="Cancel" Content="Cancel" Margin="0,0,16,21" IsCancel="True" HorizontalAlignment="Right" Width="94" Height="34" VerticalAlignment="Bottom" />
 
         <TextBlock HorizontalAlignment="Left" Height="23" Margin="45,143,0,0" TextWrapping="Wrap"
                    VerticalAlignment="Top" Width="330" Foreground="#FFE51400" Name="Error" />
 
-        <Controls:ProgressRing IsActive="{Binding IsWorking}" />
+        <Controls:ProgressRing IsActive="{Binding IsWorking}" d:IsHidden="true" />
 
     </Grid>
 </UserControl>
