@@ -24,8 +24,8 @@ namespace Jarloo.Sojurn.InformationProviders
                 var show = new Show
                 {
                     ShowId = item.show.id,
-                    Name = item.show.name
-                    //ImageUrl = GetImage(item.show.image)
+                    Name = item.show.name,
+                    ImageUrl = GetImage(item.show.image)
                 };
 
                 ImageHelper.GetShowImageUrl(show);
