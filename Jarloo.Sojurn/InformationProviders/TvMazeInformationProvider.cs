@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Web;
 using Jarloo.Sojurn.Helpers;
 using Jarloo.Sojurn.Models;
@@ -77,8 +78,10 @@ namespace Jarloo.Sojurn.InformationProviders
                         Link = ep.url,
                         ImageUrl = GetImage(ep.image),
                         ShowName = shdata.name,
-                        SeasonNumber = ep.season
+                        SeasonNumber = ep.season,
+                        Summary = ep.summary
                     });
+                    
                     //if needed (check by status) get the value for the last Episode AirDate as the show's end date 
                     if (show.Status == "Ended")
                         lastEpisodeAirDate = GetDate(ep.airdate);
@@ -107,7 +110,7 @@ namespace Jarloo.Sojurn.InformationProviders
                 return null;
             }
         }
-
+        
         private static dynamic GetJsonData(string requestUri)
         {
             var httpWebRequest = (HttpWebRequest) WebRequest.Create(requestUri);

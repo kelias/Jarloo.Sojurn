@@ -19,7 +19,18 @@ namespace Jarloo.Sojurn.Models
         private int seasonNumber;
         private string showName;
         private string title;
+        private string summary;
 
+        [DataMember]
+        public string Summary
+        {
+            get { return summary; }
+            set
+            {
+                summary = value;
+                NotifyOfPropertyChange(() => Summary);
+            }
+        }
 
         [DataMember]
         public int EpisodeNumberThisSeason

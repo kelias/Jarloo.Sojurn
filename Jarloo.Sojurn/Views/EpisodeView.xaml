@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             mc:Ignorable="d" Height="442" Width="339">
+             mc:Ignorable="d" Height="587.148" Width="339">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="230" />
@@ -13,8 +13,8 @@
         <Image Height="200" Margin="9,10,10,0" VerticalAlignment="Top" Source="{Binding Episode.ImageSource}"
                Stretch="Uniform" />
 
-        <StackPanel HorizontalAlignment="Left" Height="119" Margin="10,10,0,0" VerticalAlignment="Top" Width="319"
-                    Grid.Row="1">
+        <StackPanel HorizontalAlignment="Left" Margin="10,10,0,0" Width="319"
+                    Grid.Row="1" Height="93" VerticalAlignment="Top">
 
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Show Name" />
@@ -43,5 +43,9 @@
         </StackPanel>
         <Button Content="OK" Margin="120,0,0,20" Grid.Row="1" Height="35" VerticalAlignment="Bottom"
                 HorizontalAlignment="Left" Width="88" IsCancel="True" IsDefault="True" />
+        
+        <TextBlock Text="Summary" Margin="9,108,258,229" Grid.Row="1" />
+        <TextBlock Text="{Binding Episode.Summary}" Margin="10,133,10,68" Grid.Row="1" TextWrapping="Wrap" />
+        
     </Grid>
 </UserControl>
