@@ -24,8 +24,8 @@ namespace Jarloo.Sojurn.InformationProviders
                 var show = new Show
                 {
                     ShowId = item.show.id,
-                    Name = item.show.name,
-                    ImageUrl = GetImage(item.show.image)
+                    Name = item.show.name
+                    //ImageUrl = GetImage(item.show.image)
                 };
 
                 ImageHelper.GetShowImageUrl(show);
@@ -173,6 +173,9 @@ namespace Jarloo.Sojurn.InformationProviders
             {
                 if (e == null)
                     return null;
+
+                if (string.IsNullOrWhiteSpace(e.Value)) return null;
+                
                 DateTime t = e;
                 return t;
             }
