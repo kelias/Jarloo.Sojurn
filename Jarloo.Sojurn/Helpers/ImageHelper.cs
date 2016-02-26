@@ -19,6 +19,8 @@ namespace Jarloo.Sojurn.Helpers
                 new BitmapImage(new Uri(@"pack://application:,,,/Jarloo.Sojurn;component/Images/image_show.png",
                     UriKind.Absolute));
 
+            show.ImageSource.Freeze();
+
             foreach (var season in show.Seasons)
             {
                 foreach (var episode in season.Episodes)
@@ -27,6 +29,8 @@ namespace Jarloo.Sojurn.Helpers
                         new BitmapImage(
                             new Uri(@"pack://application:,,,/Jarloo.Sojurn;component/Images/image_episode.png",
                                 UriKind.Absolute));
+
+                    episode.ImageSource.Freeze();
                 }
             }
         }
@@ -59,6 +63,7 @@ namespace Jarloo.Sojurn.Helpers
                 Execute.BeginOnUIThread(() =>
                 {
                     show.ImageSource = new BitmapImage(new Uri(filename));
+                    show.ImageSource.Freeze();
                     show.IsLoading = false;
                 });
             });
@@ -109,12 +114,14 @@ namespace Jarloo.Sojurn.Helpers
                                         var decoder = new PngBitmapDecoder(imageStreamSource,
                                             BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
                                         e.ImageSource = decoder.Frames[0];
+                                        e.ImageSource.Freeze();
                                     }
                                     else
                                     {
                                         try
                                         {
                                             e.ImageSource = new BitmapImage(new Uri(filename));
+                                            e.ImageSource.Freeze();
                                         }
                                         catch
                                         {
