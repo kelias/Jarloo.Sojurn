@@ -37,7 +37,7 @@ namespace Jarloo.Sojurn.Helpers
 
             show.IsLoading = true;
 
-            Task.Factory.StartNew(() =>
+            Task.Run(() =>
             {
                 var extension = Path.GetExtension(show.ImageUrl);
                 var file = $"{show.ShowId}{extension}";
@@ -71,7 +71,7 @@ namespace Jarloo.Sojurn.Helpers
                 episode.IsLoading = true;
             }
 
-            Task.Factory.StartNew(() =>
+            Task.Run(() =>
             {
                 foreach (var season in show.Seasons.OrderByDescending(w => w.SeasonNumber))
                 {
