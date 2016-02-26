@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Web;
 using Jarloo.Sojurn.Helpers;
 using Jarloo.Sojurn.Models;
@@ -12,7 +13,7 @@ namespace Jarloo.Sojurn.InformationProviders
     internal class TvMazeInformationProvider : IInformationProvider
     {
         private const string BASE_URL = "http://api.tvmaze.com/";
-
+        
         public List<Show> GetShows(string search)
         {
             var requestUri = $"{BASE_URL}search/shows?q={HttpUtility.HtmlEncode(search)}";
@@ -82,9 +83,9 @@ namespace Jarloo.Sojurn.InformationProviders
                         ImageUrl = GetImage(ep.image),
                         ShowName = shdata.name,
                         SeasonNumber = ep.season,
-                        Summary = ep.summary
+                        Summary = RemoveHtmlTags(ep.summary.ToString())
                     });
-
+                    
                     //if needed (check by status) get the value for the last Episode AirDate as the show's end date 
                     if (show.Status == "Ended")
                         lastEpisodeAirDate = GetDate(ep.airdate);
@@ -183,6 +184,11 @@ namespace Jarloo.Sojurn.InformationProviders
             {
                 return null;
             }
+        }
+
+        private static string RemoveHtmlTags(string input)
+        {
+            return string.IsNullOrWhiteSpace(input) ? input : Regex.Replace(input, @"<[^>]*>", string.Empty);
         }
     }
 }
