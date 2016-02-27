@@ -45,7 +45,9 @@
                 HorizontalAlignment="Left" Width="88" IsCancel="True" IsDefault="True" />
         
         <TextBlock Text="Summary" Margin="9,108,258,229" Grid.Row="1" />
-        <TextBlock Text="{Binding Episode.Summary}" Margin="10,133,10,68" Grid.Row="1" TextWrapping="Wrap" />
-        
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="10,133,10,68" Grid.Row="1">
+            <TextBlock Text="{Binding Episode.Summary}"  TextWrapping="Wrap" />
+        </ScrollViewer>
+
     </Grid>
 </UserControl>
