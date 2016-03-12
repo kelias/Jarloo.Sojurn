@@ -280,6 +280,9 @@ namespace Jarloo.Sojurn.ViewModels
             else
             {
                 var show = shows.FirstOrDefault(w => w.Name == e.ShowName);
+
+                if (show == null) return;
+
                 var season = show.Seasons.FirstOrDefault(w => w.SeasonNumber == e.SeasonNumber);
 
                 backlog.Add(new BacklogItem {Show = show, Episode = e, Season = season});
