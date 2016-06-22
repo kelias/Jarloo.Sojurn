@@ -30,11 +30,21 @@ namespace Jarloo.Sojurn.ViewModels
         private readonly BindableCollection<Show> shows = new BindableCollection<Show>();
         private readonly BindableCollection<TimeLineItem> timeLine = new BindableCollection<TimeLineItem>();
         private Show selectedShow;
+        private string version;
 
         public CollectionViewSource Shows { get; set; }
         public CollectionViewSource TimeLine { get; set; }
         public CollectionViewSource Backlog { get; set; }
 
+        public string Version
+        {
+            get { return version; }
+            set
+            {
+                version = value;
+                NotifyOfPropertyChange(() => Version);
+            }
+        }
 
         public Show SelectedShow
         {
@@ -80,6 +90,8 @@ namespace Jarloo.Sojurn.ViewModels
             Backlog.SortDescriptions.Add(new SortDescription("ShowName", ListSortDirection.Ascending));
             Backlog.SortDescriptions.Add(new SortDescription("SeasonNumber", ListSortDirection.Ascending));
             Backlog.SortDescriptions.Add(new SortDescription("EpisodeNumberThisSeason", ListSortDirection.Ascending));
+
+            Version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
         public void AddShow()
