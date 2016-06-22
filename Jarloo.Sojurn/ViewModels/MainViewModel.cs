@@ -19,13 +19,13 @@ namespace Jarloo.Sojurn.ViewModels
     [Export]
     public sealed class MainViewModel : Screen
     {
+        #region Properties
+
         private readonly IInformationProvider infoProvider;
         private readonly IPersistenceManager pm;
         private readonly IWindowManager wm;
         public IStreamProvider StreamProvider { get; set; }
-
-        #region Properties
-
+        
         private readonly BindableCollection<BacklogItem> backlog = new BindableCollection<BacklogItem>();
         private readonly BindableCollection<Show> shows = new BindableCollection<Show>();
         private readonly BindableCollection<TimeLineItem> timeLine = new BindableCollection<TimeLineItem>();
@@ -136,7 +136,8 @@ namespace Jarloo.Sojurn.ViewModels
             var userSettings = pm.Retrieve<UserSettings>("index");
             if (userSettings?.Shows == null) return;
 
-            ImageHelper.DeleteUnusedImages(userSettings.Shows);
+            //Done here instead of close because some file locks are maintained and files cannot be removed.
+            Task.Run(()=>ImageHelper.DeleteUnusedImages(userSettings.Shows));
 
             foreach (var show in userSettings.Shows)
             {
@@ -197,7 +198,7 @@ namespace Jarloo.Sojurn.ViewModels
 
             try
             {
-                var newShow = await Task<Show>.Factory.StartNew(() => infoProvider.GetFullDetails(oldShow.ShowId));
+                var newShow = await Task.Run(() => infoProvider.GetFullDetails(oldShow.ShowId));
 
                 if (newShow == null) return;
 

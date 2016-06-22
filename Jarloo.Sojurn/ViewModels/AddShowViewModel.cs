@@ -12,113 +12,9 @@ namespace Jarloo.Sojurn.ViewModels
     [Export]
     public sealed class AddShowViewModel : Screen
     {
-        private readonly IInformationProvider informationProvider;
-
-        [ImportingConstructor]
-        public AddShowViewModel(IInformationProvider infoProvider, List<Show> currentShows)
-        {
-            Shows = new BindableCollection<Show>();
-            informationProvider = infoProvider;
-            DisplayName = "";
-            this.currentShows = currentShows;
-        }
-
-        public void Cancel()
-        {
-            TryClose(false);
-        }
-
-        public async void SearchShow()
-        {
-            IsSearchCompleted = false;
-            IsWorking = true;
-
-            var query = ShowName;
-            var shows = await Task<List<Show>>.Factory.StartNew(() =>
-            {
-                try
-                {
-                    return informationProvider.GetShows(query);
-                }
-                catch
-                {
-                    return null;
-                }
-            });
-
-            IsWorking = false;
-
-            Execute.BeginOnUIThread(() =>
-            {
-                Shows.Clear();
-                IsSearchCompleted = true;
-
-                if (shows == null)
-                {
-                    Error = "Provider failed to return information.";
-                    return;
-                }
-
-                Error = null;
-
-                foreach (var s in shows)
-                {
-                    Shows.Add(s);
-                }
-            });
-        }
-
-        public async void AddShow()
-        {
-            if (SelectedShow == null) return;
-
-            if (currentShows.Any(w => w.ShowId == SelectedShow.ShowId))
-            {
-                Error = "Show is already in your collection.";
-                ShowName = string.Empty;
-                IsSearchCompleted = false;
-                SelectedShow = null;
-                return;
-            }
-
-            Execute.BeginOnUIThread(() =>
-            {
-                IsWorking = true;
-                IsSearchCompleted = false;
-            });
-
-            var newShow = await Task<Show>.Factory.StartNew(() =>
-            {
-                try
-                {
-                    return informationProvider.GetFullDetails(SelectedShow.ShowId);
-                }
-                catch
-                {
-                    return null;
-                }
-            });
-
-            Show = newShow;
-
-            if (newShow != null)
-            {
-                Error = null;
-                TryClose(true);
-            }
-            else
-            {
-                Error = "Provider failed to return information.";
-            }
-        }
-
-        public void TextModified(KeyEventArgs e)
-        {
-            if (e.Key == Key.Return) SearchShow();
-        }
-
         #region Properties
 
+        private readonly IInformationProvider informationProvider;
         private bool isSearchCompleted;
         private string showName;
 
@@ -207,5 +103,110 @@ namespace Jarloo.Sojurn.ViewModels
         }
 
         #endregion
+        
+        [ImportingConstructor]
+        public AddShowViewModel(IInformationProvider infoProvider, List<Show> currentShows)
+        {
+            Shows = new BindableCollection<Show>();
+            informationProvider = infoProvider;
+            DisplayName = "";
+            this.currentShows = currentShows;
+        }
+
+        public void Cancel()
+        {
+            TryClose(false);
+        }
+
+        public async void SearchShow()
+        {
+            IsSearchCompleted = false;
+            IsWorking = true;
+
+            var query = ShowName;
+            var shows = await Task.Run(() =>
+            {
+                try
+                {
+                    return informationProvider.GetShows(query);
+                }
+                catch
+                {
+                    return null;
+                }
+            });
+
+            IsWorking = false;
+
+            Execute.BeginOnUIThread(() =>
+            {
+                Shows.Clear();
+                IsSearchCompleted = true;
+
+                if (shows == null)
+                {
+                    Error = "Provider failed to return information.";
+                    return;
+                }
+
+                Error = null;
+
+                foreach (var s in shows)
+                {
+                    Shows.Add(s);
+                }
+            });
+        }
+
+        public async void AddShow()
+        {
+            if (SelectedShow == null) return;
+
+            if (currentShows.Any(w => w.ShowId == SelectedShow.ShowId))
+            {
+                Error = "Show is already in your collection.";
+                ShowName = string.Empty;
+                IsSearchCompleted = false;
+                SelectedShow = null;
+                return;
+            }
+
+            Execute.BeginOnUIThread(() =>
+            {
+                IsWorking = true;
+                IsSearchCompleted = false;
+            });
+
+            var newShow = await Task.Run(() =>
+            {
+                try
+                {
+                    return informationProvider.GetFullDetails(SelectedShow.ShowId);
+                }
+                catch
+                {
+                    return null;
+                }
+            });
+
+            Show = newShow;
+
+            if (newShow != null)
+            {
+                Error = null;
+                TryClose(true);
+            }
+            else
+            {
+                Error = "Provider failed to return information.";
+            }
+        }
+
+        public void TextModified(KeyEventArgs e)
+        {
+            if (e.Key == Key.Return) SearchShow();
+        }
+
+       
     }
 }

@@ -7,15 +7,6 @@ namespace Jarloo.Sojurn.ViewModels
     [Export]
     public class ShowViewModel : PropertyChangedBase, IHaveDisplayName
     {
-        [ImportingConstructor]
-        public ShowViewModel(Show s)
-        {
-            Show = s;
-            DisplayName = s.Name;
-        }
-
-        public string DisplayName { get; set; }
-
         #region Properties
 
         private Show show;
@@ -31,5 +22,14 @@ namespace Jarloo.Sojurn.ViewModels
         }
 
         #endregion
+
+        [ImportingConstructor]
+        public ShowViewModel(Show s)
+        {
+            Show = s;
+            DisplayName = s.Name;
+        }
+
+        public string DisplayName { get; set; }
     }
 }

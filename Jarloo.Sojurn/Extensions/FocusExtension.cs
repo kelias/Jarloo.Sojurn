@@ -4,6 +4,9 @@ namespace Jarloo.Sojurn.Extensions
 {
     public static class FocusExtension
     {
+        public static readonly DependencyProperty IsFocusedProperty = DependencyProperty.RegisterAttached("IsFocused",
+            typeof(bool), typeof(FocusExtension), new UIPropertyMetadata(false, OnIsFocusedPropertyChanged));
+
         public static bool GetIsFocused(DependencyObject obj)
         {
             return (bool)obj.GetValue(IsFocusedProperty);
@@ -22,8 +25,5 @@ namespace Jarloo.Sojurn.Extensions
                 uie.Focus(); // Don't care about false values.
             }
         }
-
-        public static readonly DependencyProperty IsFocusedProperty = DependencyProperty.RegisterAttached("IsFocused",
-            typeof(bool), typeof(FocusExtension), new UIPropertyMetadata(false, OnIsFocusedPropertyChanged));
     }
 }
