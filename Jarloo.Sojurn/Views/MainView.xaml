@@ -145,7 +145,7 @@
                                        VerticalAlignment="Center" />
                                 <Controls:ProgressRing IsActive="{Binding IsLoading}" />
                             </Grid>
-                            <TextBlock Text="{Binding Name}" FontSize="14" TextAlignment="Center" />
+                            <TextBlock Text="{Binding Name}" FontSize="14" TextAlignment="Center" TextTrimming="CharacterEllipsis" Width="150" />
                             <TextBlock Text="{Binding Status}" FontSize="10" TextAlignment="Center" />
                         </StackPanel>
                         <StackPanel>
