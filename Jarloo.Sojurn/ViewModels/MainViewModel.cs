@@ -129,15 +129,20 @@ namespace Jarloo.Sojurn.ViewModels
             SaveShows();
         }
 
-        private void LoadShows()
+        private async void LoadShows()
         {
             shows.Clear();
 
             var userSettings = pm.Retrieve<UserSettings>("index");
-            if (userSettings?.Shows == null) return;
 
-            //Done here instead of close because some file locks are maintained and files cannot be removed.
-            Task.Run(()=>ImageHelper.DeleteUnusedImages(userSettings.Shows));
+            await Task.Run(() =>
+            {
+                
+                if (userSettings?.Shows == null) return;
+
+                //Done here instead of close because some file locks are maintained and files cannot be removed.
+                Task.Run(() => ImageHelper.DeleteUnusedImages(userSettings.Shows));
+            });
 
             foreach (var show in userSettings.Shows)
             {
@@ -150,8 +155,11 @@ namespace Jarloo.Sojurn.ViewModels
                 ImageHelper.GetEpisodeImages(show);
             }
 
-            UpdateTimeline();
-            UpdateBacklog();
+            await Task.Run(() =>
+            {
+                UpdateTimeline();
+                UpdateBacklog();
+            });
         }
 
         private void SaveShows()
