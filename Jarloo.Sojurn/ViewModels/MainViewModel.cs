@@ -94,6 +94,17 @@ namespace Jarloo.Sojurn.ViewModels
             Version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
+        public override void TryClose()
+        {
+            base.TryClose();
+
+            var userSettings = pm.Retrieve<UserSettings>("index");
+
+            if (userSettings?.Shows == null) return;
+            
+            Task.Run(() => ImageHelper.DeleteUnusedImages(userSettings.Shows));
+        }
+
         public void AddShow()
         {
             var win = new AddShowViewModel(infoProvider, shows.ToList());
@@ -134,16 +145,7 @@ namespace Jarloo.Sojurn.ViewModels
             shows.Clear();
 
             var userSettings = pm.Retrieve<UserSettings>("index");
-
-            await Task.Run(() =>
-            {
-                
-                if (userSettings?.Shows == null) return;
-
-                //Done here instead of close because some file locks are maintained and files cannot be removed.
-                Task.Run(() => ImageHelper.DeleteUnusedImages(userSettings.Shows));
-            });
-
+            
             foreach (var show in userSettings.Shows)
             {
                 if (show.Seasons.Count > 0) show.SelectedSeason = show.Seasons[show.Seasons.Count - 1];

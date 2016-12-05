@@ -56,7 +56,7 @@
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="imgRefresh"
                                                          Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
-                                                         From="0" To="360" Duration="0:0:0.5" />
+                                                         From="0" To="360" Duration="0:0:1.0" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -353,7 +353,7 @@
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type GroupItem}">
-                                        <StackPanel Margin="5,5,5,5">
+                                        <StackPanel Margin="5,5,5,5" Background="{StaticResource OrangeBrush}">
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="{Binding Name, StringFormat=\{0:ddd\}}" FontSize="40" />
                                                 <TextBlock Text="{Binding Name, StringFormat=\{0:MMM dd\}}"
@@ -387,7 +387,7 @@
                         <TextBlock Text="{Binding Show.AirTimeHour, StringFormat=\{0:00\}}" />
                         <TextBlock Text=":" />
                         <TextBlock Text="{Binding Show.AirTimeMinute, StringFormat=\{0:00\}}" />
-                        <TextBlock Text="{Binding Show.Name}" Margin="20,0,0,0" />
+                        <TextBlock Text="{Binding Show.Name}" Margin="20,0,0,0" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -432,7 +432,7 @@
 
         <Rectangle Fill="{StaticResource OrangeBrush}" Stroke="Black" Grid.Column="1" Margin="0,0,1,0" Grid.Row="1" />
 
-        <ListBox ItemsSource="{Binding Backlog.View}" Grid.Column="1" Grid.Row="1" Margin="0,58,1,0" SelectedItem="{Binding SelectedShow}">
+        <ListBox ItemsSource="{Binding Backlog.View}" Grid.Column="1" Grid.Row="1" Margin="0,58,1,0" SelectedItem="{Binding SelectedShow}" >
             <ListBox.GroupStyle>
                 <GroupStyle>
                     <GroupStyle.ContainerStyle>
@@ -440,7 +440,7 @@
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type GroupItem}">
-                                        <StackPanel Margin="5,5,5,5">
+                                        <StackPanel Margin="5,5,5,5" Background="{StaticResource OrangeBrush}">
                                             <TextBlock Text="{Binding Name}" FontSize="20" />
                                             <ItemsPresenter />
                                         </StackPanel>
