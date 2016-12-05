@@ -76,71 +76,71 @@ namespace Jarloo.Sojurn.Helpers
                 episode.IsLoading = true;
             }
 
-            Task.Run(() =>
+
+            foreach (var season in show.Seasons.OrderByDescending(w => w.SeasonNumber))
             {
-                foreach (var season in show.Seasons.OrderByDescending(w => w.SeasonNumber))
+                foreach (var episode in season.Episodes.OrderByDescending(w => w.EpisodeNumber))
                 {
-                    foreach (var episode in season.Episodes.OrderByDescending(w => w.EpisodeNumber))
+                    var e = episode;
+
+                    if (episode.ImageUrl != null)
                     {
-                        var e = episode;
+                        var extension = Path.GetExtension(e.ImageUrl);
+                        var file = $"{show.ShowId}_{season.SeasonNumber}_{e.EpisodeNumber}{extension}";
+                        var folder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                            ConfigurationManager.AppSettings["IMAGE_CACHE"]);
 
-                        if (episode.ImageUrl != null)
+                        if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
+
+                        var filename = Path.Combine(folder, file);
+
+                        if (!File.Exists(filename))
                         {
-                            var extension = Path.GetExtension(e.ImageUrl);
-                            var file = $"{show.ShowId}_{season.SeasonNumber}_{e.EpisodeNumber}{extension}";
-                            var folder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
-                                ConfigurationManager.AppSettings["IMAGE_CACHE"]);
-
-                            if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
-
-                            var filename = Path.Combine(folder, file);
-
-                            if (!File.Exists(filename))
+                            using (var web = new WebClient())
                             {
-                                using (var web = new WebClient())
-                                {
-                                    web.DownloadFile(e.ImageUrl, filename);
-                                }
+                                web.DownloadFile(e.ImageUrl, filename);
                             }
+                        }
 
-                            Execute.BeginOnUIThread(() =>
+                        Execute.BeginOnUIThread(() =>
+                        {
+                            try
                             {
-                                try
+                                if (extension?.ToUpper() == ".PNG")
                                 {
-                                    if (extension?.ToUpper() == ".PNG")
+                                    using (var imageStreamSource = new FileStream(filename, FileMode.Open,
+                                        FileAccess.Read, FileShare.Read))
                                     {
-                                        Stream imageStreamSource = new FileStream(filename, FileMode.Open,
-                                            FileAccess.Read, FileShare.Read);
                                         var decoder = new PngBitmapDecoder(imageStreamSource,
                                             BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
                                         e.ImageSource = decoder.Frames[0];
                                         e.ImageSource.Freeze();
                                     }
-                                    else
+                                }
+                                else
+                                {
+                                    try
                                     {
-                                        try
-                                        {
-                                            e.ImageSource = new BitmapImage(new Uri(filename));
-                                            e.ImageSource.Freeze();
-                                        }
-                                        catch
-                                        {
-                                            //File most likely corrupted
-                                            File.Delete(filename);
-                                        }
+                                        e.ImageSource = new BitmapImage(new Uri(filename));
+                                        e.ImageSource.Freeze();
+                                    }
+                                    catch
+                                    {
+                                        //File most likely corrupted
+                                        File.Delete(filename);
                                     }
                                 }
-                                catch
-                                {
-                                    //supress
-                                }
-                            });
-                        }
-
-                        Execute.BeginOnUIThread(() => e.IsLoading = false);
+                            }
+                            catch
+                            {
+                                //supress
+                            }
+                        });
                     }
+
+                    Execute.BeginOnUIThread(() => e.IsLoading = false);
                 }
-            });
+            }
         }
 
         public static void DeleteUnusedImages(List<Show> shows)
