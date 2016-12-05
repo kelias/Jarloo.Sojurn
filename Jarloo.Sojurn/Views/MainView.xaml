@@ -503,10 +503,12 @@
                                 <TextBlock Text="{Binding SeasonNumber, StringFormat=\{0:00\}}" FontSize="14" />
                                 <TextBlock Text="E" FontSize="14" />
                                 <TextBlock Text="{Binding EpisodeNumberThisSeason, StringFormat=\{0:00\}}" FontSize="14" />
-
                             </StackPanel>
 
-                            <TextBlock Text="{Binding Path=Episode.Title}" FontSize="10" Margin="32,0,0,0" />
+                            <StackPanel>
+                                <TextBlock Text="{Binding Path=Episode.Title}" FontSize="12" Margin="32,0,0,0" />
+                                <TextBlock Text="{Binding Episode.AirDate, StringFormat=D}" FontSize="9" Margin="32,8,0,0" Opacity="0.8"/>
+                            </StackPanel>
                         </StackPanel>
                         <Button Grid.Column="1" Cursor="Hand"
                                 cal:Message.Attach="[Event Click] = [Action ShowStreamProvider($this)]"

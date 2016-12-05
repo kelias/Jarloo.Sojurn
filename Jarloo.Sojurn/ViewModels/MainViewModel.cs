@@ -21,7 +21,7 @@ namespace Jarloo.Sojurn.ViewModels
     {
         #region Properties
 
-        private readonly IInformationProvider infoProvider;
+        private readonly IInformationProvider ip;
         private readonly IPersistenceManager pm;
         private readonly IWindowManager wm;
         public IStreamProvider StreamProvider { get; set; }
@@ -75,7 +75,7 @@ namespace Jarloo.Sojurn.ViewModels
             DisplayName = "Sojurn";
             wm = windowManager;
             pm = persistenceManager;
-            this.infoProvider = infoProvider;
+            ip = infoProvider;
             StreamProvider = streamProvider;
 
             Shows = new CollectionViewSource {Source = shows};
@@ -90,7 +90,7 @@ namespace Jarloo.Sojurn.ViewModels
             Backlog.SortDescriptions.Add(new SortDescription("ShowName", ListSortDirection.Ascending));
             Backlog.SortDescriptions.Add(new SortDescription("SeasonNumber", ListSortDirection.Ascending));
             Backlog.SortDescriptions.Add(new SortDescription("EpisodeNumberThisSeason", ListSortDirection.Ascending));
-
+            
             Version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
@@ -107,7 +107,7 @@ namespace Jarloo.Sojurn.ViewModels
 
         public void AddShow()
         {
-            var win = new AddShowViewModel(infoProvider, shows.ToList());
+            var win = new AddShowViewModel(ip, shows.ToList());
             if (wm.ShowDialog(win) != true) return;
             if (win.Show == null) return;
 
@@ -144,7 +144,7 @@ namespace Jarloo.Sojurn.ViewModels
         {
             shows.Clear();
 
-            var userSettings = pm.Retrieve<UserSettings>("index");
+            var userSettings = await Task.Run(()=>pm.Retrieve<UserSettings>("index"));
             
             foreach (var show in userSettings.Shows)
             {
@@ -208,7 +208,7 @@ namespace Jarloo.Sojurn.ViewModels
 
             try
             {
-                var newShow = await Task.Run(() => infoProvider.GetFullDetails(oldShow.ShowId));
+                var newShow = await Task.Run(() => ip.GetFullDetails(oldShow.ShowId));
 
                 if (newShow == null) return;
 
