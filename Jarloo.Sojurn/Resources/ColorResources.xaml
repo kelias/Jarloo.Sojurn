@@ -47,7 +47,7 @@
     <SolidColorBrush x:Key="Background" Color="#FF1D1D1D" />
     <SolidColorBrush x:Key="Foreground" Color="#FFFFFFFF" />
 
-    <Style TargetType="{x:Type ListBox}">
+    <Style TargetType="{x:Type ListBox}" x:Key="NoFocusListBoxStyle">
         <Style.Resources>
             <Style TargetType="{x:Type ListBoxItem}">
                 <Setter Property="FocusVisualStyle" Value="{x:Null}" />

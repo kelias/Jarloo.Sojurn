@@ -20,11 +20,7 @@
     </Window.Resources>
     
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="693"/>
-        </Grid.RowDefinitions>
-
-        <ListBox ItemsSource="{Binding Seasons.View}" Background="{x:Null}" ScrollViewer.CanContentScroll="False" Style="{StaticResource NoHighlightStyle}">
+        <ListBox ItemsSource="{Binding Seasons.View}" Background="{x:Null}" ScrollViewer.CanContentScroll="False" Style="{StaticResource NoFocusListBoxStyle}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -33,7 +29,7 @@
                             <TextBlock Text="Season" FontSize="16" Margin="20,0,0,0"/>
                         </StackPanel>
 
-                        <ListBox ItemsSource="{Binding Episodes}" Style="{StaticResource NoHighlightStyle}">
+                        <ListBox ItemsSource="{Binding Episodes}" Style="{StaticResource NoFocusListBoxStyle}">
                             <i:Interaction.Behaviors>
                                 <behaviors:IgnoreMouseWheelBehavior />
                             </i:Interaction.Behaviors>

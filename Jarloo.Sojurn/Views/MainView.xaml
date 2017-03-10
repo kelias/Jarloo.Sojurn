@@ -70,7 +70,7 @@
         </StackPanel>
         
         <ListBox ItemsSource="{Binding Shows.View}" Background="{x:Null}"  Grid.Row="1" Grid.Column="0"
-                    ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled" Style="{StaticResource NoFocusListBoxStyle}" SelectedItem="{Binding SelectedShow}">
 
             <i:Interaction.Behaviors>
                 <behaviors:ScrollIntoViewBehavior />
