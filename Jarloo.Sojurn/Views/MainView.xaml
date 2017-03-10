@@ -9,12 +9,19 @@
         xmlns:views="clr-namespace:Jarloo.Sojurn.Views"
         xmlns:viewModels="clr-namespace:Jarloo.Sojurn.ViewModels"
         xmlns:behaviors="clr-namespace:Jarloo.Sojurn.Behaviors"
+        xmlns:converters="clr-namespace:Jarloo.Sojurn.Converters"
         mc:Ignorable="d"
         BorderBrush="{DynamicResource AccentColorBrush}"
         BorderThickness="1"
         Height="775" Width="1564"
         Background="{StaticResource Background}" Foreground="{StaticResource Foreground}"
         d:DataContext="{d:DesignInstance {x:Type viewModels:MainViewModel}}">
+
+    <Window.Resources>
+        <converters:BoolToVisHiddenConverter x:Key="BoolToVisHiddenConverter"/>
+    </Window.Resources>
+        
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -72,7 +79,7 @@
             
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel DockPanel.Dock="Left" Cursor="Hand" Margin="-4,5,0,10">
+                    <StackPanel DockPanel.Dock="Left" Cursor="Hand" Margin="-4,5,0,10" Name="ItemPanel">
                         <Grid>
                             <Image Source="{Binding ImageSource}" Width="150" Height="189" Stretch="Uniform"
                                         VerticalAlignment="Center">
@@ -90,7 +97,7 @@
                         <TextBlock Text="{Binding Name}" FontSize="14" TextAlignment="Center" TextTrimming="CharacterEllipsis" Width="150" />
                         <TextBlock Text="{Binding Status}" FontSize="10" TextAlignment="Center" />
                         
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Name="controlPanel">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Name="controlPanel" Visibility="{Binding IsMouseOver, ElementName=ItemPanel, Converter={StaticResource BoolToVisHiddenConverter}}">
                             <Button Height="24" Width="24" Cursor="Hand"
                                         VerticalAlignment="Top" ToolTip="Delete Show" Command="{Binding DataContext.DeleteShowCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" CommandParameter="{Binding .}">
                                 <Button.Template>

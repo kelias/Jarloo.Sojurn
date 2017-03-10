@@ -79,9 +79,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Behaviors\IgnoreMouseWheelBehavior.cs" />
     <Compile Include="Behaviors\ScrollIntoViewBehavior.cs" />
+    <Compile Include="Converters\BoolToVisHiddenConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\LastUpdatedConverter.cs" />
+    <Compile Include="Converters\NumberExtensionConverter.cs" />
     <Compile Include="Converters\ReverseBooleanConverter.cs" />
     <Compile Include="Extensions\FocusExtension.cs" />
     <Compile Include="Helpers\NotifyPropertyChangedBase.cs" />
