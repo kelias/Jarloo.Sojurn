@@ -1,53 +1,101 @@
-﻿<UserControl x:Class="Jarloo.Sojurn.Views.EpisodeView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             mc:Ignorable="d" Height="587.148" Width="339">
+﻿<views:View x:Class="Jarloo.Sojurn.Views.EpisodeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+            xmlns:views="clr-namespace:Jarloo.Sojurn.Views"
+            mc:Ignorable="d"
+        BorderBrush="{DynamicResource AccentColorBrush}"
+        BorderThickness="1"
+        Background="{StaticResource Background}" Foreground="{StaticResource Foreground}"
+        Height="726.316" Width="1400">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="230" />
-            <RowDefinition />
+            <RowDefinition Height="693"/>
         </Grid.RowDefinitions>
 
-        <Image Height="200" Margin="9,10,10,0" VerticalAlignment="Top" Source="{Binding Episode.ImageSource}"
-               Stretch="Uniform" />
+        <ListBox ItemsSource="{Binding Seasons.View}" Background="{x:Null}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,10,10,0">
+                            <TextBlock Text="Season " FontSize="16" />
+                            <TextBlock Text="{Binding SeasonNumber}" FontSize="30" Margin="0,-10,0,0" />
+                        </StackPanel>
 
-        <StackPanel HorizontalAlignment="Left" Margin="10,10,0,0" Width="319"
-                    Grid.Row="1" Height="93" VerticalAlignment="Top">
+                        <ListBox ItemsSource="{Binding Episodes}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <DockPanel>
+                                        <DockPanel.Style>
+                                            <Style TargetType="{x:Type DockPanel}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding HasBeenViewed}" Value="true">
+                                                        <Setter Property="Opacity" Value="0.3" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding HasBeenViewed}" Value="false">
+                                                        <Setter Property="Opacity" Value="1" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </DockPanel.Style>
+                                        <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Center" Orientation="Horizontal">
+                                            <Button Height="24" Width="24" Cursor="Hand" VerticalAlignment="Top" Margin="0,0,0,0" Command="{Binding DataContext.ToggleViewedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type views:View}}}" CommandParameter="{Binding .}">
+                                                <Button.Template>
+                                                    <ControlTemplate>
+                                                        <Image>
+                                                            <Image.Style>
+                                                                <Style TargetType="{x:Type Image}">
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{Binding HasBeenViewed}" Value="true">
+                                                                            <Setter Property="Source" Value="{StaticResource Hide}" />
+                                                                        </DataTrigger>
 
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Show Name" />
-                <TextBlock Text="{Binding Episode.ShowName}" Margin="10,0,0,0" />
-            </StackPanel>
+                                                                        <DataTrigger Binding="{Binding HasBeenViewed}" Value="false">
+                                                                            <Setter Property="Source" Value="{StaticResource Show}" />
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </Image.Style>
+                                                        </Image>
+                                                    </ControlTemplate>
+                                                </Button.Template>
+                                            </Button>
+                                        </StackPanel>
+                                        <StackPanel Cursor="Hand">
+                                            <Grid>
+                                                <Image Source="{Binding ImageSource}" Width="150" Height="80"
+                                                           Stretch="Uniform" VerticalAlignment="Center" />
+                                                <TextBlock Text="{Binding EpisodeNumberThisSeason}" FontSize="60"
+                                                               Foreground="#96FFFFFF" TextAlignment="Center"
+                                                               HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                <controls:ProgressRing IsActive="{Binding IsLoading}" />
+                                            </Grid>
+                                            <StackPanel>
+                                                <TextBlock Text="{Binding Title}" TextAlignment="Center"
+                                                               Margin="0,10,0,0" FontSize="14" />
+                                                <TextBlock
+                                                        Text="{Binding AirDate, StringFormat=\{0:MMM dd\, yyyy\}}"
+                                                        TextAlignment="Center" Margin="0,2,0,0" FontSize="12"
+                                                        Foreground="{StaticResource OrangeBrush}" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DockPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                        </ListBox>
 
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Season Number" />
-                <TextBlock Text="{Binding Episode.SeasonNumber}" Margin="10,0,0,0" />
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Episode Number" />
-                <TextBlock Text="{Binding Episode.EpisodeNumber}" Margin="10,0,0,0" />
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Title" />
-                <TextBlock Text="{Binding Episode.Title}" Margin="10,0,0,0" />
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Air Date" />
-                <TextBlock Text="{Binding Episode.AirDate, StringFormat=\{0:MMM dd\, yyyy\}}" Margin="10,0,0,0" />
-            </StackPanel>
-        </StackPanel>
-        <Button Content="OK" Margin="120,0,0,20" Grid.Row="1" Height="35" VerticalAlignment="Bottom"
-                HorizontalAlignment="Left" Width="88" IsCancel="True" IsDefault="True" />
-        
-        <TextBlock Text="Summary" Margin="9,108,258,229" Grid.Row="1" />
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="10,133,10,68" Grid.Row="1">
-            <TextBlock Text="{Binding Episode.Summary}"  TextWrapping="Wrap" />
-        </ScrollViewer>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
     </Grid>
-</UserControl>
+</views:View>
+

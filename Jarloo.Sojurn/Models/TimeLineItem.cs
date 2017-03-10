@@ -1,9 +1,9 @@
 ﻿using System;
-using Caliburn.Micro;
+using Jarloo.Sojurn.Helpers;
 
 namespace Jarloo.Sojurn.Models
 {
-    public class TimeLineItem : PropertyChangedBase
+    public class TimeLineItem : NotifyPropertyChangedBase
     {
         private Episode episode;
         private Show show;

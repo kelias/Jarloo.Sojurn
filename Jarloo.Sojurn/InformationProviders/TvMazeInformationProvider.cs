@@ -4,6 +4,7 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Web;
+using Jarloo.Sojurn.Extensions;
 using Jarloo.Sojurn.Helpers;
 using Jarloo.Sojurn.Models;
 using Newtonsoft.Json;

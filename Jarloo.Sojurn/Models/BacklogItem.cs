@@ -1,8 +1,8 @@
-﻿using Caliburn.Micro;
+﻿using Jarloo.Sojurn.Helpers;
 
 namespace Jarloo.Sojurn.Models
 {
-    public class BacklogItem : PropertyChangedBase
+    public class BacklogItem : NotifyPropertyChangedBase
     {
         private Episode episode;
         private Season season;

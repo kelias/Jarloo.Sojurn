@@ -1,8 +1,6 @@
-﻿using System.Windows.Controls;
-
-namespace Jarloo.Sojurn.Views
+﻿namespace Jarloo.Sojurn.Views
 {
-    public partial class EpisodeView : UserControl
+    public partial class EpisodeView
     {
         public EpisodeView()
         {

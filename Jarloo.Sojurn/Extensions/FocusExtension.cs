@@ -20,6 +20,7 @@ namespace Jarloo.Sojurn.Extensions
         private static void OnIsFocusedPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var uie = (UIElement)d;
+
             if ((bool)e.NewValue)
             {
                 uie.Focus(); // Don't care about false values.

@@ -1,26 +1,28 @@
-﻿<UserControl x:Class="Jarloo.Sojurn.Views.AddShowView"
+﻿<views:View x:Class="Jarloo.Sojurn.Views.AddShowView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
-             xmlns:converters="clr-namespace:Jarloo.Sojurn.Converters"
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:views="clr-namespace:Jarloo.Sojurn.Views"
+             xmlns:converters="clr-namespace:Jarloo.Sojurn.Converters"
              xmlns:extensions="clr-namespace:Jarloo.Sojurn.Extensions"
-             mc:Ignorable="d" Width="723" Height="703">
+             mc:Ignorable="d" Width="723" Height="703"
+             BorderBrush="{DynamicResource AccentColorBrush}"
+             BorderThickness="1"
+             Background="{StaticResource Background}" Foreground="{StaticResource Foreground}">
 
-    <UserControl.Resources>
+    <Window.Resources>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisConverter" />
         <converters:ReverseBooleanConverter x:Key="ReverseBooleanConverter" />
-    </UserControl.Resources>
+    </Window.Resources>
 
     <Grid>
         <TextBlock HorizontalAlignment="Left" Height="59" Margin="45,14,0,0" TextWrapping="Wrap" Text="add a show"
-                   VerticalAlignment="Top" Width="312" FontSize="32" />
+                   VerticalAlignment="Top" Width="312" FontSize="32"  />
 
         <Button HorizontalAlignment="Left" Height="46" Margin="380,80,0,0" VerticalAlignment="Top" Width="46"
-                Cursor="Hand" x:Name="SearchShow"
-                IsEnabled="{Binding IsWorking, Converter={StaticResource ReverseBooleanConverter}}">
+                Cursor="Hand" IsEnabled="{Binding IsWorking, Converter={StaticResource ReverseBooleanConverter}}" Command="{Binding SearchCommand}" IsDefault="True">
             <Button.Template>
                 <ControlTemplate>
                     <Image Source="{StaticResource Search}" />
@@ -29,11 +31,11 @@
         </Button>
 
         <TextBox HorizontalAlignment="Left" Height="26" Margin="45,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top"
-                 Width="330" x:Name="ShowName" cal:Message.Attach="[Event KeyUp] = [Action TextModified($eventArgs)]" TabIndex="0"
+                 Width="330" TabIndex="0" Text="{Binding ShowName, UpdateSourceTrigger=PropertyChanged}"
                  extensions:FocusExtension.IsFocused="{Binding IsShowNameFocused}"/>
 
-        <ListBox Margin="10,202,10,100"
-                 Background="{x:Null}" x:Name="Shows" 
+        <ListBox Margin="10,202,10,100" ItemsSource="{Binding Shows}"
+                 Background="{x:Null}" 
                  Visibility="{Binding IsSearchCompleted, Converter={StaticResource BoolToVisConverter}}"
                  SelectedItem="{Binding SelectedShow}"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -54,8 +56,8 @@
             </ListBox.ItemsPanel>
         </ListBox>
 
-        <Button x:Name="AddShow" Content="Add" Margin="0,0,121,21" HorizontalAlignment="Right" Width="94" Height="34" VerticalAlignment="Bottom" />
-        <Button x:Name="Cancel" Content="Cancel" Margin="0,0,16,21" IsCancel="True" HorizontalAlignment="Right" Width="94" Height="34" VerticalAlignment="Bottom" />
+        <Button Content="Add" Margin="0,0,121,21" HorizontalAlignment="Right" Width="94" Height="34" VerticalAlignment="Bottom" Command="{Binding AddShowCommand}"/>
+        <Button Content="Cancel" Margin="0,0,16,21" IsCancel="True" HorizontalAlignment="Right" Width="94" Height="34" VerticalAlignment="Bottom" Command="{Binding CancelCommand}"/>
 
         <TextBlock HorizontalAlignment="Left" Height="23" Margin="45,143,0,0" TextWrapping="Wrap"
                    VerticalAlignment="Top" Width="330" Foreground="#FFE51400" Name="Error" />
@@ -63,4 +65,4 @@
         <Controls:ProgressRing IsActive="{Binding IsWorking}" d:IsHidden="true" />
 
     </Grid>
-</UserControl>
+</views:View>

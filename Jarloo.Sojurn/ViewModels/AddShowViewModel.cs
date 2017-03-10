@@ -1,30 +1,33 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.Composition;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Caliburn.Micro;
+using Jarloo.Sojurn.Helpers;
 using Jarloo.Sojurn.InformationProviders;
 using Jarloo.Sojurn.Models;
 
 namespace Jarloo.Sojurn.ViewModels
 {
-    [Export]
-    public sealed class AddShowViewModel : Screen
+    
+    public sealed class AddShowViewModel : ViewModel
     {
         #region Properties
 
-        private readonly IInformationProvider informationProvider;
+        public IInformationProvider InformationProvider;
         private bool isSearchCompleted;
         private string showName;
 
-        public BindableCollection<Show> Shows { get; set; }
+        public ObservableCollection<Show> Shows { get; set; } = new ObservableCollection<Show>();
 
-        private bool isWorking;
+        public ICommand AddShowCommand { get; set; }
+        public ICommand CancelCommand { get; set; }
+        public ICommand SearchCommand { get; set; }
+        
         private Show selectedShow;
-        private Show show;
+        private Show newShow;
         private string error;
-        private readonly List<Show> currentShows;
+        public  List<Show> CurrentShows;
         private bool isShowNameFocused = true;
 
         public string Error
@@ -46,15 +49,15 @@ namespace Jarloo.Sojurn.ViewModels
             }
         }
 
-        public bool CanAddShow => SelectedShow != null && isWorking == false;
+        public bool CanAddShow => SelectedShow != null && IsWorking == false;
 
-        public Show Show
+        public Show NewShow
         {
-            get { return show; }
+            get { return newShow; }
             set
             {
-                show = value;
-                NotifyOfPropertyChange(() => Show);
+                newShow = value;
+                NotifyOfPropertyChange(() => NewShow);
             }
         }
 
@@ -65,18 +68,6 @@ namespace Jarloo.Sojurn.ViewModels
             {
                 selectedShow = value;
                 NotifyOfPropertyChange(() => SelectedShow);
-                NotifyOfPropertyChange(() => CanAddShow);
-            }
-        }
-
-
-        public bool IsWorking
-        {
-            get { return isWorking; }
-            set
-            {
-                isWorking = value;
-                NotifyOfPropertyChange(() => IsWorking);
                 NotifyOfPropertyChange(() => CanAddShow);
             }
         }
@@ -104,18 +95,21 @@ namespace Jarloo.Sojurn.ViewModels
 
         #endregion
         
-        [ImportingConstructor]
-        public AddShowViewModel(IInformationProvider infoProvider, List<Show> currentShows)
+    
+        public AddShowViewModel()
         {
-            Shows = new BindableCollection<Show>();
-            informationProvider = infoProvider;
-            DisplayName = "";
-            this.currentShows = currentShows;
+            BindCommands();
         }
-
-        public void Cancel()
+        
+        private void BindCommands()
         {
-            TryClose(false);
+            AddShowCommand = new RelayCommand(t=> AddShow());
+            CancelCommand = new RelayCommand(t =>
+            {
+                View.DialogResult = false;
+                Close();
+            });
+            SearchCommand = new RelayCommand(t=> SearchShow());
         }
 
         public async void SearchShow()
@@ -128,60 +122,54 @@ namespace Jarloo.Sojurn.ViewModels
             {
                 try
                 {
-                    return informationProvider.GetShows(query);
+                    return InformationProvider.GetShows(query);
                 }
                 catch
                 {
                     return null;
                 }
             });
+            
+            Shows.Clear();
+            IsSearchCompleted = true;
+
+            if (shows == null)
+            {
+                Error = "Provider failed to return information.";
+                return;
+            }
+
+            Error = null;
+
+            foreach (var s in shows)
+            {
+                Shows.Add(s);
+            }
 
             IsWorking = false;
-
-            Execute.BeginOnUIThread(() =>
-            {
-                Shows.Clear();
-                IsSearchCompleted = true;
-
-                if (shows == null)
-                {
-                    Error = "Provider failed to return information.";
-                    return;
-                }
-
-                Error = null;
-
-                foreach (var s in shows)
-                {
-                    Shows.Add(s);
-                }
-            });
         }
 
         public async void AddShow()
         {
             if (SelectedShow == null) return;
 
-            if (currentShows.Any(w => w.ShowId == SelectedShow.ShowId))
+            if (CurrentShows.Any(w => w.ShowId == SelectedShow.ShowId))
             {
-                Error = "Show is already in your collection.";
+                Error = "NewShow is already in your collection.";
                 ShowName = string.Empty;
                 IsSearchCompleted = false;
                 SelectedShow = null;
                 return;
             }
-
-            Execute.BeginOnUIThread(() =>
-            {
-                IsWorking = true;
-                IsSearchCompleted = false;
-            });
-
+            
+            IsWorking = true;
+            IsSearchCompleted = false;
+            
             var newShow = await Task.Run(() =>
             {
                 try
                 {
-                    return informationProvider.GetFullDetails(SelectedShow.ShowId);
+                    return InformationProvider.GetFullDetails(SelectedShow.ShowId);
                 }
                 catch
                 {
@@ -189,12 +177,13 @@ namespace Jarloo.Sojurn.ViewModels
                 }
             });
 
-            Show = newShow;
+            NewShow = newShow;
 
             if (newShow != null)
             {
                 Error = null;
-                TryClose(true);
+                View.DialogResult = true;
+                Close();
             }
             else
             {
@@ -206,7 +195,5 @@ namespace Jarloo.Sojurn.ViewModels
         {
             if (e.Key == Key.Return) SearchShow();
         }
-
-       
     }
 }

@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
+
+    <BitmapImage UriSource="/Jarloo.Sojurn;component/Images/appbar.add.png" x:Key="Add" PresentationOptions:Freeze="True"/>
+    <BitmapImage UriSource="/Jarloo.Sojurn;component/Images/appbar.refresh.clockwise.down.png" x:Key="Refresh"  PresentationOptions:Freeze="True"/>
+    <BitmapImage UriSource="/Jarloo.Sojurn;component/Images/appbar.eye.hide.png" x:Key="Hide"  PresentationOptions:Freeze="True"/>
+    <BitmapImage UriSource="/Jarloo.Sojurn;component/Images/appbar.eye.png" x:Key="Show"  PresentationOptions:Freeze="True"/>
+    <BitmapImage UriSource="/Jarloo.Sojurn;component/Images/appbar.page.search.png" x:Key="Search"  PresentationOptions:Freeze="True"/>
+    <BitmapImage UriSource="/Jarloo.Sojurn;component/Images/appbar.close.png" x:Key="Close"  PresentationOptions:Freeze="True"/>
+    <BitmapImage UriSource="/Jarloo.Sojurn;component/Images/Logo.ico" x:Key="Logo"  PresentationOptions:Freeze="True"/>
+    <BitmapImage UriSource="/Jarloo.Sojurn;component/Images/appbar.settings.png" x:Key="Settings"  PresentationOptions:Freeze="True"/>
+    <BitmapImage UriSource="/Jarloo.Sojurn;component/Images/appbar.monitor.play.png" x:Key="Play"  PresentationOptions:Freeze="True"/>
+
+</ResourceDictionary>

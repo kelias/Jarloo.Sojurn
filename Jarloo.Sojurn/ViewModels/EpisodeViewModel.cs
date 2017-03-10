@@ -1,31 +1,49 @@
-﻿using System.ComponentModel.Composition;
-using Caliburn.Micro;
+﻿using System;
+using System.ComponentModel;
+using System.Threading.Tasks;
+using System.Windows.Data;
+using System.Windows.Input;
+using Jarloo.Sojurn.Helpers;
 using Jarloo.Sojurn.Models;
 
 namespace Jarloo.Sojurn.ViewModels
 {
-    [Export]
-    public class EpisodeViewModel : PropertyChangedBase, IHaveDisplayName
+    public class EpisodeViewModel : ViewModel
     {
-        private Episode episode;
+        public CollectionViewSource Seasons { get; set; }
+        private Action<Episode> callback;
 
-        [ImportingConstructor]
-        public EpisodeViewModel(Episode e)
+        public ICommand ToggleViewedCommand { get; set; }
+        
+        public EpisodeViewModel()
         {
-            episode = e;
-            DisplayName = e.ShowName;
+            Seasons = new CollectionViewSource();
+
+            ToggleViewedCommand = new RelayCommand(t => ToggleViewed(t as Episode));
         }
 
-        public Episode Episode
+        public void Show(Show show, Action<Episode> cb)
         {
-            get { return episode; }
-            set
-            {
-                episode = value;
-                NotifyOfPropertyChange(() => Episode);
-            }
+            callback = cb;
+            
+            Show();
+
+            Title = $"{show.Name} - Seasons and Episodes";
+
+
+            Seasons.Source = show.Seasons;
+            Seasons.SortDescriptions.Add(new SortDescription("SeasonNumber", ListSortDirection.Descending));
+
+            Seasons.View.Refresh();
+
+            Task.Run(() => ImageHelper.GetEpisodeImages(show, View.Dispatcher));
         }
 
-        public string DisplayName { get; set; }
+        private void ToggleViewed(Episode e)
+        {
+            e.HasBeenViewed = !e.HasBeenViewed;
+
+            callback?.Invoke(e);
+        }
     }
 }

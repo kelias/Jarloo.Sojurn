@@ -4,9 +4,8 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
-using Caliburn.Micro;
+using System.Windows.Threading;
 using Jarloo.Sojurn.Models;
 
 namespace Jarloo.Sojurn.Helpers
@@ -41,35 +40,29 @@ namespace Jarloo.Sojurn.Helpers
 
             show.IsLoading = true;
 
-            Task.Run(() =>
+            var extension = Path.GetExtension(show.ImageUrl);
+            var file = $"{show.ShowId}{extension}";
+            var folder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                ConfigurationManager.AppSettings["IMAGE_CACHE"]);
+
+            if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
+
+            var filename = Path.Combine(folder, file);
+
+            if (!File.Exists(filename))
             {
-                var extension = Path.GetExtension(show.ImageUrl);
-                var file = $"{show.ShowId}{extension}";
-                var folder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
-                    ConfigurationManager.AppSettings["IMAGE_CACHE"]);
-
-                if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
-
-                var filename = Path.Combine(folder, file);
-
-                if (!File.Exists(filename))
+                using (var web = new WebClient())
                 {
-                    using (var web = new WebClient())
-                    {
-                        web.DownloadFile(show.ImageUrl, filename);
-                    }
+                    web.DownloadFile(show.ImageUrl, filename);
                 }
+            }
 
-                Execute.BeginOnUIThread(() =>
-                {
-                    show.ImageSource = new BitmapImage(new Uri(filename));
-                    show.ImageSource.Freeze();
-                    show.IsLoading = false;
-                });
-            });
+            show.ImageSource = new BitmapImage(new Uri(filename));
+            show.ImageSource.Freeze();
+            show.IsLoading = false;
         }
 
-        public static void GetEpisodeImages(Show show)
+        public static void GetEpisodeImages(Show show, Dispatcher dispatcher)
         {
             foreach (var episode in show.Seasons.SelectMany(season => season.Episodes))
             {
@@ -102,7 +95,7 @@ namespace Jarloo.Sojurn.Helpers
                             }
                         }
 
-                        Execute.BeginOnUIThread(() =>
+                        dispatcher.InvokeAsync(() =>
                         {
                             try
                             {
@@ -135,10 +128,10 @@ namespace Jarloo.Sojurn.Helpers
                             {
                                 //supress
                             }
-                        });
+                        }, DispatcherPriority.Background);
                     }
 
-                    Execute.BeginOnUIThread(() => e.IsLoading = false);
+                    dispatcher.InvokeAsync(() => { e.IsLoading = false; }, DispatcherPriority.Background);
                 }
             }
         }
@@ -149,6 +142,8 @@ namespace Jarloo.Sojurn.Helpers
 
             var folder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
                 ConfigurationManager.AppSettings["IMAGE_CACHE"]);
+
+            if (!Directory.Exists(folder)) return;
 
             var files = Directory.GetFiles(folder);
 

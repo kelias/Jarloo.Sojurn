@@ -1,20 +1,19 @@
 ﻿<Application x:Class="Jarloo.Sojurn.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sojurn="clr-namespace:Jarloo.Sojurn">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Startup="App_OnStartup">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary>
-                    <sojurn:SojurnBootstrapper x:Key="bootstrapper" />
-                </ResourceDictionary>
 
                 <ResourceDictionary Source="/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="/MahApps.Metro;component/Styles/Colors.xaml" />
                 <ResourceDictionary Source="/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
 
-                <ResourceDictionary Source="/Resources/LocalResources.xaml" />
-
+                <ResourceDictionary Source="/Resources/ColorResources.xaml" />
+                <ResourceDictionary Source="/Resources/ImageResources.xaml" />
+                
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Windows.Media;
-using Caliburn.Micro;
+using Jarloo.Sojurn.Helpers;
 
 namespace Jarloo.Sojurn.Models
 {
     [DataContract]
-    public class Show : PropertyChangedBase
+    public class Show : NotifyPropertyChangedBase
     {
         private int airTimeHour;
         private int airTimeMinute;

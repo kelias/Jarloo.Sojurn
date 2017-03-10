@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
-using Caliburn.Micro;
+using Jarloo.Sojurn.Helpers;
 
 namespace Jarloo.Sojurn.Models
 {
     [DataContract]
-    public class Season : PropertyChangedBase
+    public class Season : NotifyPropertyChangedBase
     {
         private int seasonNumber;
 
