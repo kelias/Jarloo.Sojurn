@@ -8,6 +8,7 @@
             xmlns:converters="clr-namespace:Jarloo.Sojurn.Converters"
             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
             xmlns:behaviors="clr-namespace:Jarloo.Sojurn.Behaviors"
+            xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
             mc:Ignorable="d"
         BorderBrush="{DynamicResource AccentColorBrush}"
         BorderThickness="1"
@@ -23,7 +24,7 @@
             <RowDefinition Height="693"/>
         </Grid.RowDefinitions>
 
-        <ListBox ItemsSource="{Binding Seasons.View}" Background="{x:Null}" ScrollViewer.CanContentScroll="False">
+        <ListBox ItemsSource="{Binding Seasons.View}" Background="{x:Null}" ScrollViewer.CanContentScroll="False" Style="{StaticResource NoHighlightStyle}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -32,7 +33,7 @@
                             <TextBlock Text="Season" FontSize="16" Margin="20,0,0,0"/>
                         </StackPanel>
 
-                        <ListBox ItemsSource="{Binding Episodes}">
+                        <ListBox ItemsSource="{Binding Episodes}" Style="{StaticResource NoHighlightStyle}">
                             <i:Interaction.Behaviors>
                                 <behaviors:IgnoreMouseWheelBehavior />
                             </i:Interaction.Behaviors>

@@ -75,11 +75,10 @@
             <i:Interaction.Behaviors>
                 <behaviors:ScrollIntoViewBehavior />
             </i:Interaction.Behaviors>
-
             
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel DockPanel.Dock="Left" Cursor="Hand" Margin="-4,5,0,10" Name="ItemPanel">
+                    <StackPanel DockPanel.Dock="Left" Cursor="Hand" Margin="-4,5,0,10" Name="ItemPanel" Background="{StaticResource Background}">
                         <Grid>
                             <Image Source="{Binding ImageSource}" Width="150" Height="189" Stretch="Uniform"
                                         VerticalAlignment="Center">
