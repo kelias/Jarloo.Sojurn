@@ -13,8 +13,7 @@ namespace Jarloo.Sojurn.Helpers
 
         protected virtual void NotifyOfPropertyChange(string propertyName)
         {
-            if (PropertyChanged == null) return;
-            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public virtual void NotifyOfPropertyChange<TProperty>(Expression<Func<TProperty>> property)

@@ -106,14 +106,9 @@
   <ItemGroup>
     <Compile Include="Data\IPersistenceManager.cs" />
     <Compile Include="Data\LocalJsonPersistenceManager.cs" />
-    <Compile Include="Extensions\CollectionExtensions.cs" />
-    <Compile Include="Extensions\CompressionExtensions.cs" />
     <Compile Include="Extensions\ConversionExtensions.cs" />
-    <Compile Include="Extensions\CreationExtensions.cs" />
     <Compile Include="Extensions\DataExtensions.cs" />
     <Compile Include="Extensions\LambdaExtensions.cs" />
-    <Compile Include="Extensions\LinqExtensions.cs" />
-    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\ViewModelBinder.cs" />
