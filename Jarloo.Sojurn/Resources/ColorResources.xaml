@@ -3,10 +3,10 @@
                     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                     xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions">
 
-    <Color x:Key="Orange">#FFF09609</Color>
-    <Color x:Key="OrangeBackground">#FFC77B03</Color>
-    <SolidColorBrush x:Key="OrangeBrush" Color="{StaticResource Orange}" />
-    <SolidColorBrush x:Key="OrangeBackgroundBrush" Color="{StaticResource OrangeBackground}" />
+    <Color x:Key="PrimaryColor">#FFF09609</Color>
+    <Color x:Key="PrimaryBackgroundColor">#FFC77B03</Color>
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" />
+    <SolidColorBrush x:Key="PrimaryBackgroundBrush" Color="{StaticResource PrimaryBackgroundColor}" />
 
     <!--ACCENT COLORS-->
     <Color x:Key="HighlightColor">#FFeba02b</Color>

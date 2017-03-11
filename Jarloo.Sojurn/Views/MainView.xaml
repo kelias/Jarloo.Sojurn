@@ -34,7 +34,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Rectangle Fill="{StaticResource OrangeBrush}" Stroke="Black" Grid.ColumnSpan="3" />
+        <Rectangle Fill="{StaticResource PrimaryBrush}" Stroke="Black" Grid.ColumnSpan="3" />
 
         <StackPanel Orientation="Horizontal" Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="0">
             <Button HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="46" Cursor="Hand" Margin="0,4,0,0" ToolTip="Add NewShow..." Command="{Binding AddShowCommand}">
@@ -171,7 +171,7 @@
         
 
 
-        <Rectangle Fill="{StaticResource OrangeBrush}" Stroke="Black" Grid.Row="1" Grid.Column="2" />
+        <Rectangle Fill="{StaticResource PrimaryBrush}" Stroke="Black" Grid.Row="1" Grid.Column="2" />
 
         <ListBox ItemsSource="{Binding TimeLine.View}" Grid.Column="2" Grid.Row="1" Margin="0,58,0,0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.GroupStyle>
@@ -181,7 +181,7 @@
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type GroupItem}">
-                                        <StackPanel Margin="5,5,5,5" Background="{StaticResource OrangeBrush}">
+                                        <StackPanel Margin="5,5,5,5" Background="{StaticResource PrimaryBrush}">
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="{Binding Name, StringFormat=\{0:ddd\}}" FontSize="40" />
                                                 <TextBlock Text="{Binding Name, StringFormat=\{0:MMM dd\}}"
@@ -226,7 +226,7 @@
                     <Style.Resources>
                         <Style TargetType="{x:Type ListBoxItem}">
                             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                            <Setter Property="Background" Value="{StaticResource OrangeBackgroundBrush}" />
+                            <Setter Property="Background" Value="{StaticResource PrimaryBackgroundBrush}" />
                             <Setter Property="BorderBrush" Value="Transparent" />
                             <Setter Property="Template">
                                 <Setter.Value>
@@ -258,7 +258,7 @@
             </ListBox.Style>
         </ListBox>
 
-        <Rectangle Fill="{StaticResource OrangeBrush}" Stroke="Black" Grid.Column="1" Margin="0,0,1,0" Grid.Row="1" />
+        <Rectangle Fill="{StaticResource PrimaryBrush}" Stroke="Black" Grid.Column="1" Margin="0,0,1,0" Grid.Row="1" />
 
         <ListBox ItemsSource="{Binding Backlog.View}" Grid.Column="1" Grid.Row="1" Margin="0,58,1,0" >
             <ListBox.GroupStyle>
@@ -268,7 +268,7 @@
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type GroupItem}">
-                                        <StackPanel Margin="5,5,5,5" Background="{StaticResource OrangeBrush}">
+                                        <StackPanel Margin="5,5,5,5" Background="{StaticResource PrimaryBrush}">
                                             <TextBlock Text="{Binding Name}" FontSize="20" />
                                             <ItemsPresenter />
                                         </StackPanel>
@@ -348,7 +348,7 @@
                     <Style.Resources>
                         <Style TargetType="{x:Type ListBoxItem}">
                             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                            <Setter Property="Background" Value="{StaticResource OrangeBackgroundBrush}" />
+                            <Setter Property="Background" Value="{StaticResource PrimaryBackgroundBrush}" />
                             <Setter Property="BorderBrush" Value="Transparent" />
                             <Setter Property="Template">
                                 <Setter.Value>
