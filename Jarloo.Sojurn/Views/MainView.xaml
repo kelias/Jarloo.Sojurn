@@ -19,6 +19,7 @@
 
     <Window.Resources>
         <converters:BoolToVisHiddenConverter x:Key="BoolToVisHiddenConverter"/>
+        <converters:LastUpdatedConverter x:Key="LastUpdatedConverter"/>
     </Window.Resources>
         
     
@@ -95,6 +96,7 @@
                         </Grid>
                         <TextBlock Text="{Binding Name}" FontSize="14" TextAlignment="Center" TextTrimming="CharacterEllipsis" Width="150" />
                         <TextBlock Text="{Binding Status}" FontSize="10" TextAlignment="Center" />
+                        <TextBlock Text="{Binding LastUpdated, Converter={StaticResource LastUpdatedConverter}}" FontSize="8" TextAlignment="Center" Foreground="Gray" />
                         
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Name="controlPanel" Visibility="{Binding IsMouseOver, ElementName=ItemPanel, Converter={StaticResource BoolToVisHiddenConverter}}">
                             <Button Height="24" Width="24" Cursor="Hand"
