@@ -1,7 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Color x:Key="PrimaryColor">#FFF09609</Color>
     <Color x:Key="PrimaryBackgroundColor">#FFC77B03</Color>

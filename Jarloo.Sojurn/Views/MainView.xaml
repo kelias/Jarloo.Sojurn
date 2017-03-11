@@ -95,8 +95,8 @@
                             <controls:ProgressRing IsActive="{Binding IsLoading}" />
                         </Grid>
                         <TextBlock Text="{Binding Name}" FontSize="14" TextAlignment="Center" TextTrimming="CharacterEllipsis" Width="150" />
-                        <TextBlock Text="{Binding Status}" FontSize="10" TextAlignment="Center" />
-                        <TextBlock Text="{Binding LastUpdated, Converter={StaticResource LastUpdatedConverter}}" FontSize="8" TextAlignment="Center" Foreground="Gray" />
+                        <TextBlock Text="{Binding Status}" FontSize="11" TextAlignment="Center" Foreground="#9f9f9f"/>
+                        <TextBlock Text="{Binding LastUpdated, Converter={StaticResource LastUpdatedConverter}}" FontSize="9" TextAlignment="Center" Foreground="#787878" />
                         
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Name="controlPanel" Visibility="{Binding IsMouseOver, ElementName=ItemPanel, Converter={StaticResource BoolToVisHiddenConverter}}">
                             <Button Height="24" Width="24" Cursor="Hand"
