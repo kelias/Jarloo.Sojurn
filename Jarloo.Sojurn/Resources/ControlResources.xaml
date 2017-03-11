@@ -1,0 +1,48 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions">
+
+    <Style TargetType="{x:Type ListBox}" x:Key="NoFocusListBoxStyle">
+        <Style.Resources>
+            <Style TargetType="{x:Type ListBoxItem}">
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                <Setter Property="BorderBrush" Value="Transparent" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                            <Grid Margin="4,0,4,4">
+                                <Border Background="{TemplateBinding Background}"
+                                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                                    BorderThickness="1" SnapsToDevicePixels="True" />
+                                <ContentPresenter Margin="8,5" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Style.Resources>
+
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel VirtualizationMode="Recycling">
+                        <i:Interaction.Behaviors>
+                            <ei:FluidMoveBehavior AppliesTo="Children"
+                                                                                Duration="00:00:00.5">
+                                <ei:FluidMoveBehavior.EaseX>
+                                    <CircleEase EasingMode="EaseOut" />
+                                </ei:FluidMoveBehavior.EaseX>
+                            </ei:FluidMoveBehavior>
+                        </i:Interaction.Behaviors>
+                    </VirtualizingStackPanel>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+</ResourceDictionary>
