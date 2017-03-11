@@ -100,14 +100,6 @@
                         
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Name="controlPanel" Visibility="{Binding IsMouseOver, ElementName=ItemPanel, Converter={StaticResource BoolToVisHiddenConverter}}">
                             <Button Height="24" Width="24" Cursor="Hand"
-                                        VerticalAlignment="Top" ToolTip="Delete Show" Command="{Binding DataContext.DeleteShowCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" CommandParameter="{Binding .}">
-                                <Button.Template>
-                                    <ControlTemplate>
-                                        <Image Source="{StaticResource Close}" />
-                                    </ControlTemplate>
-                                </Button.Template>
-                            </Button>
-                            <Button Height="24" Width="24" Cursor="Hand"
                                         VerticalAlignment="Top" Margin="0,0,0,0" ToolTip="Refresh" Command="{Binding DataContext.RefreshShowCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" CommandParameter="{Binding .}">
                                 <Button.Template>
                                     <ControlTemplate>
@@ -146,6 +138,14 @@
                                 <Button.Template>
                                     <ControlTemplate>
                                         <Image Source="{StaticResource Show}" />
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                            <Button Height="24" Width="24" Cursor="Hand"
+                                        VerticalAlignment="Top" ToolTip="Delete Show" Command="{Binding DataContext.DeleteShowCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" CommandParameter="{Binding .}">
+                                <Button.Template>
+                                    <ControlTemplate>
+                                        <Image Source="{StaticResource Close}" />
                                     </ControlTemplate>
                                 </Button.Template>
                             </Button>
