@@ -127,13 +127,13 @@ namespace Jarloo.Sojurn.ViewModels
 
         private void ShowEpisodes(Show show)
         {
+            if (show == null) return;
+
             var callback = new Action<Episode>(UpdateViewedOnBacklog);
 
             ViewModelManager.Create<EpisodeViewModel>().Show(show,callback);
         }
-
-
-
+        
         private void AddShow()
         {
             var vm = ViewModelManager.Create<AddShowViewModel>();
@@ -163,11 +163,11 @@ namespace Jarloo.Sojurn.ViewModels
             pm.Save("index", userSettings);
         }
 
-        private async void LoadShows()
+        private void LoadShows()
         {
             shows.Clear();
 
-            var userSettings = await Task.Run(() => pm.Retrieve<UserSettings>("index"));
+            var userSettings = pm.Retrieve<UserSettings>("index");
 
             if (userSettings == null) return;
 

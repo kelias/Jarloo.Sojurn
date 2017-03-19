@@ -16,6 +16,8 @@ namespace Jarloo.Sojurn.Converters
 
                 if (date.Value.Date == DateTime.Today) return "Today";
 
+                if (date.Value.Date == DateTime.Today.AddDays(-1)) return "Yesterday";
+
                 var days = (DateTime.Today - date.Value).Days;
 
                 return $"{days} Day{(days == 1 ? "" : "s")} Ago";

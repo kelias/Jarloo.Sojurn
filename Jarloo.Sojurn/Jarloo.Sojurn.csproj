@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Images\logo.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="MahApps.Metro, Version=1.4.3.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.4.3\lib\net45\MahApps.Metro.dll</HintPath>
@@ -52,6 +55,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.4.3\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
@@ -74,7 +78,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Adorners\NotificationAdorner.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -91,6 +94,9 @@
     <Compile Include="Helpers\ViewModelManager.cs" />
     <Compile Include="InformationProviders\IInformationProvider.cs" />
     <Compile Include="InformationProviders\TvMazeInformationProvider.cs" />
+    <Compile Include="StreamProviders\IStreamProvider.cs" />
+    <Compile Include="StreamProviders\ProjectFreeTvStreamProvider.cs" />
+    <Compile Include="StreamProviders\TvStream.cs" />
     <Compile Include="ViewModels\AddShowViewModel.cs" />
     <Compile Include="ViewModels\EpisodeViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -160,7 +166,7 @@
     <Resource Include="Images\image_episode.png" />
     <Resource Include="Images\image_show.png" />
     <Resource Include="Images\logo.ico" />
-    <Resource Include="Images\splash.png" />
+    <SplashScreen Include="Images\splash.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icon_license.txt" />

@@ -95,9 +95,17 @@
                             <controls:ProgressRing IsActive="{Binding IsLoading}" />
                         </Grid>
                         <TextBlock Text="{Binding Name}" FontSize="14" TextAlignment="Center" TextTrimming="CharacterEllipsis" Width="150" />
-                        <TextBlock Text="{Binding Status}" FontSize="11" TextAlignment="Center" Foreground="#9f9f9f"/>
-                        <TextBlock Text="{Binding LastUpdated, Converter={StaticResource LastUpdatedConverter}}" FontSize="9" TextAlignment="Center" Foreground="#787878" />
                         
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="Status: " FontSize="9" Foreground="#9f9f9f"/>
+                            <TextBlock Text="{Binding Status}" FontSize="9" Foreground="#9f9f9f"/>
+                        </StackPanel>
+                        
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="Updated: " FontSize="9" Foreground="#787878"/>
+                            <TextBlock Text="{Binding LastUpdated, Converter={StaticResource LastUpdatedConverter}}" FontSize="9" Foreground="#787878" />
+                        </StackPanel>
+
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Name="controlPanel" Visibility="{Binding IsMouseOver, ElementName=ItemPanel, Converter={StaticResource BoolToVisHiddenConverter}}">
                             <Button Height="24" Width="24" Cursor="Hand"
                                         VerticalAlignment="Top" Margin="0,0,0,0" ToolTip="Refresh" Command="{Binding DataContext.RefreshShowCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" CommandParameter="{Binding .}">
@@ -168,8 +176,6 @@
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
         </ListBox>
-        
-
 
         <Rectangle Fill="{StaticResource PrimaryBrush}" Stroke="Black" Grid.Row="1" Grid.Column="2" />
 
@@ -260,7 +266,7 @@
 
         <Rectangle Fill="{StaticResource PrimaryBrush}" Stroke="Black" Grid.Column="1" Margin="0,0,1,0" Grid.Row="1" />
 
-        <ListBox ItemsSource="{Binding Backlog.View}" Grid.Column="1" Grid.Row="1" Margin="0,58,1,0" >
+        <ListBox ItemsSource="{Binding Backlog.View}" Grid.Column="1" Grid.Row="1" Margin="0,58,1,0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.GroupStyle>
                 <GroupStyle>
                     <GroupStyle.ContainerStyle>
@@ -326,13 +332,29 @@
                                         </ControlTemplate>
                                     </Button.Template>
                                 </Button>
-                                <TextBlock Text="S" FontSize="14" />
-                                <TextBlock Text="{Binding SeasonNumber, StringFormat=\{0:00\}}" FontSize="14" />
-                                <TextBlock Text="E" FontSize="14" />
-                                <TextBlock Text="{Binding EpisodeNumberThisSeason, StringFormat=\{0:00\}}" FontSize="14" />
+                                <StackPanel Orientation="Horizontal" Cursor="Hand">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseUp">
+                                            <i:InvokeCommandAction
+                                                            Command="{Binding DataContext.ShowEpisodesCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"
+                                                            CommandParameter="{Binding .Show}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                    <TextBlock Text="S" FontSize="14" />
+                                    <TextBlock Text="{Binding SeasonNumber, StringFormat=\{0:00\}}" FontSize="14" />
+                                    <TextBlock Text="E" FontSize="14" />
+                                    <TextBlock Text="{Binding EpisodeNumberThisSeason, StringFormat=\{0:00\}}" FontSize="14" />
+                                </StackPanel>
                             </StackPanel>
 
-                            <StackPanel>
+                            <StackPanel Cursor="Hand">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <i:InvokeCommandAction
+                                                            Command="{Binding DataContext.ShowEpisodesCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"
+                                                            CommandParameter="{Binding .Show}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                                 <TextBlock Text="{Binding Path=Episode.Title}" FontSize="12" Margin="32,0,0,0" />
                                 <TextBlock Text="{Binding Episode.AirDate, StringFormat=D}" FontSize="9" Margin="32,8,0,0" Opacity="0.8"/>
                             </StackPanel>

@@ -24,8 +24,8 @@
                 <DataTemplate>
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,10,10,0">
-                            <TextBlock Text="{Binding SeasonNumber, Converter={StaticResource NumberExtensionConverter}}" FontSize="30" Margin="20,-10,0,0" />
-                            <TextBlock Text="Season" FontSize="16" Margin="20,0,0,0"/>
+                            <TextBlock Text="{Binding SeasonNumber, Converter={StaticResource NumberExtensionConverter}}" FontSize="50" Margin="20,-20,0,0" />
+                            <TextBlock Text="Season" FontSize="16" Margin="10,0,0,0"/>
                         </StackPanel>
 
                         <ListBox ItemsSource="{Binding Episodes}" Style="{StaticResource NoFocusListBoxStyle}">
