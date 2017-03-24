@@ -21,8 +21,7 @@
         <converters:BoolToVisHiddenConverter x:Key="BoolToVisHiddenConverter"/>
         <converters:LastUpdatedConverter x:Key="LastUpdatedConverter"/>
     </Window.Resources>
-        
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -359,6 +358,14 @@
                                 <TextBlock Text="{Binding Episode.AirDate, StringFormat=D}" FontSize="9" Margin="32,8,0,0" Opacity="0.8"/>
                             </StackPanel>
                         </StackPanel>
+
+                        <Button Grid.Column="1" Cursor="Hand" Command="{Binding DataContext.ShowStreamProvidersCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Image Source="{StaticResource Play}" Height="32" Width="32" />
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
                     </Grid>
 
                 </DataTemplate>
@@ -409,6 +416,20 @@
                    VerticalAlignment="Top" FontSize="32" TextAlignment="Center" />
         <TextBlock Grid.Row="0" Grid.Column="2" Margin="0,10,10,0" VerticalAlignment="Top" TextAlignment="Right" HorizontalAlignment="Right" Width="199" Height="16" Text="{Binding Version}"/>
 
+        
+        <Popup Width="150" Height="200" StaysOpen="False" Name="StreamProviderPopup">
+            <Border BorderThickness="1" BorderBrush="{StaticResource AccentColorBrush}" Background="{StaticResource Background}">
+                <ListBox ItemsSource="{Binding StreamProviders}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Border>
+        </Popup>
 
     </Grid>
+    
+    
 </views:View>

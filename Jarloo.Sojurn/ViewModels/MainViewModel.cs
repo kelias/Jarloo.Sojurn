@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Configuration;
@@ -6,13 +7,16 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using System.Xml;
 using Jarloo.Sojurn.Data;
 using Jarloo.Sojurn.Helpers;
 using Jarloo.Sojurn.InformationProviders;
 using Jarloo.Sojurn.Models;
+using Jarloo.Sojurn.StreamProviders;
+using Jarloo.Sojurn.Views;
+using IStreamProvider = System.Xml.IStreamProvider;
 
 namespace Jarloo.Sojurn.ViewModels
 {
@@ -22,6 +26,7 @@ namespace Jarloo.Sojurn.ViewModels
 
         private readonly IInformationProvider ip;
         private readonly IPersistenceManager pm;
+        private readonly StreamProviderManager spm;
         public IStreamProvider StreamProvider { get; set; }
 
         private readonly ObservableCollection<BacklogItem> backlog = new ObservableCollection<BacklogItem>();
@@ -42,6 +47,9 @@ namespace Jarloo.Sojurn.ViewModels
         public ICommand MarkAllEpisodesAsUnWatchedCommand { get; set; }
         public ICommand ToggleViewedBackLogCommand { get; set; }
         public ICommand ShowEpisodesCommand { get; set; }
+        public ICommand ShowStreamProvidersCommand { get; set; }
+
+        public ObservableCollection<StreamProvider> StreamProviders { get; set; }
 
         public string Version
         {
@@ -96,6 +104,10 @@ namespace Jarloo.Sojurn.ViewModels
 
             Version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
+            spm = new StreamProviderManager();
+
+            StreamProviders = new ObservableCollection<StreamProvider>(spm.StreamProviders);
+            
             BindCommands();
         }
 
@@ -123,7 +135,19 @@ namespace Jarloo.Sojurn.ViewModels
             MarkAllEpisodesAsWatchedCommand = new RelayCommand(t => MarkAllAsViewed(t as Show));
             ToggleViewedBackLogCommand = new RelayCommand(t => ToggleViewedBacklog(t as BacklogItem));
             ShowEpisodesCommand = new RelayCommand(t=> ShowEpisodes(t as Show));
+            ShowStreamProvidersCommand = new RelayCommand(t =>
+            {
+                var v = (MainView)View;
+
+                var pop = v.StreamProviderPopup;
+
+                pop.PlacementTarget = t as ListBoxItem;
+                pop.Placement = System.Windows.Controls.Primitives.PlacementMode.MousePoint;
+                
+                v.StreamProviderPopup.IsOpen = true;
+            });
         }
+        
 
         private void ShowEpisodes(Show show)
         {

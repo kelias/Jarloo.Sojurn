@@ -1,9 +1,5 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Windows;
-using Jarloo.Sojurn.Extensions;
+﻿using System.Windows;
 using Jarloo.Sojurn.Helpers;
-using Jarloo.Sojurn.StreamProviders;
 using Jarloo.Sojurn.ViewModels;
 
 namespace Jarloo.Sojurn

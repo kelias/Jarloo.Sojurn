@@ -1,0 +1,17 @@
+﻿[
+  {
+    "Name": "Project Free TV",
+    "SpaceSeperator": "-",
+    "Url": "http://project-free-tv.li/episode/{show}-season-{season}-episode-{episode}/"
+  },
+  {
+    "Name": "PutLocker",
+    "SpaceSeperator": "-",
+    "Url": "http://putlockertv.is/watch-{show}-tvshow-season-{season}-episode-{episode}-online-free-putlocker.html"
+  },
+  {
+    "Name": "WatchSeries",
+    "SpaceSeperator": "-",
+    "Url": "http://watchseries.cr/series/{show}/season/{season}/episode/{episode}"
+  }
+]

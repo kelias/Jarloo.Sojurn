@@ -94,9 +94,8 @@
     <Compile Include="Helpers\ViewModelManager.cs" />
     <Compile Include="InformationProviders\IInformationProvider.cs" />
     <Compile Include="InformationProviders\TvMazeInformationProvider.cs" />
-    <Compile Include="StreamProviders\IStreamProvider.cs" />
-    <Compile Include="StreamProviders\ProjectFreeTvStreamProvider.cs" />
-    <Compile Include="StreamProviders\TvStream.cs" />
+    <Compile Include="Models\StreamProvider.cs" />
+    <Compile Include="StreamProviders\StreamProviderManager.cs" />
     <Compile Include="ViewModels\AddShowViewModel.cs" />
     <Compile Include="ViewModels\EpisodeViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -150,6 +149,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="StreamProviders.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
