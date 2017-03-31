@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-            xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:views="clr-namespace:Jarloo.Sojurn.Views"
@@ -15,7 +15,7 @@
         BorderThickness="1"
         Height="775" Width="1564"
         Background="{StaticResource Background}" Foreground="{StaticResource Foreground}"
-        d:DataContext="{d:DesignInstance {x:Type viewModels:MainViewModel}}">
+        d:DataContext="{d:DesignInstance {x:Type viewModels:MainViewModel}}"> 
 
     <Window.Resources>
         <converters:BoolToVisHiddenConverter x:Key="BoolToVisHiddenConverter"/>
@@ -265,7 +265,7 @@
 
         <Rectangle Fill="{StaticResource PrimaryBrush}" Stroke="Black" Grid.Column="1" Margin="0,0,1,0" Grid.Row="1" />
 
-        <ListBox ItemsSource="{Binding Backlog.View}" Grid.Column="1" Grid.Row="1" Margin="0,58,1,0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <ListBox ItemsSource="{Binding Backlog.View}" Grid.Column="1" Grid.Row="1" Margin="0,58,1,0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectedItem="{Binding SelectedBackLogItem}">
             <ListBox.GroupStyle>
                 <GroupStyle>
                     <GroupStyle.ContainerStyle>
@@ -359,7 +359,7 @@
                             </StackPanel>
                         </StackPanel>
 
-                        <Button Grid.Column="1" Cursor="Hand" Command="{Binding DataContext.ShowStreamProvidersCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}">
+                        <Button Grid.Column="1" Cursor="Hand" Command="{Binding DataContext.ShowStreamProvidersCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" CommandParameter="{Binding .}">
                             <Button.Template>
                                 <ControlTemplate>
                                     <Image Source="{StaticResource Play}" Height="32" Width="32" />
@@ -422,7 +422,14 @@
                 <ListBox ItemsSource="{Binding StreamProviders}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Name}"/>
+                            <TextBlock Text="{Binding Name}">
+                                 <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDown">
+                                        <i:InvokeCommandAction
+                                                            Command="{Binding DataContext.CallStreamProviderCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type views:View}}}" CommandParameter="{Binding .}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBlock>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

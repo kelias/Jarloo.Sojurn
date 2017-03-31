@@ -48,9 +48,22 @@ namespace Jarloo.Sojurn.ViewModels
         public ICommand ToggleViewedBackLogCommand { get; set; }
         public ICommand ShowEpisodesCommand { get; set; }
         public ICommand ShowStreamProvidersCommand { get; set; }
+        public ICommand CallStreamProviderCommand { get; set; }
 
         public ObservableCollection<StreamProvider> StreamProviders { get; set; }
 
+        public BacklogItem selectedBackLogItem;
+
+        public BacklogItem SelectedBackLogItem
+        {
+            get { return selectedBackLogItem; }
+            set
+            {
+                selectedBackLogItem = value;
+                NotifyOfPropertyChange(() => SelectedBackLogItem);
+            }
+        }
+        
         public string Version
         {
             get { return version; }
@@ -135,8 +148,10 @@ namespace Jarloo.Sojurn.ViewModels
             MarkAllEpisodesAsWatchedCommand = new RelayCommand(t => MarkAllAsViewed(t as Show));
             ToggleViewedBackLogCommand = new RelayCommand(t => ToggleViewedBacklog(t as BacklogItem));
             ShowEpisodesCommand = new RelayCommand(t=> ShowEpisodes(t as Show));
+
             ShowStreamProvidersCommand = new RelayCommand(t =>
             {
+                SelectedBackLogItem = (BacklogItem) t;
                 var v = (MainView)View;
 
                 var pop = v.StreamProviderPopup;
@@ -145,6 +160,17 @@ namespace Jarloo.Sojurn.ViewModels
                 pop.Placement = System.Windows.Controls.Primitives.PlacementMode.MousePoint;
                 
                 v.StreamProviderPopup.IsOpen = true;
+            });
+
+            CallStreamProviderCommand = new RelayCommand(p =>
+            {
+                var s = (StreamProvider) p;
+
+                if (s == null) return;
+
+                if(SelectedBackLogItem==null) return;
+
+                spm.CallStreamProvider(s, SelectedBackLogItem.Episode);
             });
         }
         
