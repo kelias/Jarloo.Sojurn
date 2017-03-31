@@ -265,7 +265,7 @@
 
         <Rectangle Fill="{StaticResource PrimaryBrush}" Stroke="Black" Grid.Column="1" Margin="0,0,1,0" Grid.Row="1" />
 
-        <ListBox ItemsSource="{Binding Backlog.View}" Grid.Column="1" Grid.Row="1" Margin="0,58,1,0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectedItem="{Binding SelectedBackLogItem}">
+        <ListBox ItemsSource="{Binding Backlog.View}" Grid.Column="1" Grid.Row="1" Margin="0,58,1,0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectedItem="{Binding SelectedBackLogItem, UpdateSourceTrigger=PropertyChanged }">
             <ListBox.GroupStyle>
                 <GroupStyle>
                     <GroupStyle.ContainerStyle>
