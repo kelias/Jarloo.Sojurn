@@ -1,8 +1,8 @@
 ﻿namespace Jarloo.Sojurn.Views
 {
-    public partial class EpisodeView
+    public partial class SeasonView
     {
-        public EpisodeView()
+        public SeasonView()
         {
             InitializeComponent();
         }

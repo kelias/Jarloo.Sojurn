@@ -182,7 +182,7 @@ namespace Jarloo.Sojurn.ViewModels
 
             var callback = new Action<Episode>(UpdateViewedOnBacklog);
 
-            ViewModelManager.Create<EpisodeViewModel>().Show(show, callback);
+            ViewModelManager.Create<SeasonViewModel>().Show(show, callback);
         }
 
         private void AddShow()

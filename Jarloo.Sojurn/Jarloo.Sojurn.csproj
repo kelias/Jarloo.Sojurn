@@ -99,14 +99,14 @@
     <Compile Include="Models\StreamProvider.cs" />
     <Compile Include="StreamProviders\StreamProviderManager.cs" />
     <Compile Include="ViewModels\AddShowViewModel.cs" />
-    <Compile Include="ViewModels\EpisodeViewModel.cs" />
+    <Compile Include="ViewModels\SeasonViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="Views\AddShowView.xaml.cs">
       <DependentUpon>AddShowView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\EpisodeView.xaml.cs">
-      <DependentUpon>EpisodeView.xaml</DependentUpon>
+    <Compile Include="Views\SeasonView.xaml.cs">
+      <DependentUpon>SeasonView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
@@ -195,7 +195,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\EpisodeView.xaml">
+    <Page Include="Views\SeasonView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
