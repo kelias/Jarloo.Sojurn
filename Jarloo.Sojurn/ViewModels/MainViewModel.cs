@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Configuration;
@@ -8,15 +7,16 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Xml;
 using Jarloo.Sojurn.Data;
 using Jarloo.Sojurn.Helpers;
 using Jarloo.Sojurn.InformationProviders;
 using Jarloo.Sojurn.Models;
 using Jarloo.Sojurn.StreamProviders;
 using Jarloo.Sojurn.Views;
-using IStreamProvider = System.Xml.IStreamProvider;
 
 namespace Jarloo.Sojurn.ViewModels
 {
@@ -63,7 +63,7 @@ namespace Jarloo.Sojurn.ViewModels
                 NotifyOfPropertyChange(() => SelectedBackLogItem);
             }
         }
-        
+
         public string Version
         {
             get { return version; }
@@ -103,7 +103,8 @@ namespace Jarloo.Sojurn.ViewModels
             ip = infoProvider;
 
             Shows = new CollectionViewSource {Source = shows};
-            Shows.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+            //Shows.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+            Shows.SortDescriptions.Add(new SortDescription("UnwatchedCount", ListSortDirection.Descending));
 
             TimeLine = new CollectionViewSource {Source = timeLine};
             TimeLine.SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Ascending));
@@ -120,7 +121,7 @@ namespace Jarloo.Sojurn.ViewModels
             spm = new StreamProviderManager();
 
             StreamProviders = new ObservableCollection<StreamProvider>(spm.StreamProviders);
-            
+
             BindCommands();
         }
 
@@ -147,18 +148,18 @@ namespace Jarloo.Sojurn.ViewModels
             MarkAllEpisodesAsUnWatchedCommand = new RelayCommand(t => MarkAllAsNotViewed(t as Show));
             MarkAllEpisodesAsWatchedCommand = new RelayCommand(t => MarkAllAsViewed(t as Show));
             ToggleViewedBackLogCommand = new RelayCommand(t => ToggleViewedBacklog(t as BacklogItem));
-            ShowEpisodesCommand = new RelayCommand(t=> ShowEpisodes(t as Show));
+            ShowEpisodesCommand = new RelayCommand(t => ShowEpisodes(t as Show));
 
             ShowStreamProvidersCommand = new RelayCommand(t =>
             {
                 SelectedBackLogItem = (BacklogItem) t;
-                var v = (MainView)View;
+                var v = (MainView) View;
 
                 var pop = v.StreamProviderPopup;
 
                 pop.PlacementTarget = t as ListBoxItem;
-                pop.Placement = System.Windows.Controls.Primitives.PlacementMode.MousePoint;
-                
+                pop.Placement = PlacementMode.MousePoint;
+
                 v.StreamProviderPopup.IsOpen = true;
             });
 
@@ -168,12 +169,12 @@ namespace Jarloo.Sojurn.ViewModels
 
                 if (s == null) return;
 
-                if(SelectedBackLogItem==null) return;
+                if (SelectedBackLogItem == null) return;
 
                 spm.CallStreamProvider(s, SelectedBackLogItem.Episode);
             });
         }
-        
+
 
         private void ShowEpisodes(Show show)
         {
@@ -181,9 +182,9 @@ namespace Jarloo.Sojurn.ViewModels
 
             var callback = new Action<Episode>(UpdateViewedOnBacklog);
 
-            ViewModelManager.Create<EpisodeViewModel>().Show(show,callback);
+            ViewModelManager.Create<EpisodeViewModel>().Show(show, callback);
         }
-        
+
         private void AddShow()
         {
             var vm = ViewModelManager.Create<AddShowViewModel>();
@@ -262,6 +263,8 @@ namespace Jarloo.Sojurn.ViewModels
 
             foreach (var show in shows)
             {
+                show.UnwatchedCount = 0;
+
                 foreach (var season in show.Seasons)
                 {
                     foreach (var episode in season.Episodes)
@@ -270,9 +273,12 @@ namespace Jarloo.Sojurn.ViewModels
                             continue;
 
                         backlog.Add(new BacklogItem {Show = show, Episode = episode, Season = season});
+                        show.UnwatchedCount++;
                     }
                 }
             }
+
+            Shows.View.Refresh();
         }
 
         public void RefreshAllShows()
@@ -379,14 +385,19 @@ namespace Jarloo.Sojurn.ViewModels
                 episode.HasBeenViewed = true;
             }
 
+            s.UnwatchedCount = 0;
+
             UpdateBacklog();
         }
 
         public void MarkAllAsNotViewed(Show s)
         {
+            s.UnwatchedCount = 0;
+
             foreach (var episode in s.Seasons.SelectMany(season => season.Episodes))
             {
                 episode.HasBeenViewed = false;
+                s.UnwatchedCount++;
             }
 
             UpdateBacklog();
@@ -394,12 +405,17 @@ namespace Jarloo.Sojurn.ViewModels
 
         public void UpdateViewedOnBacklog(Episode e)
         {
+            var s = shows.FirstOrDefault(w => w.Name == e.ShowName);
+
             if (e.HasBeenViewed)
             {
                 for (var i = 0; i < backlog.Count; i++)
                 {
                     if (backlog[i].Episode != e) continue;
                     backlog.RemoveAt(i);
+
+                    if (s != null) s.UnwatchedCount--;
+
                     break;
                 }
             }
@@ -412,6 +428,8 @@ namespace Jarloo.Sojurn.ViewModels
                 var season = show.Seasons.FirstOrDefault(w => w.SeasonNumber == e.SeasonNumber);
 
                 backlog.Add(new BacklogItem {Show = show, Episode = e, Season = season});
+
+                if (s != null) s.UnwatchedCount++;
             }
         }
 

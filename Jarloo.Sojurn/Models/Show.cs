@@ -25,7 +25,7 @@ namespace Jarloo.Sojurn.Models
         private DateTime? started;
         private string status;
         private int timezone;
-
+        private int unwatchedCount;
 
         public Show()
         {
@@ -34,6 +34,17 @@ namespace Jarloo.Sojurn.Models
 
         [DataMember]
         public List<Season> Seasons { get; set; }
+
+        [IgnoreDataMember]
+        public int UnwatchedCount
+        {
+            get { return unwatchedCount; }
+            set
+            {
+                unwatchedCount = value;
+                NotifyOfPropertyChange(() => UnwatchedCount);
+            }
+        }
 
         [DataMember]
         public DateTime? LastUpdated
