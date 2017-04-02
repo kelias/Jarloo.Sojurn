@@ -29,7 +29,7 @@ About the code
 Sojurn is written in C# using WPF and MVVM. 
 
 
-Requires .NET Framework 4.6.
+Requires .NET Framework 4.6.2.
 
 For more info:
 http://www.jarloo.com/sojurn-the-tv-app/
@@ -41,10 +41,13 @@ Data Sources
 Currently the data used is from the TVMaze API. Sojurn has been written to easily allow the injection of different data sources, so if you'd prefer another feel free to add it.
 
 
-v2.0 
+v2.3.0.0 
 ------------
 
 This was a large change to the UI, but your old index.json files will still work just fine. 
+
+The UI now looks like the images posted above with the Shows being displayed in the main window and clicking on them loads the window that tracks seasons and episodes. Since that information was less useful with the backlog it was moved to a secondary window. It also greatly increases the speed since we only need to load episode images when they are requested instead of all at the begining. 
+
 
 
 
