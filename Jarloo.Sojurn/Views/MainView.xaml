@@ -93,6 +93,13 @@
                                 </i:Interaction.Triggers>
                             </Image>
                             <Grid Visibility="{Binding UnwatchedCount, Converter={StaticResource ShowUnwatchedConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <i:InvokeCommandAction
+                                        Command="{Binding DataContext.ShowEpisodesCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"
+                                        CommandParameter="{Binding .}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                                 <Ellipse Fill="DarkGray" Height="80" Width="80" Opacity="0.5" />
                                 <TextBlock Text="{Binding UnwatchedCount}" FontSize="45" TextAlignment="Center" VerticalAlignment="Center"/>
                             </Grid>
