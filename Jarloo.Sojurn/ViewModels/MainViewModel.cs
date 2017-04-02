@@ -103,8 +103,8 @@ namespace Jarloo.Sojurn.ViewModels
             ip = infoProvider;
 
             Shows = new CollectionViewSource {Source = shows};
-            //Shows.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
             Shows.SortDescriptions.Add(new SortDescription("UnwatchedCount", ListSortDirection.Descending));
+            Shows.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
 
             TimeLine = new CollectionViewSource {Source = timeLine};
             TimeLine.SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Ascending));
