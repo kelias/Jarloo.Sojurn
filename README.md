@@ -1,7 +1,10 @@
 Jarloo.Sojurn
 =============
 
-![alt tag](/images/screenshot1.png)
+![alt tag](/images/mainWindow.png)
+
+![alt tag](/images/episodeWindow.png)
+
 
 About Sojurn
 ------------
