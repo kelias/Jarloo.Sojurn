@@ -8,14 +8,14 @@ using Jarloo.Sojurn.Models;
 
 namespace Jarloo.Sojurn.ViewModels
 {
-    public class EpisodeViewModel : ViewModel
+    public class SeasonViewModel : ViewModel
     {
         public CollectionViewSource Seasons { get; set; }
         private Action<Episode> callback;
 
         public ICommand ToggleViewedCommand { get; set; }
         
-        public EpisodeViewModel()
+        public SeasonViewModel()
         {
             Seasons = new CollectionViewSource();
 
