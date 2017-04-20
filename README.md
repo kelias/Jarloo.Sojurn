@@ -1,53 +1,23 @@
-Jarloo.Sojurn
-=============
+#Jarloo.Sojurn#
 
 ![alt tag](/images/mainWindow.png)
 
-![alt tag](/images/episodeWindow.png)
+##About Sojurn##
 
-
-About Sojurn
-------------
 
 Sojurn keeps track of what TV shows you've watched, and which ones you haven't. It features a backlog so you know what episodes you haven't watched yet, and a timeline that lets you see when your favorite shows will air next. 
 
 You can explore your favorite shows, browsing by season and episode.
 
-- Backlog : The backlog shows what shows you have added but not watched yet.
+It's simple to add new shows or remove ones you don't watch anymore.
 
-- Timeline : The timeline lets you view what shows you have added that are upcoming.
+You can view all the seasons and episdoes of a show.
 
-Why was it made?
-----------------
+![alt tag](/images/episodeWindow.png)
 
-Sojurn was originally deveoped to explore new technology, it's since been adapted to ensure you can track your tv watching no matter how you view. If you view a show on regular tv, Netflix, or streaming over the internet, Sojurn provides you a platform to keep track of what you have seen, as well as track when new content is released.
+And Sojurn makes it easy to mark an episode as watched or unwatched. 
 
+##Don't code but want to use this?##
 
-About the code
---------------
-
-Sojurn is written in C# using WPF and MVVM. 
-
-
-Requires .NET Framework 4.6.2.
-
-For more info:
-http://www.jarloo.com/sojurn-the-tv-app/
-
-
-Data Sources
-------------
-
-Currently the data used is from the TVMaze API. Sojurn has been written to easily allow the injection of different data sources, so if you'd prefer another feel free to add it.
-
-
-v2.2.0.0 
-------------
-
-This was a large change to the UI, but your old index.json files will still work just fine. 
-
-The UI now looks like the images posted above with the Shows being displayed in the main window and clicking on them loads the window that tracks seasons and episodes. Since that information was less useful with the backlog it was moved to a secondary window. It also greatly increases the speed since we only need to load episode images when they are requested instead of all at the begining. 
-
-
-
+Click on releases up top and dowload the latest release. All you need to do is unzip the file and put in in a folder somewhere you want then run Jarloo.Sojurn.exe.
 
