@@ -25,5 +25,9 @@ Don't code but want to use this?
 
 Click on releases on GitHub and download the latest release. All you need to do is unzip the file and put in in a folder somewhere you want, then run Jarloo.Sojurn.exe. 
 
-Sojurn will create a two new folders. A "Data" folder and an "Images" folder. The images holds images Sojurn downloads for show titles and episodes. The "Data" folder is where your list of shows and the status of what shows you've watched is stored. They are stored in a file called index.json. You will notice there are other JSON files there, these are just backups of your index.json file, stored there in the event something goes wrong, so you can go back to a specific point in time.
+Sojurn will create a two new folders. A "Data" folder and an "Images" folder.
+
+The images holds images Sojurn downloads for show titles and episodes. 
+
+The "Data" folder is where your list of shows and the status of what shows you've watched is stored. They are stored in a file called index.json. You will notice there are other JSON files there, these are just backups of your index.json file, stored there in the event something goes wrong, so you can go back to a specific point in time.
 
