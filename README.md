@@ -31,3 +31,9 @@ The images holds images Sojurn downloads for show titles and episodes.
 
 The "Data" folder is where your list of shows and the status of what shows you've watched is stored. They are stored in a file called index.json. You will notice there are other JSON files there, these are just backups of your index.json file, stored there in the event something goes wrong, so you can go back to a specific point in time.
 
+Backups
+-------
+
+If you want to back up your history, such as shows added and there viewed status, all you need to do is make a copy of the index.json file in your Data directory. 
+
+Then if you install Sojurn on a new machine just copy and paste you index.json file into the Data folder and Sojurn will be completely updated from when you left it. It will download all the images for the shows and when you click on a show it will also download the images for the episodes.
