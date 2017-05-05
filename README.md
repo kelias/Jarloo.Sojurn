@@ -14,7 +14,7 @@ It's simple to add new shows or remove ones you don't watch anymore.
 
 To add a show just click the + icon in the top left and a new window appears where you can enter the name of the show and search. Just click the show from the search window and Sojurn adds it to your list of shows, downloads all the images, figures out when it will be on next and much more!
 
-You can view all the seasons and episdoes of a show.
+You can view all the seasons and episdoes of a show just by clicking on it.
 
 ![alt tag](/images/episodeWindow.png)
 
