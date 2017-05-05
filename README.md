@@ -18,7 +18,7 @@ You can view all the seasons and episdoes of a show.
 
 ![alt tag](/images/episodeWindow.png)
 
-And Sojurn makes it easy to mark an episode as watched or unwatched. See that little eye icon above a show? Click that and it marks it as watched. Click again and it marks it as unwatched. The episodes are the dimmed in the image above have been watched already. 
+And Sojurn makes it easy to mark an episode as watched or unwatched. See that little eye icon above a show? Click that and it marks it as watched. Click again and it marks it as unwatched. The episodes that are the dimmed in the image above have been watched already. 
 
 Don't code but want to use this?
 --------------------------------
