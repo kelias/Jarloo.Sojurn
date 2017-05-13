@@ -1,7 +1,7 @@
 Jarloo.Sojurn
 =============
 
-![alt tag](/images/mainWindow2.png)
+![alt tag](/images/mainWindow.png)
 
 About Sojurn
 ------------
