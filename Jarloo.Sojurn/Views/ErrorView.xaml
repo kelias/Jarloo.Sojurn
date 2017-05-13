@@ -1,0 +1,19 @@
+﻿<Window x:Class="Jarloo.Sojurn.Views.ErrorView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="ErrorView" Height="441.931" Width="595" 
+        Topmost="True"
+        Background="{StaticResource Background}" 
+        Foreground="{StaticResource Foreground}">
+    <Grid>
+        <TextBlock Height="41" Margin="43,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White"
+                   FontSize="26.667" HorizontalAlignment="Left" Width="507" Text="Well #$#% something happened..." />
+
+        <ListBox Margin="8,132,8,0" Background="{x:Null}" ItemsSource="{Binding Errors, Mode=OneWay}"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" Foreground="{StaticResource Foreground}" />
+
+    </Grid>
+</Window>

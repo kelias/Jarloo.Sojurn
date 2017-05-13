@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -103,50 +104,64 @@ namespace Jarloo.Sojurn.ViewModels
         
         private void BindCommands()
         {
-            AddShowCommand = new RelayCommand(t=> AddShow());
-            CancelCommand = new RelayCommand(t =>
+            try
             {
-                View.DialogResult = false;
-                Close();
-            });
-            SearchCommand = new RelayCommand(t=> SearchShow());
+                AddShowCommand = new RelayCommand(t=> AddShow());
+                CancelCommand = new RelayCommand(t =>
+                {
+                    View.DialogResult = false;
+                    Close();
+                });
+                SearchCommand = new RelayCommand(t=> SearchShow());
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.Log(ex);
+            }
         }
 
         public async void SearchShow()
         {
-            IsSearchCompleted = false;
-            IsWorking = true;
-
-            var query = ShowName;
-            var shows = await Task.Run(() =>
+            try
             {
-                try
+                IsSearchCompleted = false;
+                IsWorking = true;
+
+                var query = ShowName;
+                var shows = await Task.Run(() =>
                 {
-                    return InformationProvider.GetShows(query);
-                }
-                catch
-                {
-                    return null;
-                }
-            });
+                    try
+                    {
+                        return InformationProvider.GetShows(query);
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                });
             
-            Shows.Clear();
-            IsSearchCompleted = true;
+                Shows.Clear();
+                IsSearchCompleted = true;
 
-            if (shows == null)
-            {
-                Error = "Provider failed to return information.";
-                return;
+                if (shows == null)
+                {
+                    Error = "Provider failed to return information.";
+                    return;
+                }
+
+                Error = null;
+
+                foreach (var s in shows)
+                {
+                    Shows.Add(s);
+                }
+
+                IsWorking = false;
             }
-
-            Error = null;
-
-            foreach (var s in shows)
+            catch (Exception ex)
             {
-                Shows.Add(s);
+                ErrorManager.Log(ex);
             }
-
-            IsWorking = false;
         }
 
         public async void AddShow()
@@ -161,10 +176,10 @@ namespace Jarloo.Sojurn.ViewModels
                 SelectedShow = null;
                 return;
             }
-            
+
             IsWorking = true;
             IsSearchCompleted = false;
-            
+
             var ns = await Task.Run(() =>
             {
                 try

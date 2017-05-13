@@ -17,33 +17,52 @@ namespace Jarloo.Sojurn.ViewModels
         
         public SeasonViewModel()
         {
-            Seasons = new CollectionViewSource();
-
-            ToggleViewedCommand = new RelayCommand(t => ToggleViewed(t as Episode));
+            try
+            {
+                Seasons = new CollectionViewSource();
+                ToggleViewedCommand = new RelayCommand(t => ToggleViewed(t as Episode));
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.Log(ex);
+            }
         }
 
         public void Show(Show show, Action<Episode> cb)
         {
-            callback = cb;
+            try
+            {
+                callback = cb;
             
-            Show();
+                Show();
 
-            Title = $"{show.Name} - Seasons and Episodes";
+                Title = $"{show.Name} - Seasons and Episodes";
 
 
-            Seasons.Source = show.Seasons;
-            Seasons.SortDescriptions.Add(new SortDescription("SeasonNumber", ListSortDirection.Descending));
+                Seasons.Source = show.Seasons;
+                Seasons.SortDescriptions.Add(new SortDescription("SeasonNumber", ListSortDirection.Descending));
 
-            Seasons.View.Refresh();
+                Seasons.View.Refresh();
 
-            Task.Run(() => ImageHelper.GetEpisodeImages(show, View.Dispatcher));
+                Task.Run(() => ImageHelper.GetEpisodeImages(show, View.Dispatcher));
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.Log(ex);
+            }
         }
 
         private void ToggleViewed(Episode e)
         {
-            e.HasBeenViewed = !e.HasBeenViewed;
-
-            callback?.Invoke(e);
+            try
+            {
+                e.HasBeenViewed = !e.HasBeenViewed;
+                callback?.Invoke(e);
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.Log(ex);
+            }
         }
     }
 }

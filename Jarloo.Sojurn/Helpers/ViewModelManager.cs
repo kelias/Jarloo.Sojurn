@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Jarloo.Sojurn.ViewModels;
 
 namespace Jarloo.Sojurn.Helpers
@@ -34,6 +35,10 @@ namespace Jarloo.Sojurn.Helpers
         {
             var vm = (ViewModel) Activator.CreateInstance(t);
             return vm;
+        }
+        public static T GetFirstViewModelByType<T>() where T : ViewModel
+        {
+            return ViewModels.Where(vm => typeof(T) == vm.GetType()).Cast<T>().FirstOrDefault();
         }
     }
 }
