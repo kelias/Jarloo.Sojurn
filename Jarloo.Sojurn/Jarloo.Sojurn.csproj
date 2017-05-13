@@ -91,6 +91,7 @@
     <Compile Include="Converters\ReverseBooleanConverter.cs" />
     <Compile Include="Converters\ShowOpacityConverter.cs" />
     <Compile Include="Converters\ShowUnwatchedConverter.cs" />
+    <Compile Include="ErrorManager.cs" />
     <Compile Include="Extensions\FocusExtension.cs" />
     <Compile Include="Helpers\NotifyPropertyChangedBase.cs" />
     <Compile Include="Helpers\ViewModelManager.cs" />
@@ -99,11 +100,15 @@
     <Compile Include="Models\StreamProvider.cs" />
     <Compile Include="StreamProviders\StreamProviderManager.cs" />
     <Compile Include="ViewModels\AddShowViewModel.cs" />
+    <Compile Include="ViewModels\ErrorViewModel.cs" />
     <Compile Include="ViewModels\SeasonViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="Views\AddShowView.xaml.cs">
       <DependentUpon>AddShowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ErrorView.xaml.cs">
+      <DependentUpon>ErrorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SeasonView.xaml.cs">
       <DependentUpon>SeasonView.xaml</DependentUpon>
@@ -194,6 +199,10 @@
     <Page Include="Views\AddShowView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ErrorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SeasonView.xaml">
       <SubType>Designer</SubType>
