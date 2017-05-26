@@ -165,7 +165,7 @@ namespace Jarloo.Sojurn.ViewModels
             IsWorking = true;
             IsSearchCompleted = false;
             
-            var newShow = await Task.Run(() =>
+            var ns = await Task.Run(() =>
             {
                 try
                 {
@@ -177,9 +177,9 @@ namespace Jarloo.Sojurn.ViewModels
                 }
             });
 
-            NewShow = newShow;
+            NewShow = ns;
 
-            if (newShow != null)
+            if (ns != null)
             {
                 Error = null;
                 View.DialogResult = true;

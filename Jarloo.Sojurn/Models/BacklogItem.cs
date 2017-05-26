@@ -1,7 +1,9 @@
-﻿using Jarloo.Sojurn.Helpers;
+﻿using System.Runtime.Serialization;
+using Jarloo.Sojurn.Helpers;
 
 namespace Jarloo.Sojurn.Models
 {
+    [DataContract]
     public class BacklogItem : NotifyPropertyChangedBase
     {
         private Episode episode;

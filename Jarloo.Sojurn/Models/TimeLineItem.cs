@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using Jarloo.Sojurn.Helpers;
 
 namespace Jarloo.Sojurn.Models
 {
+    [DataContract]
     public class TimeLineItem : NotifyPropertyChangedBase
     {
         private Episode episode;
