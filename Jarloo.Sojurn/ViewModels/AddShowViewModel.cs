@@ -10,7 +10,7 @@ using Jarloo.Sojurn.Models;
 
 namespace Jarloo.Sojurn.ViewModels
 {
-    
+
     public sealed class AddShowViewModel : ViewModel
     {
         #region Properties
@@ -24,11 +24,11 @@ namespace Jarloo.Sojurn.ViewModels
         public ICommand AddShowCommand { get; set; }
         public ICommand CancelCommand { get; set; }
         public ICommand SearchCommand { get; set; }
-        
+
         private Show selectedShow;
         private Show newShow;
         private string error;
-        public  List<Show> CurrentShows;
+        public List<Show> CurrentShows;
         private bool isShowNameFocused = true;
 
         public string Error
@@ -95,24 +95,24 @@ namespace Jarloo.Sojurn.ViewModels
         }
 
         #endregion
-        
-    
+
+
         public AddShowViewModel()
         {
             BindCommands();
         }
-        
+
         private void BindCommands()
         {
             try
             {
-                AddShowCommand = new RelayCommand(t=> AddShow());
+                AddShowCommand = new RelayCommand(t => AddShow());
                 CancelCommand = new RelayCommand(t =>
                 {
                     View.DialogResult = false;
                     Close();
                 });
-                SearchCommand = new RelayCommand(t=> SearchShow());
+                SearchCommand = new RelayCommand(t => SearchShow());
             }
             catch (Exception ex)
             {
@@ -139,7 +139,7 @@ namespace Jarloo.Sojurn.ViewModels
                         return null;
                     }
                 });
-            
+
                 Shows.Clear();
                 IsSearchCompleted = true;
 
