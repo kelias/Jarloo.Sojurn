@@ -33,7 +33,7 @@ namespace Jarloo.Sojurn.ViewModels
 
         public string Error
         {
-            get { return error; }
+            get => error;
             set
             {
                 error = value;
@@ -43,7 +43,7 @@ namespace Jarloo.Sojurn.ViewModels
 
         public bool IsShowNameFocused
         {
-            get { return isShowNameFocused; }
+            get => isShowNameFocused;
             set
             {
                 NotifyOfPropertyChange(() => IsShowNameFocused);
@@ -54,7 +54,7 @@ namespace Jarloo.Sojurn.ViewModels
 
         public Show NewShow
         {
-            get { return newShow; }
+            get => newShow;
             set
             {
                 newShow = value;
@@ -64,7 +64,7 @@ namespace Jarloo.Sojurn.ViewModels
 
         public Show SelectedShow
         {
-            get { return selectedShow; }
+            get => selectedShow;
             set
             {
                 selectedShow = value;
@@ -75,7 +75,7 @@ namespace Jarloo.Sojurn.ViewModels
 
         public bool IsSearchCompleted
         {
-            get { return isSearchCompleted; }
+            get => isSearchCompleted;
             set
             {
                 isSearchCompleted = value;
@@ -86,7 +86,7 @@ namespace Jarloo.Sojurn.ViewModels
 
         public string ShowName
         {
-            get { return showName; }
+            get => showName;
             set
             {
                 showName = value;
