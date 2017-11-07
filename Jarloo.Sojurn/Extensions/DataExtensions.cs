@@ -11,9 +11,7 @@ namespace Jarloo.Sojurn.Extensions
         /// <returns></returns>
         public static string Escape(this string input)
         {
-            if (input == null) return null;
-
-            return input.Replace("'", "''");
+            return input?.Replace("'", "''");
         }
 
         /// <summary>

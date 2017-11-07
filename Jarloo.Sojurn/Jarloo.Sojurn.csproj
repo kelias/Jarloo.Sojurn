@@ -92,6 +92,7 @@
     <Compile Include="Converters\ShowOpacityConverter.cs" />
     <Compile Include="Converters\ShowUnwatchedConverter.cs" />
     <Compile Include="ErrorManager.cs" />
+    <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\FocusExtension.cs" />
     <Compile Include="Helpers\NotifyPropertyChangedBase.cs" />
     <Compile Include="Helpers\ViewModelManager.cs" />

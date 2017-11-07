@@ -12,9 +12,7 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ListBoxItem}">
                             <Grid Margin="4,0,4,4">
-                                <Border Background="{TemplateBinding Background}"
-                                                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                                                    BorderThickness="1" SnapsToDevicePixels="True" />
+                                <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" SnapsToDevicePixels="True" />
                                 <ContentPresenter Margin="8,5" />
                             </Grid>
                         </ControlTemplate>
@@ -31,8 +29,7 @@
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel VirtualizationMode="Recycling">
                         <i:Interaction.Behaviors>
-                            <ei:FluidMoveBehavior AppliesTo="Children"
-                                                                                Duration="00:00:00.5">
+                            <ei:FluidMoveBehavior AppliesTo="Children" Duration="00:00:00.5">
                                 <ei:FluidMoveBehavior.EaseX>
                                     <CircleEase EasingMode="EaseOut" />
                                 </ei:FluidMoveBehavior.EaseX>

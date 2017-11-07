@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Jarloo.Sojurn.Extensions;
 using Jarloo.Sojurn.Helpers;
 using Jarloo.Sojurn.InformationProviders;
 using Jarloo.Sojurn.Models;
@@ -95,8 +96,7 @@ namespace Jarloo.Sojurn.ViewModels
         }
 
         #endregion
-
-
+        
         public AddShowViewModel()
         {
             BindCommands();
@@ -151,11 +151,8 @@ namespace Jarloo.Sojurn.ViewModels
 
                 Error = null;
 
-                foreach (var s in shows)
-                {
-                    Shows.Add(s);
-                }
-
+                Shows.AddRange(shows);
+                
                 IsWorking = false;
             }
             catch (Exception ex)
