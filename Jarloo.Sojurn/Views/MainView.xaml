@@ -109,13 +109,13 @@
                         <TextBlock Text="{Binding Name}" FontSize="14" TextAlignment="Center" TextTrimming="CharacterEllipsis" Width="150" />
                         
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <TextBlock Text="Status: " FontSize="9" Foreground="#9f9f9f"/>
-                            <TextBlock Text="{Binding Status}" FontSize="9" Foreground="#9f9f9f"/>
+                            <TextBlock Text="Status: " FontSize="9" Foreground="{StaticResource StatusForegroundBrush}"/>
+                            <TextBlock Text="{Binding Status}" FontSize="9" Foreground="{StaticResource StatusForegroundBrush}"/>
                         </StackPanel>
                         
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <TextBlock Text="Updated: " FontSize="9" Foreground="#787878"/>
-                            <TextBlock Text="{Binding LastUpdated, Converter={StaticResource LastUpdatedConverter}}" FontSize="9" Foreground="#787878" />
+                            <TextBlock Text="Updated: " FontSize="9" Foreground="{StaticResource LastUpdatedForegroundBrush}"/>
+                            <TextBlock Text="{Binding LastUpdated, Converter={StaticResource LastUpdatedConverter}}" FontSize="9" Foreground="{StaticResource LastUpdatedForegroundBrush}" />
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Name="controlPanel" Visibility="{Binding IsMouseOver, ElementName=ItemPanel, Converter={StaticResource BoolToVisHiddenConverter}}">
@@ -260,8 +260,8 @@
                                                 <MultiTrigger.Conditions>
                                                     <Condition Property="IsMouseOver" Value="True" />
                                                 </MultiTrigger.Conditions>
-                                                <Setter Property="Background" Value="#FFF1A327" />
-                                                <Setter Property="BorderBrush" Value="#FFFFD799" />
+                                                <Setter Property="Background" Value="{StaticResource TimeLineItemBackgroundBrush}" />
+                                                <Setter Property="BorderBrush" Value="{StaticResource TimeLineItemBorderBrush}" />
                                             </MultiTrigger>
                                         </ControlTemplate.Triggers>
                                     </ControlTemplate>
@@ -406,8 +406,8 @@
                                                 <MultiTrigger.Conditions>
                                                     <Condition Property="IsMouseOver" Value="True" />
                                                 </MultiTrigger.Conditions>
-                                                <Setter Property="Background" Value="#FFF1A327" />
-                                                <Setter Property="BorderBrush" Value="#FFFFD799" />
+                                                <Setter Property="Background" Value="{StaticResource BacklogItemBackgroundBrush}" />
+                                                <Setter Property="BorderBrush" Value="{StaticResource BacklogItemBorderBrush}" />
                                             </MultiTrigger>
                                         </ControlTemplate.Triggers>
                                     </ControlTemplate>

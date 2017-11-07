@@ -4,8 +4,21 @@
 
     <Color x:Key="PrimaryColor">#FFF09609</Color>
     <Color x:Key="PrimaryBackgroundColor">#FFC77B03</Color>
+    <Color x:Key="TimelineItemBorderColor">#FFFFD799</Color>
+    <Color x:Key="TimelineItemBackgroundColor">#FFF1A327</Color>
+    <Color x:Key="BacklogItemBorderColor">#FFFFD799</Color>
+    <Color x:Key="BacklogItemBackgroundColor">#FFF1A327</Color>
+    <Color x:Key="LastUpdatedForegroundColor">#787878</Color>
+    <Color x:Key="StatusForegroundColor">#9f9f9f</Color>
+    
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}"  PresentationOptions:Freeze="True"/>
     <SolidColorBrush x:Key="PrimaryBackgroundBrush" Color="{StaticResource PrimaryBackgroundColor}"  PresentationOptions:Freeze="True"/>
+    <SolidColorBrush x:Key="TimeLineItemBackgroundBrush" Color="{StaticResource TimelineItemBackgroundColor}"  PresentationOptions:Freeze="True"/>
+    <SolidColorBrush x:Key="TimeLineItemBorderBrush" Color="{StaticResource TimelineItemBorderColor}"  PresentationOptions:Freeze="True"/>
+    <SolidColorBrush x:Key="BacklogItemBorderBrush" Color="{StaticResource TimelineItemBorderColor}"  PresentationOptions:Freeze="True"/>
+    <SolidColorBrush x:Key="BacklogItemBackgroundBrush" Color="{StaticResource TimelineItemBorderColor}"  PresentationOptions:Freeze="True"/>
+    <SolidColorBrush x:Key="LastUpdatedForegroundBrush" Color="{StaticResource LastUpdatedForegroundColor}"  PresentationOptions:Freeze="True"/>
+    <SolidColorBrush x:Key="StatusForegroundBrush" Color="{StaticResource StatusForegroundColor}"  PresentationOptions:Freeze="True"/>
 
     <!--ACCENT COLORS-->
     <Color x:Key="HighlightColor">#FFeba02b</Color>
