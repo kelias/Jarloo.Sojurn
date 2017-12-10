@@ -9,8 +9,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:behaviors="clr-namespace:Jarloo.Sojurn.Behaviors"
         mc:Ignorable="d"
-        BorderBrush="{DynamicResource AccentColorBrush}"
-        BorderThickness="1"
+        GlowBrush="{StaticResource AccentColorBrush}"
         Background="{StaticResource Background}" Foreground="{StaticResource Foreground}"
         Height="726.316" Width="1400">
     
@@ -85,7 +84,7 @@
                                                 <TextBlock
                                                         Text="{Binding AirDate, StringFormat=\{0:MMM dd\, yyyy\}}"
                                                         TextAlignment="Center" Margin="0,2,0,0" FontSize="12"
-                                                        Foreground="{StaticResource PrimaryBrush}" />
+                                                        Foreground="{StaticResource SeasonForegroundBrush}" />
                                             </StackPanel>
                                         </StackPanel>
                                     </DockPanel>

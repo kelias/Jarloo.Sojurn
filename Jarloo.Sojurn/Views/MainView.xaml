@@ -11,8 +11,7 @@
         xmlns:behaviors="clr-namespace:Jarloo.Sojurn.Behaviors"
         xmlns:converters="clr-namespace:Jarloo.Sojurn.Converters"
         mc:Ignorable="d"
-        BorderBrush="{DynamicResource AccentColorBrush}"
-        BorderThickness="1"
+        GlowBrush="{StaticResource AccentColorBrush}"
         Height="775" Width="1564"
         Background="{StaticResource Background}" Foreground="{StaticResource Foreground}"
         d:DataContext="{d:DesignInstance {x:Type viewModels:MainViewModel}}"> 
@@ -35,7 +34,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Rectangle Fill="{StaticResource PrimaryBrush}" Stroke="Black" Grid.ColumnSpan="3" />
+        
 
         <StackPanel Orientation="Horizontal" Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="0">
             <Button HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="46" Cursor="Hand" Margin="0,4,0,0" ToolTip="Add NewShow..." Command="{Binding AddShowCommand}">
@@ -110,7 +109,20 @@
                         
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock Text="Status: " FontSize="9" Foreground="{StaticResource StatusForegroundBrush}"/>
-                            <TextBlock Text="{Binding Status}" FontSize="9" Foreground="{StaticResource StatusForegroundBrush}"/>
+                            <TextBlock Text="{Binding Status}" FontSize="9">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Status}" Value="Ended">
+                                                <Setter Property="TextBlock.Foreground" Value="{StaticResource ShowEndedBrush}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                        <Style.Setters>
+                                            <Setter Property="Foreground" Value="{StaticResource StatusForegroundBrush}"/>
+                                        </Style.Setters>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
                         </StackPanel>
                         
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -189,8 +201,8 @@
             </ListBox.ItemsPanel>
         </ListBox>
 
-        <Rectangle Fill="{StaticResource PrimaryBrush}" Stroke="Black" Grid.Row="1" Grid.Column="2" />
-
+        
+        <!--TIMELINE-->
         <ListBox ItemsSource="{Binding TimeLine.View}" Grid.Column="2" Grid.Row="1" Margin="0,58,0,0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.GroupStyle>
                 <GroupStyle>
@@ -199,7 +211,7 @@
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type GroupItem}">
-                                        <StackPanel Margin="5,5,5,5" Background="{StaticResource PrimaryBrush}">
+                                        <StackPanel Margin="5,5,5,5">
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="{Binding Name, StringFormat=\{0:ddd\}}" FontSize="40" />
                                                 <TextBlock Text="{Binding Name, StringFormat=\{0:MMM dd\}}"
@@ -244,7 +256,7 @@
                     <Style.Resources>
                         <Style TargetType="{x:Type ListBoxItem}">
                             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                            <Setter Property="Background" Value="{StaticResource PrimaryBackgroundBrush}" />
+                            <Setter Property="Background" Value="{StaticResource ListBoxItemBackgroundBrush}" />
                             <Setter Property="BorderBrush" Value="Transparent" />
                             <Setter Property="Template">
                                 <Setter.Value>
@@ -260,8 +272,7 @@
                                                 <MultiTrigger.Conditions>
                                                     <Condition Property="IsMouseOver" Value="True" />
                                                 </MultiTrigger.Conditions>
-                                                <Setter Property="Background" Value="{StaticResource TimeLineItemBackgroundBrush}" />
-                                                <Setter Property="BorderBrush" Value="{StaticResource TimeLineItemBorderBrush}" />
+                                                <Setter Property="Background" Value="{StaticResource TimeLineItemHoverBackgroundBrush}" />
                                             </MultiTrigger>
                                         </ControlTemplate.Triggers>
                                     </ControlTemplate>
@@ -276,8 +287,8 @@
             </ListBox.Style>
         </ListBox>
 
-        <Rectangle Fill="{StaticResource PrimaryBrush}" Stroke="Black" Grid.Column="1" Margin="0,0,1,0" Grid.Row="1" />
-
+        
+        <!--BACKLOG-->
         <ListBox ItemsSource="{Binding Backlog.View}" Grid.Column="1" Grid.Row="1" Margin="0,58,1,0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectedItem="{Binding SelectedBackLogItem, UpdateSourceTrigger=PropertyChanged }">
             <ListBox.GroupStyle>
                 <GroupStyle>
@@ -286,8 +297,8 @@
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type GroupItem}">
-                                        <StackPanel Margin="5,5,5,5" Background="{StaticResource PrimaryBrush}">
-                                            <TextBlock Text="{Binding Name}" FontSize="20" />
+                                        <StackPanel Margin="5,5,5,5">
+                                            <TextBlock Text="{Binding Name}" FontSize="20" Margin="0,0,0,5" />
                                             <ItemsPresenter />
                                         </StackPanel>
                                     </ControlTemplate>
@@ -386,11 +397,10 @@
 
             <ListBox.Style>
                 <Style TargetType="{x:Type ItemsControl}">
-
                     <Style.Resources>
                         <Style TargetType="{x:Type ListBoxItem}">
                             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                            <Setter Property="Background" Value="{StaticResource PrimaryBackgroundBrush}" />
+                            <Setter Property="Background" Value="{StaticResource ListBoxItemBackgroundBrush}" />
                             <Setter Property="BorderBrush" Value="Transparent" />
                             <Setter Property="Template">
                                 <Setter.Value>
@@ -406,8 +416,7 @@
                                                 <MultiTrigger.Conditions>
                                                     <Condition Property="IsMouseOver" Value="True" />
                                                 </MultiTrigger.Conditions>
-                                                <Setter Property="Background" Value="{StaticResource BacklogItemBackgroundBrush}" />
-                                                <Setter Property="BorderBrush" Value="{StaticResource BacklogItemBorderBrush}" />
+                                                <Setter Property="Background" Value="{StaticResource BacklogItemHoverBackgroundBrush}" />
                                             </MultiTrigger>
                                         </ControlTemplate.Triggers>
                                     </ControlTemplate>
@@ -415,7 +424,6 @@
                             </Setter>
                         </Style>
                     </Style.Resources>
-
                     <Setter Property="Background" Value="Transparent" />
                     <Setter Property="BorderThickness" Value="0" />
                 </Style>
@@ -435,7 +443,7 @@
                 <ListBox ItemsSource="{Binding StreamProviders}" Margin="20,20,20,20" Background="{x:Null}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Name}">
+                            <TextBlock Text="{Binding Name}" Foreground="{StaticResource Foreground}">
                                  <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseDown">
                                         <i:InvokeCommandAction
@@ -450,6 +458,4 @@
         </Popup>
 
     </Grid>
-    
-    
 </views:View>

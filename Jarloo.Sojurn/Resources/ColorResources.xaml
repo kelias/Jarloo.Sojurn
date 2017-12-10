@@ -2,39 +2,42 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
 
-    <Color x:Key="PrimaryColor">#FFF09609</Color>
-    <Color x:Key="PrimaryBackgroundColor">#FFC77B03</Color>
-    <Color x:Key="TimelineItemBorderColor">#FFFFD799</Color>
-    <Color x:Key="TimelineItemBackgroundColor">#FFF1A327</Color>
-    <Color x:Key="BacklogItemBorderColor">#FFFFD799</Color>
-    <Color x:Key="BacklogItemBackgroundColor">#FFF1A327</Color>
+    <Color x:Key="SeasonForegroundColor">#4a93d7</Color>
+    <Color x:Key="ListBoxItemBackgroundColor">#4a93d7</Color>
+
+    <Color x:Key="TimelineItemHoverBackgroundColor">#5caffc</Color>
+    <Color x:Key="BacklogItemHoverBackgroundColor">#5caffc</Color>
+    
     <Color x:Key="LastUpdatedForegroundColor">#787878</Color>
     <Color x:Key="StatusForegroundColor">#9f9f9f</Color>
+
+    <Color x:Key="ShowEndedColor">#e31d1d</Color>
+
+    <SolidColorBrush x:Key="ListBoxItemBackgroundBrush" Color="{StaticResource ListBoxItemBackgroundColor}"  PresentationOptions:Freeze="True"/>
+    <SolidColorBrush x:Key="SeasonForegroundBrush" Color="{StaticResource SeasonForegroundColor}"  PresentationOptions:Freeze="True"/>
     
-    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}"  PresentationOptions:Freeze="True"/>
-    <SolidColorBrush x:Key="PrimaryBackgroundBrush" Color="{StaticResource PrimaryBackgroundColor}"  PresentationOptions:Freeze="True"/>
-    <SolidColorBrush x:Key="TimeLineItemBackgroundBrush" Color="{StaticResource TimelineItemBackgroundColor}"  PresentationOptions:Freeze="True"/>
-    <SolidColorBrush x:Key="TimeLineItemBorderBrush" Color="{StaticResource TimelineItemBorderColor}"  PresentationOptions:Freeze="True"/>
-    <SolidColorBrush x:Key="BacklogItemBorderBrush" Color="{StaticResource TimelineItemBorderColor}"  PresentationOptions:Freeze="True"/>
-    <SolidColorBrush x:Key="BacklogItemBackgroundBrush" Color="{StaticResource TimelineItemBorderColor}"  PresentationOptions:Freeze="True"/>
+    <SolidColorBrush x:Key="TimeLineItemHoverBackgroundBrush" Color="{StaticResource TimelineItemHoverBackgroundColor}"  PresentationOptions:Freeze="True"/>
+    <SolidColorBrush x:Key="BacklogItemHoverBackgroundBrush" Color="{StaticResource BacklogItemHoverBackgroundColor}"  PresentationOptions:Freeze="True"/>
+    
     <SolidColorBrush x:Key="LastUpdatedForegroundBrush" Color="{StaticResource LastUpdatedForegroundColor}"  PresentationOptions:Freeze="True"/>
     <SolidColorBrush x:Key="StatusForegroundBrush" Color="{StaticResource StatusForegroundColor}"  PresentationOptions:Freeze="True"/>
 
+    <SolidColorBrush x:Key="ShowEndedBrush" Color="{StaticResource ShowEndedColor}"  PresentationOptions:Freeze="True"/>
+
     <!--ACCENT COLORS-->
-    <Color x:Key="HighlightColor">#FFeba02b</Color>
+    <Color x:Key="HighlightColor">#4a93d7</Color>
     <!--80%-->
-    <Color x:Key="AccentColor">#FFF09609</Color>
+    <Color x:Key="AccentColor">#4a93d7</Color>
     <!--60%-->
-    <Color x:Key="AccentColor2">#FFe9aa46</Color>
+    <Color x:Key="AccentColor2">#4a93d7</Color>
     <!--40%-->
-    <Color x:Key="AccentColor3">#FFF09609</Color>
+    <Color x:Key="AccentColor3">#4a93d7</Color>
     <!--20%-->
-    <Color x:Key="AccentColor4">#FFe7ba74</Color>
+    <Color x:Key="AccentColor4">#4a93d7</Color>
 
 
     <Color x:Key="TitleColor">#00119EDA</Color>
-
-    <!-- re-set brushes too -->
+    
     <SolidColorBrush x:Key="HighlightBrush" Color="{StaticResource HighlightColor}" PresentationOptions:Freeze="True"/>
     <SolidColorBrush x:Key="AccentColorBrush" Color="{StaticResource AccentColor}"  PresentationOptions:Freeze="True"/>
     <SolidColorBrush x:Key="AccentColorBrush2" Color="{StaticResource AccentColor2}"  PresentationOptions:Freeze="True"/>
