@@ -2,16 +2,20 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
 
-    <Color x:Key="SeasonForegroundColor">#4a93d7</Color>
-    <Color x:Key="ListBoxItemBackgroundColor">#4a93d7</Color>
-
-    <Color x:Key="TimelineItemHoverBackgroundColor">#5caffc</Color>
-    <Color x:Key="BacklogItemHoverBackgroundColor">#5caffc</Color>
     
-    <Color x:Key="LastUpdatedForegroundColor">#787878</Color>
-    <Color x:Key="StatusForegroundColor">#4a93d7</Color>
+    <Color x:Key="ListBoxItemBackgroundColor">#0063b1</Color>
 
-    <Color x:Key="ShowEndedColor">#e31d1d</Color>
+    <Color x:Key="TimelineItemHoverBackgroundColor">#0078d7</Color>
+    <Color x:Key="BacklogItemHoverBackgroundColor">#0078d7</Color>
+
+    <Color x:Key="SeasonForegroundColor">#0078d7</Color>
+
+    <Color x:Key="LastUpdatedForegroundColor">#787878</Color>
+    <Color x:Key="StatusForegroundColor">#0063b1</Color>
+
+    <Color x:Key="UnwatchedStickerBackgroundColor">#686868</Color>
+
+    <Color x:Key="ShowEndedColor">#e81123</Color>
 
     <SolidColorBrush x:Key="ListBoxItemBackgroundBrush" Color="{StaticResource ListBoxItemBackgroundColor}"  PresentationOptions:Freeze="True"/>
     <SolidColorBrush x:Key="SeasonForegroundBrush" Color="{StaticResource SeasonForegroundColor}"  PresentationOptions:Freeze="True"/>
@@ -24,16 +28,18 @@
 
     <SolidColorBrush x:Key="ShowEndedBrush" Color="{StaticResource ShowEndedColor}"  PresentationOptions:Freeze="True"/>
 
+    <SolidColorBrush x:Key="UnwatchedStickerBackgroundBrush" Color="{StaticResource UnwatchedStickerBackgroundColor}"  PresentationOptions:Freeze="True"/>
+    
     <!--ACCENT COLORS-->
-    <Color x:Key="HighlightColor">#4a93d7</Color>
+    <Color x:Key="HighlightColor">#0063b1</Color>
     <!--80%-->
-    <Color x:Key="AccentColor">#4a93d7</Color>
+    <Color x:Key="AccentColor">#0063b1</Color>
     <!--60%-->
-    <Color x:Key="AccentColor2">#4a93d7</Color>
+    <Color x:Key="AccentColor2">#0063b1</Color>
     <!--40%-->
-    <Color x:Key="AccentColor3">#4a93d7</Color>
+    <Color x:Key="AccentColor3">#0063b1</Color>
     <!--20%-->
-    <Color x:Key="AccentColor4">#4a93d7</Color>
+    <Color x:Key="AccentColor4">#0063b1</Color>
 
 
     <Color x:Key="TitleColor">#00119EDA</Color>

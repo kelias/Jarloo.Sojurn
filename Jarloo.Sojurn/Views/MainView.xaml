@@ -46,8 +46,6 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        
-
         <StackPanel Orientation="Horizontal" Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="0">
             <Button HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="46" Cursor="Hand" Margin="0,4,0,0" ToolTip="Add NewShow..." Command="{Binding AddShowCommand}">
                 <Button.Template>
@@ -111,7 +109,7 @@
                                         CommandParameter="{Binding .}" />
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
-                                <Ellipse Fill="DarkGray" Height="80" Width="80" Opacity="0.5" />
+                                <Ellipse Fill="{StaticResource UnwatchedStickerBackgroundBrush}" Height="80" Width="80" Opacity="0.7" />
                                 <TextBlock Text="{Binding UnwatchedCount}" FontSize="45" TextAlignment="Center" VerticalAlignment="Center"/>
                             </Grid>
 
