@@ -165,30 +165,8 @@ namespace Jarloo.Sojurn.ViewModels
                 MarkAllEpisodesAsWatchedCommand = new RelayCommand(t => MarkAllAsViewed(t as Show));
                 ToggleViewedBackLogCommand = new RelayCommand(t => ToggleViewedBacklog(t as BacklogItem));
                 ShowEpisodesCommand = new RelayCommand(t => ShowEpisodes(t as Show));
-
-                ShowStreamProvidersCommand = new RelayCommand(t =>
-                {
-                    SelectedBackLogItem = (BacklogItem) t;
-                    var v = (MainView) View;
-
-                    var pop = v.StreamProviderPopup;
-
-                    pop.PlacementTarget = t as ListBoxItem;
-                    pop.Placement = PlacementMode.MousePoint;
-
-                    v.StreamProviderPopup.IsOpen = true;
-                });
-
-                CallStreamProviderCommand = new RelayCommand(p =>
-                {
-                    var s = (StreamProvider) p;
-
-                    if (s == null) return;
-
-                    if (SelectedBackLogItem == null) return;
-
-                    spm.CallStreamProvider(s, SelectedBackLogItem.Episode);
-                });
+                ShowStreamProvidersCommand = new RelayCommand(ShowStreamProviders);
+                CallStreamProviderCommand = new RelayCommand(p => CallStreamProvider(p as StreamProvider));
             }
             catch (Exception ex)
             {
@@ -196,6 +174,40 @@ namespace Jarloo.Sojurn.ViewModels
             }
         }
 
+        private void CallStreamProvider(StreamProvider s)
+        {
+            try
+            {
+                if (s == null) return;
+                if (SelectedBackLogItem == null) return;
+
+                spm.CallStreamProvider(s, SelectedBackLogItem.Episode);
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.Log(ex);
+            }
+        }
+
+        private void ShowStreamProviders(object t)
+        {
+            try
+            {
+                SelectedBackLogItem = (BacklogItem)t;
+                var v = (MainView)View;
+
+                var pop = v.StreamProviderPopup;
+
+                pop.PlacementTarget = t as ListBoxItem;
+                pop.Placement = PlacementMode.MousePoint;
+
+                v.StreamProviderPopup.IsOpen = true;
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.Log(ex);
+            }
+        }
 
         private void ShowEpisodes(Show show)
         {

@@ -8,12 +8,6 @@ namespace Jarloo.Sojurn.Extensions
 {
     public static class ConversionExtensions
     {
-        /// <summary>
-        /// Serializes an object to JSON
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj"></param>
-        /// <returns></returns>
         public static string ToJson<T>(this T obj)
         {
             using (var stream = new MemoryStream())
@@ -23,13 +17,7 @@ namespace Jarloo.Sojurn.Extensions
                 return Encoding.UTF8.GetString(stream.ToArray());
             }
         }
-
-        /// <summary>
-        /// Deseralizes an object from JSON
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="input"></param>
-        /// <returns></returns>
+        
         public static T FromJson<T>(this string input)
         {
             using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(input)))
@@ -39,13 +27,7 @@ namespace Jarloo.Sojurn.Extensions
                 return obj;
             }
         }
-
-        /// <summary>
-        /// Serializes and object to XML
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        
         public static string ToXml<T>(this T obj)
         {
             using (var stream = new MemoryStream())
@@ -55,13 +37,7 @@ namespace Jarloo.Sojurn.Extensions
                 return Encoding.UTF8.GetString(stream.ToArray());
             }
         }
-
-        /// <summary>
-        /// Deseralizes an object from XML
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="input"></param>
-        /// <returns></returns>
+        
         public static T FromXml<T>(this string input)
         {
             using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(input)))
@@ -71,15 +47,7 @@ namespace Jarloo.Sojurn.Extensions
                 return obj;
             }
         }
-
-        /// <summary>
-        /// Converts an object to the type specified. 
-        /// If the object is a string and null or blank it will return null
-        /// If the object is = DBNull it will return the default type for that object.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="text"></param>
-        /// <returns></returns>
+        
         public static T To<T>(this object text)
         {
             if (text == null) return default(T);
@@ -91,12 +59,7 @@ namespace Jarloo.Sojurn.Extensions
             var underlyingType = Nullable.GetUnderlyingType(type) ?? type;
             return (T) Convert.ChangeType(text, underlyingType);
         }
-
-        /// <summary>
-        /// Checks if the object is null
-        /// </summary>
-        /// <param name="o"></param>
-        /// <returns></returns>
+        
         public static bool IsNull(this object o)
         {
             return o == null;
