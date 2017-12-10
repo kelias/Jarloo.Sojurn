@@ -21,6 +21,18 @@
         <converters:LastUpdatedConverter x:Key="LastUpdatedConverter"/>
         <converters:ShowOpacityConverter x:Key="ShowOpacityConverter"/>
         <converters:ShowUnwatchedConverter x:Key="ShowUnwatchedConverter"/>
+        
+        <Style TargetType="TextBlock" x:Key="StatusStyle">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Status}" Value="Ended">
+                    <Setter Property="TextBlock.Foreground" Value="{StaticResource ShowEndedBrush}"/>
+                </DataTrigger>
+            </Style.Triggers>
+            <Style.Setters>
+                <Setter Property="Foreground" Value="{StaticResource StatusForegroundBrush}"/>
+            </Style.Setters>
+        </Style>
+
     </Window.Resources>
 
     <Grid>
@@ -108,21 +120,8 @@
                         <TextBlock Text="{Binding Name}" FontSize="14" TextAlignment="Center" TextTrimming="CharacterEllipsis" Width="150" />
                         
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <TextBlock Text="Status: " FontSize="9" Foreground="{StaticResource StatusForegroundBrush}"/>
-                            <TextBlock Text="{Binding Status}" FontSize="9">
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Status}" Value="Ended">
-                                                <Setter Property="TextBlock.Foreground" Value="{StaticResource ShowEndedBrush}"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                        <Style.Setters>
-                                            <Setter Property="Foreground" Value="{StaticResource StatusForegroundBrush}"/>
-                                        </Style.Setters>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
+                            <TextBlock Text="Status: " FontSize="12" Style="{StaticResource StatusStyle}"/>
+                            <TextBlock Text="{Binding Status}" FontSize="12" Style="{StaticResource StatusStyle}"/>
                         </StackPanel>
                         
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

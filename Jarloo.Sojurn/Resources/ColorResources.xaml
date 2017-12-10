@@ -9,7 +9,7 @@
     <Color x:Key="BacklogItemHoverBackgroundColor">#5caffc</Color>
     
     <Color x:Key="LastUpdatedForegroundColor">#787878</Color>
-    <Color x:Key="StatusForegroundColor">#9f9f9f</Color>
+    <Color x:Key="StatusForegroundColor">#4a93d7</Color>
 
     <Color x:Key="ShowEndedColor">#e31d1d</Color>
 
