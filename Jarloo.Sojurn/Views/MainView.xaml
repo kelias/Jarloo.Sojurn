@@ -440,7 +440,7 @@
         
         <Popup Width="150" StaysOpen="False" Name="StreamProviderPopup">
             <Border BorderThickness="1" BorderBrush="{StaticResource AccentColorBrush}" Background="{StaticResource Background}">
-                <ListBox ItemsSource="{Binding StreamProviders}" Margin="20,20,20,20" Background="{x:Null}">
+                <ListBox ItemsSource="{Binding StreamProviders}" Margin="20,20,20,20" Background="{x:Null}" BorderThickness="0">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Name}" Foreground="{StaticResource Foreground}">
@@ -453,6 +453,17 @@
                             </TextBlock>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
+
+                    <ListBox.Style>
+                        <Style TargetType="{x:Type ItemsControl}">
+                            <Style.Resources>
+                                <Style TargetType="{x:Type ListBoxItem}">
+                                    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                                    <Setter Property="BorderBrush" Value="Transparent" />
+                                </Style>
+                            </Style.Resources>
+                        </Style>
+                    </ListBox.Style>
                 </ListBox>
             </Border>
         </Popup>
