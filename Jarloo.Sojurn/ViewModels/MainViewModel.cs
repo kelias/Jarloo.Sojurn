@@ -56,7 +56,7 @@ namespace Jarloo.Sojurn.ViewModels
 
         public BacklogItem SelectedBackLogItem
         {
-            get { return selectedBackLogItem; }
+            get => selectedBackLogItem;
             set
             {
                 selectedBackLogItem = value;
@@ -66,7 +66,7 @@ namespace Jarloo.Sojurn.ViewModels
 
         public string Version
         {
-            get { return version; }
+            get => version;
             set
             {
                 version = value;
@@ -76,7 +76,7 @@ namespace Jarloo.Sojurn.ViewModels
 
         public Show SelectedShow
         {
-            get { return selectedShow; }
+            get => selectedShow;
             set
             {
                 selectedShow = value;
