@@ -54,7 +54,7 @@
     <ApplicationIcon>Images\logo.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>BF1B2C40AAF85ACAB03B61C07FF4A56BDA156A28</ManifestCertificateThumbprint>
