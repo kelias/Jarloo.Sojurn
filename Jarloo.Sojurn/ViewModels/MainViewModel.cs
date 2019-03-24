@@ -116,7 +116,8 @@ namespace Jarloo.Sojurn.ViewModels
                 Backlog.GroupDescriptions.Add(new PropertyGroupDescription("ShowName"));
                 Backlog.SortDescriptions.Add(new SortDescription("ShowName", ListSortDirection.Ascending));
                 Backlog.SortDescriptions.Add(new SortDescription("SeasonNumber", ListSortDirection.Ascending));
-                Backlog.SortDescriptions.Add(new SortDescription("EpisodeNumberThisSeason", ListSortDirection.Ascending));
+                Backlog.SortDescriptions.Add(
+                    new SortDescription("EpisodeNumberThisSeason", ListSortDirection.Ascending));
 
                 Version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
@@ -193,8 +194,8 @@ namespace Jarloo.Sojurn.ViewModels
         {
             try
             {
-                SelectedBackLogItem = (BacklogItem)t;
-                var v = (MainView)View;
+                SelectedBackLogItem = (BacklogItem) t;
+                var v = (MainView) View;
 
                 var pop = v.StreamProviderPopup;
 
