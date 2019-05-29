@@ -6,17 +6,12 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
-using System.Xml;
 using Jarloo.Sojurn.Data;
 using Jarloo.Sojurn.Helpers;
 using Jarloo.Sojurn.InformationProviders;
 using Jarloo.Sojurn.Models;
-using Jarloo.Sojurn.StreamProviders;
-using Jarloo.Sojurn.Views;
 
 namespace Jarloo.Sojurn.ViewModels
 {
@@ -26,8 +21,6 @@ namespace Jarloo.Sojurn.ViewModels
 
         private readonly IInformationProvider ip;
         private readonly IPersistenceManager pm;
-        private readonly StreamProviderManager spm;
-        public IStreamProvider StreamProvider { get; set; }
 
         private readonly ObservableCollection<BacklogItem> backlog = new ObservableCollection<BacklogItem>();
         private readonly ObservableCollection<Show> shows = new ObservableCollection<Show>();
@@ -47,10 +40,6 @@ namespace Jarloo.Sojurn.ViewModels
         public ICommand MarkAllEpisodesAsUnWatchedCommand { get; set; }
         public ICommand ToggleViewedBackLogCommand { get; set; }
         public ICommand ShowEpisodesCommand { get; set; }
-        public ICommand ShowStreamProvidersCommand { get; set; }
-        public ICommand CallStreamProviderCommand { get; set; }
-
-        public ObservableCollection<StreamProvider> StreamProviders { get; set; }
 
         public BacklogItem selectedBackLogItem;
 
@@ -121,10 +110,6 @@ namespace Jarloo.Sojurn.ViewModels
 
                 Version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-                spm = new StreamProviderManager();
-
-                StreamProviders = new ObservableCollection<StreamProvider>(spm.StreamProviders);
-
                 BindCommands();
             }
             catch (Exception ex)
@@ -166,43 +151,6 @@ namespace Jarloo.Sojurn.ViewModels
                 MarkAllEpisodesAsWatchedCommand = new RelayCommand(t => MarkAllAsViewed(t as Show));
                 ToggleViewedBackLogCommand = new RelayCommand(t => ToggleViewedBacklog(t as BacklogItem));
                 ShowEpisodesCommand = new RelayCommand(t => ShowEpisodes(t as Show));
-                ShowStreamProvidersCommand = new RelayCommand(ShowStreamProviders);
-                CallStreamProviderCommand = new RelayCommand(p => CallStreamProvider(p as StreamProvider));
-            }
-            catch (Exception ex)
-            {
-                ErrorManager.Log(ex);
-            }
-        }
-
-        private void CallStreamProvider(StreamProvider s)
-        {
-            try
-            {
-                if (s == null) return;
-                if (SelectedBackLogItem == null) return;
-
-                spm.CallStreamProvider(s, SelectedBackLogItem.Episode);
-            }
-            catch (Exception ex)
-            {
-                ErrorManager.Log(ex);
-            }
-        }
-
-        private void ShowStreamProviders(object t)
-        {
-            try
-            {
-                SelectedBackLogItem = (BacklogItem) t;
-                var v = (MainView) View;
-
-                var pop = v.StreamProviderPopup;
-
-                pop.PlacementTarget = t as ListBoxItem;
-                pop.Placement = PlacementMode.MousePoint;
-
-                v.StreamProviderPopup.IsOpen = true;
             }
             catch (Exception ex)
             {

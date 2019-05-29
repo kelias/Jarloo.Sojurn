@@ -379,14 +379,6 @@
                                 <TextBlock Text="{Binding Episode.AirDate, StringFormat=D}" FontSize="9" Margin="32,8,0,0" Opacity="0.8"/>
                             </StackPanel>
                         </StackPanel>
-
-                        <Button Grid.Column="1" Cursor="Hand" Command="{Binding DataContext.ShowStreamProvidersCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" CommandParameter="{Binding .}">
-                            <Button.Template>
-                                <ControlTemplate>
-                                    <Image Source="{StaticResource Play}" Height="32" Width="32" />
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
                     </Grid>
 
                 </DataTemplate>
