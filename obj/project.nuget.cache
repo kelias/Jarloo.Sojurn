@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "vkyF76OglbHUWuTZl7zv3sNH+QQ8PVHtekKZmv/FbaCuTEyAvN5y8hQ/jjqMtNEC8Q5BxWxZPd3NCrwwOqZ6kQ==",
+  "success": true,
+  "projectFilePath": "E:\\HomeCode\\Jarloo.Sojurn\\Jarloo.Sojurn.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\kelly\\.nuget\\packages\\controlzex\\4.3.1\\controlzex.4.3.1.nupkg.sha512",
+    "C:\\Users\\kelly\\.nuget\\packages\\mahapps.metro\\2.1.1\\mahapps.metro.2.1.1.nupkg.sha512",
+    "C:\\Users\\kelly\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.19\\microsoft.xaml.behaviors.wpf.1.1.19.nupkg.sha512",
+    "C:\\Users\\kelly\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\kelly\\.nuget\\packages\\system.text.json\\4.7.2\\system.text.json.4.7.2.nupkg.sha512"
+  ],
+  "logs": []
+}

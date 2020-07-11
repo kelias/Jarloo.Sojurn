@@ -1,0 +1,20 @@
+﻿<Application x:Class="Jarloo.Sojurn.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Startup="App_OnStartup">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+
+                <ResourceDictionary Source="/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="/MahApps.Metro;component/Styles/themes/dark.blue.xaml" />
+
+                <ResourceDictionary Source="/Jarloo.Sojurn;component/Resources/ColorResources.xaml" />
+                <ResourceDictionary Source="/Jarloo.Sojurn;component/Resources/ImageResources.xaml" />
+                <ResourceDictionary Source="/Jarloo.Sojurn;component/Resources/ControlResources.xaml" />
+                
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
