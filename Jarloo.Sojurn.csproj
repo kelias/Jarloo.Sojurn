@@ -16,9 +16,11 @@
     <None Remove="Images\appbar.refresh.clockwise.down.png" />
     <None Remove="Images\appbar.settings.png" />
     <None Remove="Images\appbar.sort.alphabetical.png" />
+    <None Remove="Images\episodeWindow.png" />
     <None Remove="Images\image_episode.png" />
     <None Remove="Images\image_show.png" />
     <None Remove="Images\logo.ico" />
+    <None Remove="Images\mainWindow2.png" />
     <None Remove="Images\splash.png" />
   </ItemGroup>
 
@@ -50,10 +52,16 @@
     <Content Include="Images\appbar.sort.alphabetical.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\episodeWindow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\image_episode.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\image_show.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\mainWindow2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

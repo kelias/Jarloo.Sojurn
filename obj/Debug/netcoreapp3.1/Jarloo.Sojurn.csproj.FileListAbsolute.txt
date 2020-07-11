@@ -48,3 +48,5 @@ E:\HomeCode\Jarloo.Sojurn\bin\Debug\netcoreapp3.1\Images\image_episode.png
 E:\HomeCode\Jarloo.Sojurn\bin\Debug\netcoreapp3.1\Images\image_show.png
 E:\HomeCode\Jarloo.Sojurn\bin\Debug\netcoreapp3.1\Images\logo.ico
 E:\HomeCode\Jarloo.Sojurn\obj\Debug\netcoreapp3.1\Jarloo.Sojurn_Content.g.cs
+E:\HomeCode\Jarloo.Sojurn\bin\Debug\netcoreapp3.1\Images\episodeWindow.png
+E:\HomeCode\Jarloo.Sojurn\bin\Debug\netcoreapp3.1\Images\mainWindow2.png

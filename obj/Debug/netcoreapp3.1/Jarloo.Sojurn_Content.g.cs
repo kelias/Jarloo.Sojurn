@@ -17,8 +17,10 @@
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/appbar.refresh.clockwise.down.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/appbar.settings.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/appbar.sort.alphabetical.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/episodewindow.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/image_episode.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/image_show.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/mainwindow2.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/logo.ico")]
 
 
