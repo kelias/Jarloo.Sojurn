@@ -65,6 +65,7 @@ namespace Jarloo.Sojurn.InformationProviders
                 DateTime? lastEpisodeAirDate = null;
                 var seasonNumber = 0;
                 Season season = null;
+
                 foreach (var ep in epdata)
                 {
                     if (ep.season != seasonNumber)
@@ -74,7 +75,7 @@ namespace Jarloo.Sojurn.InformationProviders
                         seasonNumber = ep.season;
                     }
                     //the season can't be null because the ep.season starts from 1 in TvMaze API
-                    //and the 'if' statment above initialize the vavriable
+                    //and the 'if' statment above initialize the variable
                     season?.Episodes.Add(new Episode
                     {
                         EpisodeNumber = ep.number,

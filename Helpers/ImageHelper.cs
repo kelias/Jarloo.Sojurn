@@ -51,10 +51,8 @@ namespace Jarloo.Sojurn.Helpers
 
             if (!File.Exists(filename))
             {
-                using (var web = new WebClient())
-                {
-                    web.DownloadFile(show.ImageUrl, filename);
-                }
+                using var web = new WebClient();
+                web.DownloadFile(show.ImageUrl, filename);
             }
 
             show.ImageSource = new BitmapImage(new Uri(filename));
@@ -68,7 +66,6 @@ namespace Jarloo.Sojurn.Helpers
             {
                 episode.IsLoading = true;
             }
-
 
             foreach (var season in show.Seasons.OrderByDescending(w => w.SeasonNumber))
             {
@@ -164,8 +161,7 @@ namespace Jarloo.Sojurn.Helpers
                         substr = Path.GetFileNameWithoutExtension(f);
                     }
 
-                    int id;
-                    if (!int.TryParse(substr, out id)) continue;
+                    if (!int.TryParse(substr, out var id)) continue;
                     if (dict.ContainsKey(id)) continue;
 
                     File.Delete(f);
