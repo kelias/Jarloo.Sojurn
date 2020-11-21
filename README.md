@@ -20,17 +20,6 @@ You can view all the seasons and episdoes of a show just by clicking on it.
 
 And Sojurn makes it easy to mark an episode as watched or unwatched. See that little eye icon above a show? Click that and it marks it as watched. Click again and it marks it as unwatched. The episodes that are the dimmed in the image above have been watched already. 
 
-Don't code but want to use this?
---------------------------------
-
-Click on releases on GitHub and download the latest release. All you need to do is unzip the file and put in in a folder somewhere you want, then run Jarloo.Sojurn.exe. 
-
-Sojurn will create a two new folders. A "Data" folder and an "Images" folder.
-
-The images holds images Sojurn downloads for show titles and episodes. 
-
-The "Data" folder is where your list of shows and the status of what shows you've watched is stored. They are stored in a file called index.json. You will notice there are other JSON files there, these are just backups of your index.json file, stored there in the event something goes wrong, so you can go back to a specific point in time.
-
 Backups
 -------
 
@@ -40,6 +29,6 @@ Then if you install Sojurn on a new machine just copy and paste you index.json f
 
 Keep in mind to get a Data Folder you must either create it or run Sojurn. Sojurn will make these for you once you run the program.
 
-.NET Core
+.NET 5
 ---------
-There is a new branch called "Core" to support .NET core. This will eventually be merged into master.
+The core branch has been merged into master
