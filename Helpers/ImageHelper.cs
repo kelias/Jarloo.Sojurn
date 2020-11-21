@@ -4,6 +4,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Jarloo.Sojurn.Models;
@@ -67,7 +68,7 @@ namespace Jarloo.Sojurn.Helpers
                 episode.IsLoading = true;
             }
 
-            foreach (var season in show.Seasons.OrderByDescending(w => w.SeasonNumber))
+            Parallel.ForEach(show.Seasons.OrderByDescending(w => w.SeasonNumber), season =>
             {
                 foreach (var episode in season.Episodes.OrderByDescending(w => w.EpisodeNumber))
                 {
@@ -126,7 +127,7 @@ namespace Jarloo.Sojurn.Helpers
 
                     dispatcher.InvokeAsync(() => { e.IsLoading = false; }, DispatcherPriority.Background);
                 }
-            }
+            });
         }
 
         public static void DeleteUnusedImages(List<Show> shows)
