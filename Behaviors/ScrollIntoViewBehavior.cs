@@ -20,11 +20,10 @@ namespace Jarloo.Sojurn.Behaviors
         private void ScrollIntoView(object o, SelectionChangedEventArgs e)
         {
             var b = (ListBox)o;
-            if (b == null) return;
-            if (b.SelectedItem == null) return;
+            if (b?.SelectedItem == null) return;
 
             var item = (ListBoxItem)((ListBox)o).ItemContainerGenerator.ContainerFromItem(((ListBox)o).SelectedItem);
-            if (item != null) item.BringIntoView();
+            item?.BringIntoView();
         }
     }
 }

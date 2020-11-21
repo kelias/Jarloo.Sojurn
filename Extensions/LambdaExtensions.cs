@@ -15,9 +15,8 @@ namespace Jarloo.Sojurn.Extensions
             var lambda = (LambdaExpression) expression;
 
             MemberExpression memberExpression;
-            if (lambda.Body is UnaryExpression)
+            if (lambda.Body is UnaryExpression unaryExpression)
             {
-                var unaryExpression = (UnaryExpression) lambda.Body;
                 memberExpression = (MemberExpression) unaryExpression.Operand;
             }
             else

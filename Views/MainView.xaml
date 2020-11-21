@@ -424,37 +424,5 @@
         <TextBlock Grid.Column="2" Height="43" Margin="49,10,49,0" Grid.Row="1" TextWrapping="Wrap" Text="timeline"
                    VerticalAlignment="Top" FontSize="32" TextAlignment="Center" />
         <TextBlock Grid.Row="0" Grid.Column="2" Margin="0,10,10,0" VerticalAlignment="Top" TextAlignment="Right" HorizontalAlignment="Right" Width="199" Height="16" Text="{Binding Version}"/>
-
-        <!--
-        <Popup Width="150" StaysOpen="False" Name="StreamProviderPopup">
-            <Border BorderThickness="1" BorderBrush="{StaticResource AccentColorBrush}" Background="{StaticResource Background}">
-                <ListBox ItemsSource="{Binding StreamProviders}" Margin="20,20,20,20" Background="{x:Null}" BorderThickness="0">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Name}" Foreground="{StaticResource Foreground}">
-                                 <b:Interaction.Triggers>
-                                    <b:EventTrigger EventName="MouseDown">
-                                        <b:InvokeCommandAction
-                                                            Command="{Binding DataContext.CallStreamProviderCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type views:View}}}" CommandParameter="{Binding .}"/>
-                                    </b:EventTrigger>
-                                </b:Interaction.Triggers>
-                            </TextBlock>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-
-                    <ListBox.Style>
-                        <Style TargetType="{x:Type ItemsControl}">
-                            <Style.Resources>
-                                <Style TargetType="{x:Type ListBoxItem}">
-                                    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                                    <Setter Property="BorderBrush" Value="Transparent" />
-                                </Style>
-                            </Style.Resources>
-                        </Style>
-                    </ListBox.Style>
-                </ListBox>
-            </Border>
-        </Popup>
-        -->
     </Grid>
 </views:View>
