@@ -143,8 +143,8 @@ namespace Jarloo.Sojurn.ViewModels
         {
             try
             {
-                AddShowCommand = new RelayCommand(t => AddShow());
-                RefreshAllShowsCommand = new RelayCommand(t => RefreshAllShows());
+                AddShowCommand = new RelayCommand(_ => AddShow());
+                RefreshAllShowsCommand = new RelayCommand(_ => RefreshAllShows());
                 RefreshShowCommand = new RelayCommand(t => RefreshShow(t as Show));
                 DeleteShowCommand = new RelayCommand(t => RemoveShow(t as Show));
                 MarkAllEpisodesAsUnWatchedCommand = new RelayCommand(t => MarkAllAsNotViewed(t as Show));
