@@ -4,8 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:views="clr-namespace:Jarloo.Sojurn.Views"
         xmlns:viewModels="clr-namespace:Jarloo.Sojurn.ViewModels"
         xmlns:behaviors="clr-namespace:Jarloo.Sojurn.Behaviors"

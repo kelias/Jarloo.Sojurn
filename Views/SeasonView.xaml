@@ -6,12 +6,13 @@
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:views="clr-namespace:Jarloo.Sojurn.Views"
         xmlns:converters="clr-namespace:Jarloo.Sojurn.Converters"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:behaviors="clr-namespace:Jarloo.Sojurn.Behaviors"
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:viewModels="clr-namespace:Jarloo.Sojurn.ViewModels"
         mc:Ignorable="d"
         GlowBrush="{StaticResource AccentColorBrush}"
         Background="{StaticResource Background}" Foreground="{StaticResource Foreground}"
+        d:DataContext="{d:DesignInstance {x:Type viewModels:SeasonViewModel}}"
         Height="726.316" Width="1400">
     
     <Window.Resources>
@@ -29,9 +30,11 @@
                         </StackPanel>
 
                         <ListBox ItemsSource="{Binding Episodes}" Style="{StaticResource NoFocusListBoxStyle}">
+                            
                             <b:Interaction.Behaviors>
                                 <behaviors:IgnoreMouseWheelBehavior />
                             </b:Interaction.Behaviors>
+                            
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <DockPanel>
