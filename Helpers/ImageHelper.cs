@@ -130,7 +130,7 @@ namespace Jarloo.Sojurn.Helpers
             });
         }
 
-        public static void DeleteUnusedImages(List<Show> shows)
+        public static void DeleteUnusedImages(IEnumerable<Show> shows)
         {
             var dict = shows.ToDictionary(show => show.ShowId, show => show.ShowId);
 

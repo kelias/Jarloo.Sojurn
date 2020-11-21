@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Configuration;
@@ -123,8 +124,11 @@ namespace Jarloo.Sojurn.ViewModels
             try
             {
                 base.Show();
-
+                
                 LoadShows();
+
+                Task.Run(() => ImageHelper.DeleteUnusedImages(shows.ToList()));
+
             }
             catch (Exception ex)
             {

@@ -11,7 +11,7 @@
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         GlowBrush="{StaticResource AccentColorBrush}"
-        Height="775" Width="1564"
+        Height="1000" Width="1800"
         Background="{StaticResource Background}" Foreground="{StaticResource Foreground}"
         d:DataContext="{d:DesignInstance {x:Type viewModels:MainViewModel}}"> 
 
