@@ -29,6 +29,4 @@ Then if you install Sojurn on a new machine just copy and paste you index.json f
 
 Keep in mind to get a Data Folder you must either create it or run Sojurn. Sojurn will make these for you once you run the program.
 
-.NET 5
----------
-The core branch has been merged into master
+
