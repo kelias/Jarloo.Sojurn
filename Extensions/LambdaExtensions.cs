@@ -1,30 +1,29 @@
 ﻿using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Jarloo.Sojurn.Extensions
+namespace Jarloo.Sojurn.Extensions;
+
+public static class LambdaExtensions
 {
-    public static class LambdaExtensions
+    /// <summary>
+    ///     Returns a MemberInfo object from an expression
+    /// </summary>
+    /// <param name="expression"></param>
+    /// <returns></returns>
+    public static MemberInfo GetMemberInfo(this Expression expression)
     {
-        /// <summary>
-        /// Returns a MemberInfo object from an expression
-        /// </summary>
-        /// <param name="expression"></param>
-        /// <returns></returns>
-        public static MemberInfo GetMemberInfo(this Expression expression)
+        var lambda = (LambdaExpression)expression;
+
+        MemberExpression memberExpression;
+        if (lambda.Body is UnaryExpression unaryExpression)
         {
-            var lambda = (LambdaExpression) expression;
-
-            MemberExpression memberExpression;
-            if (lambda.Body is UnaryExpression unaryExpression)
-            {
-                memberExpression = (MemberExpression) unaryExpression.Operand;
-            }
-            else
-            {
-                memberExpression = (MemberExpression) lambda.Body;
-            }
-
-            return memberExpression.Member;
+            memberExpression = (MemberExpression)unaryExpression.Operand;
         }
+        else
+        {
+            memberExpression = (MemberExpression)lambda.Body;
+        }
+
+        return memberExpression.Member;
     }
 }

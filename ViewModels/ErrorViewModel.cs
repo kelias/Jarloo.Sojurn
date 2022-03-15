@@ -3,44 +3,44 @@ using System.Windows.Data;
 using System.Windows.Input;
 using Jarloo.Sojurn.Helpers;
 
-namespace Jarloo.Sojurn.ViewModels
+namespace Jarloo.Sojurn.ViewModels;
+
+internal class ErrorViewModel : ViewModel
 {
-    internal class ErrorViewModel : ViewModel
+    public ICommand OkCommand { get; set; }
+    public ObservableCollection<string> Errors { get; set; }
+
+    public ErrorViewModel()
     {
-        public ICommand OkCommand { get; set; }
-        public ObservableCollection<string> Errors { get; set; }
+        Errors = new ObservableCollection<string>();
+        BindingOperations.EnableCollectionSynchronization(Errors, Errors);
 
-        public ErrorViewModel()
+        OkCommand = new RelayCommand(p =>
         {
-            Errors = new ObservableCollection<string>();
-            BindingOperations.EnableCollectionSynchronization(Errors, Errors);
-
-            OkCommand = new RelayCommand(p =>
+            lock (Errors)
             {
-                lock (Errors)
-                {
-                    Errors.Clear();
-                }
-                Close();
-            });
+                Errors.Clear();
+            }
+
+            Close();
+        });
+    }
+
+    public void AddEntry(string entry)
+    {
+        try
+        {
+            lock (Errors)
+            {
+                Errors.Add(entry);
+                if (Errors.Count > 100) Errors.RemoveAt(0);
+            }
+
+            View.Activate();
         }
-
-        public void AddEntry(string entry)
+        catch
         {
-            try
-            {
-                lock (Errors)
-                {
-                    Errors.Add(entry);
-                    if (Errors.Count > 100) Errors.RemoveAt(0);
-                }
-
-                View.Activate();
-            }
-            catch
-            {
-                //supress
-            }
+            //supress
         }
     }
 }

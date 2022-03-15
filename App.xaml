@@ -13,7 +13,7 @@
                 <ResourceDictionary Source="/Jarloo.Sojurn;component/Resources/ColorResources.xaml" />
                 <ResourceDictionary Source="/Jarloo.Sojurn;component/Resources/ImageResources.xaml" />
                 <ResourceDictionary Source="/Jarloo.Sojurn;component/Resources/ControlResources.xaml" />
-                
+
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

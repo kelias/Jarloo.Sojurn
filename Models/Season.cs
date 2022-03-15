@@ -2,43 +2,41 @@
 using System.Runtime.Serialization;
 using Jarloo.Sojurn.Helpers;
 
-namespace Jarloo.Sojurn.Models
+namespace Jarloo.Sojurn.Models;
+
+[DataContract]
+public class Season : NotifyPropertyChangedBase
 {
-    [DataContract]
-    public class Season : NotifyPropertyChangedBase
+    private int seasonNumber;
+
+    private Episode selectedEpisode;
+
+    public Season()
     {
-        private int seasonNumber;
+        Episodes = new List<Episode>();
+    }
 
-        private Episode selectedEpisode;
+    [DataMember] public List<Episode> Episodes { get; set; }
 
-        public Season()
+    [IgnoreDataMember]
+    public Episode SelectedEpisode
+    {
+        get => selectedEpisode;
+        set
         {
-            Episodes = new List<Episode>();
+            selectedEpisode = value;
+            NotifyOfPropertyChange(() => SelectedEpisode);
         }
+    }
 
-        [DataMember]
-        public List<Episode> Episodes { get; set; }
-
-        [IgnoreDataMember]
-        public Episode SelectedEpisode
+    [DataMember]
+    public int SeasonNumber
+    {
+        get => seasonNumber;
+        set
         {
-            get => selectedEpisode;
-            set
-            {
-                selectedEpisode = value;
-                NotifyOfPropertyChange(() => SelectedEpisode);
-            }
-        }
-
-        [DataMember]
-        public int SeasonNumber
-        {
-            get => seasonNumber;
-            set
-            {
-                seasonNumber = value;
-                NotifyOfPropertyChange(() => SeasonNumber);
-            }
+            seasonNumber = value;
+            NotifyOfPropertyChange(() => SeasonNumber);
         }
     }
 }

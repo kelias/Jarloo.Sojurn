@@ -1,10 +1,9 @@
-﻿namespace Jarloo.Sojurn.Views
+﻿namespace Jarloo.Sojurn.Views;
+
+public partial class AddShowView
 {
-    public partial class AddShowView
+    public AddShowView()
     {
-        public AddShowView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

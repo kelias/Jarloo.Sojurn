@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Configuration;
@@ -14,521 +13,519 @@ using Jarloo.Sojurn.Helpers;
 using Jarloo.Sojurn.InformationProviders;
 using Jarloo.Sojurn.Models;
 
-namespace Jarloo.Sojurn.ViewModels
+namespace Jarloo.Sojurn.ViewModels;
+
+public sealed class MainViewModel : ViewModel
 {
-    public sealed class MainViewModel : ViewModel
+    #region Properties
+
+    private readonly IInformationProvider ip;
+    private readonly IPersistenceManager pm;
+
+    private readonly ObservableCollection<BacklogItem> backlog = new();
+    private readonly ObservableCollection<Show> shows = new();
+    private readonly ObservableCollection<TimeLineItem> timeLine = new();
+    private Show selectedShow;
+    private string version;
+
+    public CollectionViewSource Shows { get; set; }
+    public CollectionViewSource TimeLine { get; set; }
+    public CollectionViewSource Backlog { get; set; }
+
+    public ICommand AddShowCommand { get; set; }
+    public ICommand RefreshAllShowsCommand { get; set; }
+    public ICommand RefreshShowCommand { get; set; }
+    public ICommand DeleteShowCommand { get; set; }
+    public ICommand MarkAllEpisodesAsWatchedCommand { get; set; }
+    public ICommand MarkAllEpisodesAsUnWatchedCommand { get; set; }
+    public ICommand ToggleViewedBackLogCommand { get; set; }
+    public ICommand ShowEpisodesCommand { get; set; }
+
+    public BacklogItem selectedBackLogItem;
+
+    public BacklogItem SelectedBackLogItem
     {
-        #region Properties
-
-        private readonly IInformationProvider ip;
-        private readonly IPersistenceManager pm;
-
-        private readonly ObservableCollection<BacklogItem> backlog = new ObservableCollection<BacklogItem>();
-        private readonly ObservableCollection<Show> shows = new ObservableCollection<Show>();
-        private readonly ObservableCollection<TimeLineItem> timeLine = new ObservableCollection<TimeLineItem>();
-        private Show selectedShow;
-        private string version;
-
-        public CollectionViewSource Shows { get; set; }
-        public CollectionViewSource TimeLine { get; set; }
-        public CollectionViewSource Backlog { get; set; }
-
-        public ICommand AddShowCommand { get; set; }
-        public ICommand RefreshAllShowsCommand { get; set; }
-        public ICommand RefreshShowCommand { get; set; }
-        public ICommand DeleteShowCommand { get; set; }
-        public ICommand MarkAllEpisodesAsWatchedCommand { get; set; }
-        public ICommand MarkAllEpisodesAsUnWatchedCommand { get; set; }
-        public ICommand ToggleViewedBackLogCommand { get; set; }
-        public ICommand ShowEpisodesCommand { get; set; }
-
-        public BacklogItem selectedBackLogItem;
-
-        public BacklogItem SelectedBackLogItem
+        get => selectedBackLogItem;
+        set
         {
-            get => selectedBackLogItem;
-            set
-            {
-                selectedBackLogItem = value;
-                NotifyOfPropertyChange(() => SelectedBackLogItem);
-            }
+            selectedBackLogItem = value;
+            NotifyOfPropertyChange(() => SelectedBackLogItem);
         }
+    }
 
-        public string Version
+    public string Version
+    {
+        get => version;
+        set
         {
-            get => version;
-            set
-            {
-                version = value;
-                NotifyOfPropertyChange(() => Version);
-            }
+            version = value;
+            NotifyOfPropertyChange(() => Version);
         }
+    }
 
-        public Show SelectedShow
+    public Show SelectedShow
+    {
+        get => selectedShow;
+        set
         {
-            get => selectedShow;
-            set
-            {
-                selectedShow = value;
-                NotifyOfPropertyChange(() => SelectedShow);
-            }
+            selectedShow = value;
+            NotifyOfPropertyChange(() => SelectedShow);
         }
+    }
 
-        #endregion
+    #endregion
 
-        public MainViewModel()
-            : this(
-                (IInformationProvider)
-                Activator.CreateInstance(Type.GetType(ConfigurationManager.AppSettings["InformationProvider"])),
-                (IPersistenceManager)
-                Activator.CreateInstance(Type.GetType(ConfigurationManager.AppSettings["PersistanceManager"])))
+    public MainViewModel()
+        : this(
+            (IInformationProvider)
+            Activator.CreateInstance(Type.GetType(ConfigurationManager.AppSettings["InformationProvider"])),
+            (IPersistenceManager)
+            Activator.CreateInstance(Type.GetType(ConfigurationManager.AppSettings["PersistanceManager"])))
+    {
+    }
+
+    public MainViewModel(IInformationProvider infoProvider, IPersistenceManager persistenceManager)
+    {
+        try
         {
+            Title = "Sojurn";
+
+            pm = persistenceManager;
+            ip = infoProvider;
+
+            Shows = new CollectionViewSource { Source = shows };
+            Shows.SortDescriptions.Add(new SortDescription("UnwatchedCount", ListSortDirection.Descending));
+            Shows.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+
+            TimeLine = new CollectionViewSource { Source = timeLine };
+            TimeLine.SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Ascending));
+            TimeLine.GroupDescriptions.Add(new PropertyGroupDescription("Date"));
+
+            Backlog = new CollectionViewSource { Source = backlog };
+            Backlog.GroupDescriptions.Add(new PropertyGroupDescription("ShowName"));
+            Backlog.SortDescriptions.Add(new SortDescription("ShowName", ListSortDirection.Ascending));
+            Backlog.SortDescriptions.Add(new SortDescription("SeasonNumber", ListSortDirection.Ascending));
+            Backlog.SortDescriptions.Add(
+                new SortDescription("EpisodeNumberThisSeason", ListSortDirection.Ascending));
+
+            Version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
+            BindCommands();
         }
-
-        public MainViewModel(IInformationProvider infoProvider, IPersistenceManager persistenceManager)
+        catch (Exception ex)
         {
-            try
-            {
-                Title = "Sojurn";
-
-                pm = persistenceManager;
-                ip = infoProvider;
-
-                Shows = new CollectionViewSource {Source = shows};
-                Shows.SortDescriptions.Add(new SortDescription("UnwatchedCount", ListSortDirection.Descending));
-                Shows.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
-
-                TimeLine = new CollectionViewSource {Source = timeLine};
-                TimeLine.SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Ascending));
-                TimeLine.GroupDescriptions.Add(new PropertyGroupDescription("Date"));
-
-                Backlog = new CollectionViewSource {Source = backlog};
-                Backlog.GroupDescriptions.Add(new PropertyGroupDescription("ShowName"));
-                Backlog.SortDescriptions.Add(new SortDescription("ShowName", ListSortDirection.Ascending));
-                Backlog.SortDescriptions.Add(new SortDescription("SeasonNumber", ListSortDirection.Ascending));
-                Backlog.SortDescriptions.Add(
-                    new SortDescription("EpisodeNumberThisSeason", ListSortDirection.Ascending));
-
-                Version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-
-                BindCommands();
-            }
-            catch (Exception ex)
-            {
-                ErrorManager.Log(ex);
-            }
+            ErrorManager.Log(ex);
         }
+    }
 
-        public override void Show()
+    public override void Show()
+    {
+        try
         {
-            try
-            {
-                base.Show();
-                
-                LoadShows();
+            base.Show();
 
-                Task.Run(() => ImageHelper.DeleteUnusedImages(shows.ToList()));
+            LoadShows();
 
-            }
-            catch (Exception ex)
-            {
-                ErrorManager.Log(ex);
-            }
+            Task.Run(() => ImageHelper.DeleteUnusedImages(shows.ToList()));
         }
-
-        protected override void Closing()
+        catch (Exception ex)
         {
-            base.Closing();
-
-            SaveShows();
+            ErrorManager.Log(ex);
         }
+    }
 
-        public void BindCommands()
+    protected override void Closing()
+    {
+        base.Closing();
+
+        SaveShows();
+    }
+
+    public void BindCommands()
+    {
+        try
         {
-            try
-            {
-                AddShowCommand = new RelayCommand(_ => AddShow());
-                RefreshAllShowsCommand = new RelayCommand(_ => RefreshAllShows());
-                RefreshShowCommand = new RelayCommand(t => RefreshShow(t as Show));
-                DeleteShowCommand = new RelayCommand(t => RemoveShow(t as Show));
-                MarkAllEpisodesAsUnWatchedCommand = new RelayCommand(t => MarkAllAsNotViewed(t as Show));
-                MarkAllEpisodesAsWatchedCommand = new RelayCommand(t => MarkAllAsViewed(t as Show));
-                ToggleViewedBackLogCommand = new RelayCommand(t => ToggleViewedBacklog(t as BacklogItem));
-                ShowEpisodesCommand = new RelayCommand(t => ShowEpisodes(t as Show));
-            }
-            catch (Exception ex)
-            {
-                ErrorManager.Log(ex);
-            }
+            AddShowCommand = new RelayCommand(_ => AddShow());
+            RefreshAllShowsCommand = new RelayCommand(_ => RefreshAllShows());
+            RefreshShowCommand = new RelayCommand(t => RefreshShow(t as Show));
+            DeleteShowCommand = new RelayCommand(t => RemoveShow(t as Show));
+            MarkAllEpisodesAsUnWatchedCommand = new RelayCommand(t => MarkAllAsNotViewed(t as Show));
+            MarkAllEpisodesAsWatchedCommand = new RelayCommand(t => MarkAllAsViewed(t as Show));
+            ToggleViewedBackLogCommand = new RelayCommand(t => ToggleViewedBacklog(t as BacklogItem));
+            ShowEpisodesCommand = new RelayCommand(t => ShowEpisodes(t as Show));
         }
-
-        private void ShowEpisodes(Show show)
+        catch (Exception ex)
         {
-            try
-            {
-                if (show == null) return;
-
-                var callback = new Action<Episode>(UpdateViewedOnBacklog);
-
-                ViewModelManager.Create<SeasonViewModel>().Show(show, callback);
-            }
-            catch (Exception ex)
-            {
-                ErrorManager.Log(ex);
-            }
+            ErrorManager.Log(ex);
         }
+    }
 
-        private void AddShow()
+    private void ShowEpisodes(Show show)
+    {
+        try
         {
-            try
+            if (show == null) return;
+
+            var callback = new Action<Episode>(UpdateViewedOnBacklog);
+
+            ViewModelManager.Create<SeasonViewModel>().Show(show, callback);
+        }
+        catch (Exception ex)
+        {
+            ErrorManager.Log(ex);
+        }
+    }
+
+    private void AddShow()
+    {
+        try
+        {
+            var vm = ViewModelManager.Create<AddShowViewModel>();
+            vm.View.Owner = View;
+            vm.InformationProvider = ip;
+            vm.CurrentShows = shows.ToList();
+
+            if (vm.ShowDialog() != true) return;
+            if (vm.NewShow == null) return;
+
+            var show = vm.NewShow;
+            if (show.Seasons.Count > 0) show.SelectedSeason = show.Seasons[^1];
+
+            shows.Add(show);
+            SelectedShow = show;
+
+            ImageHelper.LoadDefaultImages(show);
+            ImageHelper.GetShowImageUrl(show);
+
+            UpdateTimeline();
+            UpdateBacklog();
+        }
+        catch (Exception ex)
+        {
+            ErrorManager.Log(ex);
+        }
+    }
+
+    private void SaveShows()
+    {
+        try
+        {
+            var userSettings = new UserSettings { Shows = shows.ToList() };
+            pm.Save("index", userSettings);
+        }
+        catch (Exception ex)
+        {
+            ErrorManager.Log(ex);
+        }
+    }
+
+    private void LoadShows()
+    {
+        try
+        {
+            shows.Clear();
+
+            var userSettings = pm.Retrieve<UserSettings>("index");
+
+            if (userSettings == null) return;
+
+            foreach (var show in userSettings.Shows)
             {
-                var vm = ViewModelManager.Create<AddShowViewModel>();
-                vm.View.Owner = View;
-                vm.InformationProvider = ip;
-                vm.CurrentShows = shows.ToList();
-
-                if (vm.ShowDialog() != true) return;
-                if (vm.NewShow == null) return;
-
-                var show = vm.NewShow;
                 if (show.Seasons.Count > 0) show.SelectedSeason = show.Seasons[^1];
 
                 shows.Add(show);
-                SelectedShow = show;
 
                 ImageHelper.LoadDefaultImages(show);
                 ImageHelper.GetShowImageUrl(show);
+            }
 
-                UpdateTimeline();
-                UpdateBacklog();
-            }
-            catch (Exception ex)
-            {
-                ErrorManager.Log(ex);
-            }
+            UpdateTimeline();
+            UpdateBacklog();
         }
-
-        private void SaveShows()
+        catch (Exception ex)
         {
-            try
-            {
-                var userSettings = new UserSettings {Shows = shows.ToList()};
-                pm.Save("index", userSettings);
-            }
-            catch (Exception ex)
-            {
-                ErrorManager.Log(ex);
-            }
+            ErrorManager.Log(ex);
         }
+    }
 
-        private void LoadShows()
+    public void UpdateTimeline()
+    {
+        try
         {
-            try
+            timeLine.Clear();
+
+            foreach (var show in shows)
             {
-                shows.Clear();
+                var latestSeason = show.Seasons[^1];
 
-                var userSettings = pm.Retrieve<UserSettings>("index");
+                var futureEpisodes =
+                    latestSeason.Episodes.Where(w => w.AirDate != null && w.AirDate >= DateTime.Today)
+                        .OrderBy(w => w.AirDate)
+                        .ToList();
 
-                if (userSettings == null) return;
-
-                foreach (var show in userSettings.Shows)
+                foreach (var episode in futureEpisodes)
                 {
-                    if (show.Seasons.Count > 0) show.SelectedSeason = show.Seasons[^1];
-
-                    shows.Add(show);
-
-                    ImageHelper.LoadDefaultImages(show);
-                    ImageHelper.GetShowImageUrl(show);
+                    if (timeLine.Any(w => w.Episode == episode)) continue;
+                    timeLine.Add(new TimeLineItem { Show = show, Episode = episode });
                 }
-
-                UpdateTimeline();
-                UpdateBacklog();
-            }
-            catch (Exception ex)
-            {
-                ErrorManager.Log(ex);
             }
         }
-
-        public void UpdateTimeline()
+        catch (Exception ex)
         {
-            try
+            ErrorManager.Log(ex);
+        }
+    }
+
+    public void UpdateBacklog()
+    {
+        try
+        {
+            backlog.Clear();
+
+            foreach (var show in shows)
             {
-                timeLine.Clear();
+                show.UnwatchedCount = 0;
 
-                foreach (var show in shows)
+                foreach (var season in show.Seasons)
                 {
-                    var latestSeason = show.Seasons[^1];
-
-                    var futureEpisodes =
-                        latestSeason.Episodes.Where(w => w.AirDate != null && w.AirDate >= DateTime.Today)
-                            .OrderBy(w => w.AirDate)
-                            .ToList();
-
-                    foreach (var episode in futureEpisodes)
+                    foreach (var episode in season.Episodes)
                     {
-                        if (timeLine.Any(w => w.Episode == episode)) continue;
-                        timeLine.Add(new TimeLineItem {Show = show, Episode = episode});
+                        if (episode.HasBeenViewed || episode.AirDate > DateTime.Today || episode.AirDate == null)
+                            continue;
+
+                        backlog.Add(new BacklogItem { Show = show, Episode = episode, Season = season });
+                        show.UnwatchedCount++;
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                ErrorManager.Log(ex);
-            }
-        }
 
-        public void UpdateBacklog()
+            Shows.View.Refresh();
+        }
+        catch (Exception ex)
         {
+            ErrorManager.Log(ex);
+        }
+    }
+
+    public void RefreshAllShows()
+    {
+        try
+        {
+            foreach (var show in shows)
+            {
+                RefreshShow(show);
+            }
+
+            UpdateTimeline();
+            UpdateBacklog();
+        }
+        catch (Exception ex)
+        {
+            ErrorManager.Log(ex);
+        }
+    }
+
+    public async void RefreshShow(Show oldShow)
+    {
+        try
+        {
+            oldShow.IsLoading = true;
+
             try
             {
-                backlog.Clear();
+                var newShow = await Task.Run(() => ip.GetFullDetails(oldShow.ShowId));
 
-                foreach (var show in shows)
+                if (newShow == null) return;
+
+                oldShow.Country = newShow.Country;
+                oldShow.Ended = newShow.Ended;
+                oldShow.Link = newShow.Link;
+                oldShow.Name = newShow.Name;
+                oldShow.Started = newShow.Started;
+                oldShow.Status = newShow.Status;
+                oldShow.ImageUrl = newShow.ImageUrl;
+                oldShow.LastUpdated = newShow.LastUpdated;
+
+                foreach (var newSeason in newShow.Seasons)
                 {
-                    show.UnwatchedCount = 0;
+                    var oldSeason = oldShow.Seasons.FirstOrDefault(w => w.SeasonNumber == newSeason.SeasonNumber);
 
-                    foreach (var season in show.Seasons)
+                    if (oldSeason == null)
                     {
-                        foreach (var episode in season.Episodes)
-                        {
-                            if (episode.HasBeenViewed || episode.AirDate > DateTime.Today || episode.AirDate == null)
-                                continue;
-
-                            backlog.Add(new BacklogItem {Show = show, Episode = episode, Season = season});
-                            show.UnwatchedCount++;
-                        }
+                        oldShow.Seasons.Add(newSeason);
+                        continue;
                     }
-                }
 
-                Shows.View.Refresh();
-            }
-            catch (Exception ex)
-            {
-                ErrorManager.Log(ex);
-            }
-        }
-
-        public void RefreshAllShows()
-        {
-            try
-            {
-                foreach (var show in shows)
-                {
-                    RefreshShow(show);
-                }
-
-                UpdateTimeline();
-                UpdateBacklog();
-            }
-            catch (Exception ex)
-            {
-                ErrorManager.Log(ex);
-            }
-        }
-
-        public async void RefreshShow(Show oldShow)
-        {
-            try
-            {
-                oldShow.IsLoading = true;
-
-                try
-                {
-                    var newShow = await Task.Run(() => ip.GetFullDetails(oldShow.ShowId));
-
-                    if (newShow == null) return;
-
-                    oldShow.Country = newShow.Country;
-                    oldShow.Ended = newShow.Ended;
-                    oldShow.Link = newShow.Link;
-                    oldShow.Name = newShow.Name;
-                    oldShow.Started = newShow.Started;
-                    oldShow.Status = newShow.Status;
-                    oldShow.ImageUrl = newShow.ImageUrl;
-                    oldShow.LastUpdated = newShow.LastUpdated;
-
-                    foreach (var newSeason in newShow.Seasons)
+                    foreach (var newEpisode in newSeason.Episodes)
                     {
-                        var oldSeason = oldShow.Seasons.FirstOrDefault(w => w.SeasonNumber == newSeason.SeasonNumber);
+                        var oldEpisode =
+                            oldSeason.Episodes.FirstOrDefault(w => w.EpisodeNumber == newEpisode.EpisodeNumber);
 
-                        if (oldSeason == null)
+                        if (oldEpisode == null)
                         {
-                            oldShow.Seasons.Add(newSeason);
+                            oldSeason.Episodes.Add(newEpisode);
                             continue;
                         }
 
-                        foreach (var newEpisode in newSeason.Episodes)
-                        {
-                            var oldEpisode =
-                                oldSeason.Episodes.FirstOrDefault(w => w.EpisodeNumber == newEpisode.EpisodeNumber);
-
-                            if (oldEpisode == null)
-                            {
-                                oldSeason.Episodes.Add(newEpisode);
-                                continue;
-                            }
-
-                            oldEpisode.AirDate = newEpisode.AirDate;
-                            oldEpisode.ImageUrl = newEpisode.ImageUrl;
-                            oldEpisode.Link = newEpisode.Link;
-                            oldEpisode.Title = newEpisode.Title;
-                        }
-                    }
-
-                    ImageHelper.LoadDefaultImages(oldShow);
-                    ImageHelper.GetShowImageUrl(oldShow);
-                }
-                finally
-                {
-                    oldShow.IsLoading = false;
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorManager.Log(ex);
-            }
-        }
-
-        public void RemoveShow(Show s)
-        {
-            try
-            {
-                if (
-                    MessageBox.Show($"Delete the show {s.Name} and all associated data?", "Sojurn",
-                        MessageBoxButton.OKCancel, MessageBoxImage.Question, MessageBoxResult.Cancel) ==
-                    MessageBoxResult.Cancel) return;
-
-                RemoveFromTimeLine(s);
-                RemoveFromBacklog(s);
-                shows.Remove(s);
-            }
-            catch (Exception ex)
-            {
-                ErrorManager.Log(ex);
-            }
-        }
-
-        private void RemoveFromTimeLine(Show show)
-        {
-            try
-            {
-                for (var i = timeLine.Count - 1; i >= 0; i--)
-                {
-                    if (timeLine[i].Show == show) timeLine.RemoveAt(i);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorManager.Log(ex);
-            }
-        }
-
-        private void RemoveFromBacklog(Show show)
-        {
-            try
-            {
-                for (var i = backlog.Count - 1; i >= 0; i--)
-                {
-                    if (backlog[i].Show == show) backlog.RemoveAt(i);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorManager.Log(ex);
-            }
-        }
-
-        public void MarkAllAsViewed(Show s)
-        {
-            try
-            {
-                foreach (var episode in s.Seasons.SelectMany(season => season.Episodes))
-                {
-                    if (episode.AirDate > DateTime.Today) continue;
-
-                    episode.HasBeenViewed = true;
-                }
-
-                s.UnwatchedCount = 0;
-
-                UpdateBacklog();
-            }
-            catch (Exception ex)
-            {
-                ErrorManager.Log(ex);
-            }
-        }
-
-        public void MarkAllAsNotViewed(Show s)
-        {
-            try
-            {
-                s.UnwatchedCount = 0;
-
-                foreach (var episode in s.Seasons.SelectMany(season => season.Episodes))
-                {
-                    episode.HasBeenViewed = false;
-                    s.UnwatchedCount++;
-                }
-
-                UpdateBacklog();
-            }
-            catch (Exception ex)
-            {
-                ErrorManager.Log(ex);
-            }
-        }
-
-        public void UpdateViewedOnBacklog(Episode e)
-        {
-            try
-            {
-                var s = shows.FirstOrDefault(w => w.Name == e.ShowName);
-
-                if (e.HasBeenViewed)
-                {
-                    for (var i = 0; i < backlog.Count; i++)
-                    {
-                        if (backlog[i].Episode != e) continue;
-                        backlog.RemoveAt(i);
-
-                        if (s != null) s.UnwatchedCount--;
-
-                        break;
+                        oldEpisode.AirDate = newEpisode.AirDate;
+                        oldEpisode.ImageUrl = newEpisode.ImageUrl;
+                        oldEpisode.Link = newEpisode.Link;
+                        oldEpisode.Title = newEpisode.Title;
                     }
                 }
-                else
-                {
-                    var show = shows.FirstOrDefault(w => w.Name == e.ShowName);
 
-                    if (show == null) return;
-
-                    var season = show.Seasons.FirstOrDefault(w => w.SeasonNumber == e.SeasonNumber);
-
-                    backlog.Add(new BacklogItem {Show = show, Episode = e, Season = season});
-
-                    if (s != null) s.UnwatchedCount++;
-                }
+                ImageHelper.LoadDefaultImages(oldShow);
+                ImageHelper.GetShowImageUrl(oldShow);
             }
-            catch (Exception ex)
+            finally
             {
-                ErrorManager.Log(ex);
+                oldShow.IsLoading = false;
             }
         }
-
-        public void ToggleViewedBacklog(BacklogItem i)
+        catch (Exception ex)
         {
-            try
-            {
-                i.Episode.HasBeenViewed = !i.Episode.HasBeenViewed;
+            ErrorManager.Log(ex);
+        }
+    }
 
-                UpdateViewedOnBacklog(i.Episode);
-            }
-            catch (Exception ex)
+    public void RemoveShow(Show s)
+    {
+        try
+        {
+            if (
+                MessageBox.Show($"Delete the show {s.Name} and all associated data?", "Sojurn",
+                    MessageBoxButton.OKCancel, MessageBoxImage.Question, MessageBoxResult.Cancel) ==
+                MessageBoxResult.Cancel) return;
+
+            RemoveFromTimeLine(s);
+            RemoveFromBacklog(s);
+            shows.Remove(s);
+        }
+        catch (Exception ex)
+        {
+            ErrorManager.Log(ex);
+        }
+    }
+
+    private void RemoveFromTimeLine(Show show)
+    {
+        try
+        {
+            for (var i = timeLine.Count - 1; i >= 0; i--)
             {
-                ErrorManager.Log(ex);
+                if (timeLine[i].Show == show) timeLine.RemoveAt(i);
             }
+        }
+        catch (Exception ex)
+        {
+            ErrorManager.Log(ex);
+        }
+    }
+
+    private void RemoveFromBacklog(Show show)
+    {
+        try
+        {
+            for (var i = backlog.Count - 1; i >= 0; i--)
+            {
+                if (backlog[i].Show == show) backlog.RemoveAt(i);
+            }
+        }
+        catch (Exception ex)
+        {
+            ErrorManager.Log(ex);
+        }
+    }
+
+    public void MarkAllAsViewed(Show s)
+    {
+        try
+        {
+            foreach (var episode in s.Seasons.SelectMany(season => season.Episodes))
+            {
+                if (episode.AirDate > DateTime.Today) continue;
+
+                episode.HasBeenViewed = true;
+            }
+
+            s.UnwatchedCount = 0;
+
+            UpdateBacklog();
+        }
+        catch (Exception ex)
+        {
+            ErrorManager.Log(ex);
+        }
+    }
+
+    public void MarkAllAsNotViewed(Show s)
+    {
+        try
+        {
+            s.UnwatchedCount = 0;
+
+            foreach (var episode in s.Seasons.SelectMany(season => season.Episodes))
+            {
+                episode.HasBeenViewed = false;
+                s.UnwatchedCount++;
+            }
+
+            UpdateBacklog();
+        }
+        catch (Exception ex)
+        {
+            ErrorManager.Log(ex);
+        }
+    }
+
+    public void UpdateViewedOnBacklog(Episode e)
+    {
+        try
+        {
+            var s = shows.FirstOrDefault(w => w.Name == e.ShowName);
+
+            if (e.HasBeenViewed)
+            {
+                for (var i = 0; i < backlog.Count; i++)
+                {
+                    if (backlog[i].Episode != e) continue;
+                    backlog.RemoveAt(i);
+
+                    if (s != null) s.UnwatchedCount--;
+
+                    break;
+                }
+            }
+            else
+            {
+                var show = shows.FirstOrDefault(w => w.Name == e.ShowName);
+
+                if (show == null) return;
+
+                var season = show.Seasons.FirstOrDefault(w => w.SeasonNumber == e.SeasonNumber);
+
+                backlog.Add(new BacklogItem { Show = show, Episode = e, Season = season });
+
+                if (s != null) s.UnwatchedCount++;
+            }
+        }
+        catch (Exception ex)
+        {
+            ErrorManager.Log(ex);
+        }
+    }
+
+    public void ToggleViewedBacklog(BacklogItem i)
+    {
+        try
+        {
+            i.Episode.HasBeenViewed = !i.Episode.HasBeenViewed;
+
+            UpdateViewedOnBacklog(i.Episode);
+        }
+        catch (Exception ex)
+        {
+            ErrorManager.Log(ex);
         }
     }
 }

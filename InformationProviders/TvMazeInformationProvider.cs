@@ -9,188 +9,192 @@ using Jarloo.Sojurn.Helpers;
 using Jarloo.Sojurn.Models;
 using Newtonsoft.Json;
 
-namespace Jarloo.Sojurn.InformationProviders
+namespace Jarloo.Sojurn.InformationProviders;
+
+internal class TvMazeInformationProvider : IInformationProvider
 {
-    internal class TvMazeInformationProvider : IInformationProvider
+    private const string BASE_URL = "http://api.tvmaze.com/";
+
+    public List<Show> GetShows(string search)
     {
-        private const string BASE_URL = "http://api.tvmaze.com/";
-        
-        public List<Show> GetShows(string search)
+        var requestUri = $"{BASE_URL}search/shows?q={HttpUtility.HtmlEncode(search)}";
+        var data = GetJsonData(requestUri);
+
+        var shows = new List<Show>();
+        foreach (var item in data)
         {
-            var requestUri = $"{BASE_URL}search/shows?q={HttpUtility.HtmlEncode(search)}";
-            var data = GetJsonData(requestUri);
-
-            var shows = new List<Show>();
-            foreach (var item in data)
+            var show = new Show
             {
-                var show = new Show
-                {
-                    ShowId = item.show.id,
-                    Name = item.show.name,
-                    ImageUrl = GetImage(item.show.image)
-                };
+                ShowId = item.show.id,
+                Name = item.show.name,
+                ImageUrl = GetImage(item.show.image)
+            };
 
-                ImageHelper.GetShowImageUrl(show);
+            ImageHelper.GetShowImageUrl(show);
 
-                shows.Add(show);
-            }
-            return shows;
+            shows.Add(show);
         }
 
-        public Show GetFullDetails(int showId)
+        return shows;
+    }
+
+    public Show GetFullDetails(int showId)
+    {
+        try
         {
-            try
+            var requestShowDetailUri = $"{BASE_URL}shows/{HttpUtility.HtmlEncode(showId)}";
+            var shdata = GetJsonData(requestShowDetailUri);
+
+            var show = new Show
             {
-                var requestShowDetailUri = $"{BASE_URL}shows/{HttpUtility.HtmlEncode(showId)}";
-                var shdata = GetJsonData(requestShowDetailUri);
+                ShowId = shdata.id,
+                Name = shdata.name,
+                Started = GetDate(shdata.premiered),
+                Ended = null,
+                Country = GetCountryCode(shdata),
+                Status = shdata.status,
+                ImageUrl = GetImage(shdata.image),
+                AirTimeHour = GetTime(shdata.schedule.time, 'H'),
+                AirTimeMinute = GetTime(shdata.schedule.time, 'M')
+            };
 
-                var show = new Show
+            var requestShowEpisodsUri = $"{BASE_URL}shows/{HttpUtility.HtmlEncode(showId)}/episodes";
+            var epdata = GetJsonData(requestShowEpisodsUri);
+
+            //I could not use linq becuase the json data is dynamic
+            //use old reliable foreach
+            DateTime? lastEpisodeAirDate = null;
+            var seasonNumber = 0;
+            Season season = null;
+
+            foreach (var ep in epdata)
+            {
+                if (ep.season != seasonNumber)
                 {
-                    ShowId = shdata.id,
-                    Name = shdata.name,
-                    Started = GetDate(shdata.premiered),
-                    Ended = null,
-                    Country = GetCountryCode(shdata),
-                    Status = shdata.status,
-                    ImageUrl = GetImage(shdata.image),
-                    AirTimeHour = GetTime(shdata.schedule.time, 'H'),
-                    AirTimeMinute = GetTime(shdata.schedule.time, 'M')
-                };
-
-                var requestShowEpisodsUri = $"{BASE_URL}shows/{HttpUtility.HtmlEncode(showId)}/episodes";
-                var epdata = GetJsonData(requestShowEpisodsUri);
-
-                //I could not use linq becuase the json data is dynamic
-                //use old reliable foreach
-                DateTime? lastEpisodeAirDate = null;
-                var seasonNumber = 0;
-                Season season = null;
-
-                foreach (var ep in epdata)
-                {
-                    if (ep.season != seasonNumber)
-                    {
-                        season = new Season {SeasonNumber = ep.season};
-                        show.Seasons.Add(season);
-                        seasonNumber = ep.season;
-                    }
-                    //the season can't be null because the ep.season starts from 1 in TvMaze API
-                    //and the 'if' statment above initialize the variable
-                    season?.Episodes.Add(new Episode
-                    {
-                        EpisodeNumber = ep.number,
-                        AirDate = GetDate(ep.airdate),
-                        Title = ep.name,
-                        Link = ep.url,
-                        ImageUrl = GetImage(ep.image),
-                        ShowName = shdata.name,
-                        SeasonNumber = ep.season,
-                        Summary = RemoveHtmlTags(ep.summary.ToString())
-                    });
-                    
-                    //if needed (check by status) get the value for the last Episode AirDate as the show's end date 
-                    if (show.Status == "Ended")
-                        lastEpisodeAirDate = GetDate(ep.airdate);
-                }
-                show.Ended = lastEpisodeAirDate;
-
-                //check if there are seasons
-                //if not return null for an exception
-                if (season == null)
-                    return null;
-
-                foreach (var t in show.Seasons)
-                {
-                    for (var e = 0; e < t.Episodes.Count; e++)
-                    {
-                        t.Episodes[e].EpisodeNumberThisSeason = e + 1;
-                    }
+                    season = new Season { SeasonNumber = ep.season };
+                    show.Seasons.Add(season);
+                    seasonNumber = ep.season;
                 }
 
-                show.LastUpdated = DateTime.Now;
+                //the season can't be null because the ep.season starts from 1 in TvMaze API
+                //and the 'if' statment above initialize the variable
+                season?.Episodes.Add(new Episode
+                {
+                    EpisodeNumber = ep.number,
+                    AirDate = GetDate(ep.airdate),
+                    Title = ep.name,
+                    Link = ep.url,
+                    ImageUrl = GetImage(ep.image),
+                    ShowName = shdata.name,
+                    SeasonNumber = ep.season,
+                    Summary = RemoveHtmlTags(ep.summary.ToString())
+                });
 
-                return show;
+                //if needed (check by status) get the value for the last Episode AirDate as the show's end date 
+                if (show.Status == "Ended")
+                    lastEpisodeAirDate = GetDate(ep.airdate);
             }
-            catch
-            {
+
+            show.Ended = lastEpisodeAirDate;
+
+            //check if there are seasons
+            //if not return null for an exception
+            if (season == null)
                 return null;
+
+            foreach (var t in show.Seasons)
+            {
+                for (var e = 0; e < t.Episodes.Count; e++)
+                {
+                    t.Episodes[e].EpisodeNumberThisSeason = e + 1;
+                }
             }
+
+            show.LastUpdated = DateTime.Now;
+
+            return show;
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    private static dynamic GetJsonData(string requestUri)
+    {
+        var httpWebRequest = (HttpWebRequest)WebRequest.Create(requestUri);
+        httpWebRequest.Method = WebRequestMethods.Http.Get;
+        httpWebRequest.Accept = "application/json";
+        var response = httpWebRequest.GetResponse();
+
+        var json = "";
+        using (var sr = new StreamReader(response.GetResponseStream()))
+        {
+            json = sr.ReadToEnd();
         }
 
-        private static dynamic GetJsonData(string requestUri)
-        {
-            var httpWebRequest = (HttpWebRequest) WebRequest.Create(requestUri);
-            httpWebRequest.Method = WebRequestMethods.Http.Get;
-            httpWebRequest.Accept = "application/json";
-            var response = httpWebRequest.GetResponse();
+        dynamic data = JsonConvert.DeserializeObject(json);
+        return data;
+    }
 
-            var json = "";
-            using (var sr = new StreamReader(response.GetResponseStream()))
-            {
-                json = sr.ReadToEnd();
-            }
-
-            dynamic data = JsonConvert.DeserializeObject(json);
-            return data;
-        }
-
-        public static string GetCountryCode(dynamic show)
-        {
-            const string DEFAULT_COUNTRY_CODE = "US";
-            if (show == null)
-                return DEFAULT_COUNTRY_CODE;
-
-            if (show.network != null)
-            {
-                return show.network.country.code;
-            }
-            //support netflix (e.g. daredevil ,house of cards ,orange is the new black ...)
-            if (show.webChannel != null && show.webChannel.country!=null)
-            {
-                return show.webChannel.country.code;
-            }
-            //failesafe
+    public static string GetCountryCode(dynamic show)
+    {
+        const string DEFAULT_COUNTRY_CODE = "US";
+        if (show == null)
             return DEFAULT_COUNTRY_CODE;
+
+        if (show.network != null)
+        {
+            return show.network.country.code;
         }
 
-        private static int GetTime(dynamic time, char type)
+        //support netflix (e.g. daredevil ,house of cards ,orange is the new black ...)
+        if (show.webChannel != null && show.webChannel.country != null)
         {
-            if ((time == null) || (time == "")) return 12;
-
-            string t = time;
-            var strings = t.Split(':');
-
-            if (strings.Length == 0) return 0;
-
-            return type == 'H' ? strings[0].To<int>() : strings[1].To<int>();
+            return show.webChannel.country.code;
         }
 
-        private static string GetImage(dynamic img)
-        {
-            return img == null ? null : img.original;
-        }
+        //failesafe
+        return DEFAULT_COUNTRY_CODE;
+    }
 
-        private static DateTime? GetDate(dynamic e)
-        {
-            try
-            {
-                if (e == null)
-                    return null;
+    private static int GetTime(dynamic time, char type)
+    {
+        if (time == null || time == "") return 12;
 
-                if (string.IsNullOrWhiteSpace(e.Value)) return null;
-                
-                DateTime t = e;
-                return t;
-            }
-            catch
-            {
+        string t = time;
+        var strings = t.Split(':');
+
+        if (strings.Length == 0) return 0;
+
+        return type == 'H' ? strings[0].To<int>() : strings[1].To<int>();
+    }
+
+    private static string GetImage(dynamic img)
+    {
+        return img == null ? null : img.original;
+    }
+
+    private static DateTime? GetDate(dynamic e)
+    {
+        try
+        {
+            if (e == null)
                 return null;
-            }
-        }
 
-        private static string RemoveHtmlTags(string input)
-        {
-            return string.IsNullOrWhiteSpace(input) ? input : Regex.Replace(input, @"<[^>]*>", string.Empty);
+            if (string.IsNullOrWhiteSpace(e.Value)) return null;
+
+            DateTime t = e;
+            return t;
         }
+        catch
+        {
+            return null;
+        }
+    }
+
+    private static string RemoveHtmlTags(string input)
+    {
+        return string.IsNullOrWhiteSpace(input) ? input : Regex.Replace(input, @"<[^>]*>", string.Empty);
     }
 }

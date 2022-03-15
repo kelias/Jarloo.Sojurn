@@ -1,10 +1,9 @@
-﻿namespace Jarloo.Sojurn.Views
+﻿namespace Jarloo.Sojurn.Views;
+
+public partial class SeasonView
 {
-    public partial class SeasonView
+    public SeasonView()
     {
-        public SeasonView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
 
-    
+
     <Color x:Key="ListBoxItemBackgroundColor">#0063b1</Color>
 
     <Color x:Key="TimelineItemHoverBackgroundColor">#0078d7</Color>
@@ -17,19 +17,26 @@
 
     <Color x:Key="ShowEndedColor">#e81123</Color>
 
-    <SolidColorBrush x:Key="ListBoxItemBackgroundBrush" Color="{StaticResource ListBoxItemBackgroundColor}"  PresentationOptions:Freeze="True"/>
-    <SolidColorBrush x:Key="SeasonForegroundBrush" Color="{StaticResource SeasonForegroundColor}"  PresentationOptions:Freeze="True"/>
-    
-    <SolidColorBrush x:Key="TimeLineItemHoverBackgroundBrush" Color="{StaticResource TimelineItemHoverBackgroundColor}"  PresentationOptions:Freeze="True"/>
-    <SolidColorBrush x:Key="BacklogItemHoverBackgroundBrush" Color="{StaticResource BacklogItemHoverBackgroundColor}"  PresentationOptions:Freeze="True"/>
-    
-    <SolidColorBrush x:Key="LastUpdatedForegroundBrush" Color="{StaticResource LastUpdatedForegroundColor}"  PresentationOptions:Freeze="True"/>
-    <SolidColorBrush x:Key="StatusForegroundBrush" Color="{StaticResource StatusForegroundColor}"  PresentationOptions:Freeze="True"/>
+    <SolidColorBrush x:Key="ListBoxItemBackgroundBrush" Color="{StaticResource ListBoxItemBackgroundColor}"
+                     PresentationOptions:Freeze="True" />
+    <SolidColorBrush x:Key="SeasonForegroundBrush" Color="{StaticResource SeasonForegroundColor}"
+                     PresentationOptions:Freeze="True" />
 
-    <SolidColorBrush x:Key="ShowEndedBrush" Color="{StaticResource ShowEndedColor}"  PresentationOptions:Freeze="True"/>
+    <SolidColorBrush x:Key="TimeLineItemHoverBackgroundBrush" Color="{StaticResource TimelineItemHoverBackgroundColor}"
+                     PresentationOptions:Freeze="True" />
+    <SolidColorBrush x:Key="BacklogItemHoverBackgroundBrush" Color="{StaticResource BacklogItemHoverBackgroundColor}"
+                     PresentationOptions:Freeze="True" />
 
-    <SolidColorBrush x:Key="UnwatchedStickerBackgroundBrush" Color="{StaticResource UnwatchedStickerBackgroundColor}"  PresentationOptions:Freeze="True"/>
-    
+    <SolidColorBrush x:Key="LastUpdatedForegroundBrush" Color="{StaticResource LastUpdatedForegroundColor}"
+                     PresentationOptions:Freeze="True" />
+    <SolidColorBrush x:Key="StatusForegroundBrush" Color="{StaticResource StatusForegroundColor}"
+                     PresentationOptions:Freeze="True" />
+
+    <SolidColorBrush x:Key="ShowEndedBrush" Color="{StaticResource ShowEndedColor}" PresentationOptions:Freeze="True" />
+
+    <SolidColorBrush x:Key="UnwatchedStickerBackgroundBrush" Color="{StaticResource UnwatchedStickerBackgroundColor}"
+                     PresentationOptions:Freeze="True" />
+
     <!--ACCENT COLORS-->
     <Color x:Key="HighlightColor">#0063b1</Color>
     <!--80%-->
@@ -43,30 +50,33 @@
 
 
     <Color x:Key="TitleColor">#00119EDA</Color>
-    
-    <SolidColorBrush x:Key="HighlightBrush" Color="{StaticResource HighlightColor}" PresentationOptions:Freeze="True"/>
-    <SolidColorBrush x:Key="AccentColorBrush" Color="{StaticResource AccentColor}"  PresentationOptions:Freeze="True"/>
-    <SolidColorBrush x:Key="AccentColorBrush2" Color="{StaticResource AccentColor2}"  PresentationOptions:Freeze="True"/>
-    <SolidColorBrush x:Key="AccentColorBrush3" Color="{StaticResource AccentColor3}"  PresentationOptions:Freeze="True"/>
-    <SolidColorBrush x:Key="AccentColorBrush4" Color="{StaticResource AccentColor4}"  PresentationOptions:Freeze="True"/>
 
-    <SolidColorBrush x:Key="WindowTitleColorBrush" Color="{StaticResource TitleColor}"  PresentationOptions:Freeze="True"/>
+    <SolidColorBrush x:Key="HighlightBrush" Color="{StaticResource HighlightColor}" PresentationOptions:Freeze="True" />
+    <SolidColorBrush x:Key="AccentColorBrush" Color="{StaticResource AccentColor}" PresentationOptions:Freeze="True" />
+    <SolidColorBrush x:Key="AccentColorBrush2" Color="{StaticResource AccentColor2}" PresentationOptions:Freeze="True" />
+    <SolidColorBrush x:Key="AccentColorBrush3" Color="{StaticResource AccentColor3}" PresentationOptions:Freeze="True" />
+    <SolidColorBrush x:Key="AccentColorBrush4" Color="{StaticResource AccentColor4}" PresentationOptions:Freeze="True" />
 
-    <SolidColorBrush x:Key="AccentSelectedColorBrush" Color="White"  PresentationOptions:Freeze="True"/>
+    <SolidColorBrush x:Key="WindowTitleColorBrush" Color="{StaticResource TitleColor}"
+                     PresentationOptions:Freeze="True" />
 
-    <LinearGradientBrush x:Key="ProgressBrush" EndPoint="0.001,0.5" StartPoint="1.002,0.5"  PresentationOptions:Freeze="True">
+    <SolidColorBrush x:Key="AccentSelectedColorBrush" Color="White" PresentationOptions:Freeze="True" />
+
+    <LinearGradientBrush x:Key="ProgressBrush" EndPoint="0.001,0.5" StartPoint="1.002,0.5"
+                         PresentationOptions:Freeze="True">
         <GradientStop Color="{StaticResource HighlightColor}" Offset="0" />
         <GradientStop Color="{StaticResource AccentColor3}" Offset="1" />
     </LinearGradientBrush>
 
-    <SolidColorBrush x:Key="CheckmarkFill" Color="{StaticResource AccentColor}"  PresentationOptions:Freeze="True"/>
-    <SolidColorBrush x:Key="RightArrowFill" Color="{StaticResource AccentColor}"  PresentationOptions:Freeze="True"/>
+    <SolidColorBrush x:Key="CheckmarkFill" Color="{StaticResource AccentColor}" PresentationOptions:Freeze="True" />
+    <SolidColorBrush x:Key="RightArrowFill" Color="{StaticResource AccentColor}" PresentationOptions:Freeze="True" />
 
     <Color x:Key="IdealForegroundColor">White</Color>
-    <SolidColorBrush x:Key="IdealForegroundColorBrush" Color="{StaticResource IdealForegroundColor}"  PresentationOptions:Freeze="True"/>
+    <SolidColorBrush x:Key="IdealForegroundColorBrush" Color="{StaticResource IdealForegroundColor}"
+                     PresentationOptions:Freeze="True" />
 
-    <SolidColorBrush x:Key="Background" Color="#FF1D1D1D"  PresentationOptions:Freeze="True"/>
-    <SolidColorBrush x:Key="Foreground" Color="#FFFFFFFF"  PresentationOptions:Freeze="True"/>
+    <SolidColorBrush x:Key="Background" Color="#FF1D1D1D" PresentationOptions:Freeze="True" />
+    <SolidColorBrush x:Key="Foreground" Color="#FFFFFFFF" PresentationOptions:Freeze="True" />
 
 
 </ResourceDictionary>

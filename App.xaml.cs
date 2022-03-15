@@ -2,13 +2,12 @@
 using Jarloo.Sojurn.Helpers;
 using Jarloo.Sojurn.ViewModels;
 
-namespace Jarloo.Sojurn
+namespace Jarloo.Sojurn;
+
+public partial class App
 {
-    public partial class App
+    private void App_OnStartup(object sender, StartupEventArgs e)
     {
-        private void App_OnStartup(object sender, StartupEventArgs e)
-        {
-            ViewModelManager.Create<MainViewModel>().Show();
-        }
+        ViewModelManager.Create<MainViewModel>().Show();
     }
 }

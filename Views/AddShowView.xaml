@@ -1,16 +1,16 @@
 ﻿<views:View x:Class="Jarloo.Sojurn.Views.AddShowView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-             xmlns:views="clr-namespace:Jarloo.Sojurn.Views"
-             xmlns:converters="clr-namespace:Jarloo.Sojurn.Converters"
-             xmlns:extensions="clr-namespace:Jarloo.Sojurn.Extensions"
-             mc:Ignorable="d" Width="723" Height="703"
-             BorderBrush="{DynamicResource AccentColorBrush}"
-             BorderThickness="1"
-             Background="{StaticResource Background}" Foreground="{StaticResource Foreground}">
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+            xmlns:views="clr-namespace:Jarloo.Sojurn.Views"
+            xmlns:converters="clr-namespace:Jarloo.Sojurn.Converters"
+            xmlns:extensions="clr-namespace:Jarloo.Sojurn.Extensions"
+            mc:Ignorable="d" Width="723" Height="703"
+            BorderBrush="{DynamicResource AccentColorBrush}"
+            BorderThickness="1"
+            Background="{StaticResource Background}" Foreground="{StaticResource Foreground}">
 
     <Window.Resources>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisConverter" />
@@ -19,10 +19,11 @@
 
     <Grid>
         <TextBlock HorizontalAlignment="Left" Height="59" Margin="45,14,0,0" TextWrapping="Wrap" Text="add a show"
-                   VerticalAlignment="Top" Width="312" FontSize="32"  />
+                   VerticalAlignment="Top" Width="312" FontSize="32" />
 
         <Button HorizontalAlignment="Left" Height="46" Margin="380,80,0,0" VerticalAlignment="Top" Width="46"
-                Cursor="Hand" IsEnabled="{Binding IsWorking, Converter={StaticResource ReverseBooleanConverter}}" Command="{Binding SearchCommand}" IsDefault="True">
+                Cursor="Hand" IsEnabled="{Binding IsWorking, Converter={StaticResource ReverseBooleanConverter}}"
+                Command="{Binding SearchCommand}" IsDefault="True">
             <Button.Template>
                 <ControlTemplate>
                     <Image Source="{StaticResource Search}" />
@@ -32,10 +33,10 @@
 
         <TextBox HorizontalAlignment="Left" Height="26" Margin="45,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top"
                  Width="330" TabIndex="0" Text="{Binding ShowName, UpdateSourceTrigger=PropertyChanged}"
-                 extensions:FocusExtension.IsFocused="{Binding IsShowNameFocused}"/>
+                 extensions:FocusExtension.IsFocused="{Binding IsShowNameFocused}" />
 
         <ListBox Margin="10,202,10,100" ItemsSource="{Binding Shows}"
-                 Background="{x:Null}" 
+                 Background="{x:Null}"
                  Visibility="{Binding IsSearchCompleted, Converter={StaticResource BoolToVisConverter}}"
                  SelectedItem="{Binding SelectedShow}"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -44,20 +45,22 @@
                 <DataTemplate>
                     <StackPanel Margin="10,10,10,10">
                         <Image Source="{Binding ImageSource}" Width="75" Height="94" Stretch="Uniform"
-                                       VerticalAlignment="Center" />
-                        <TextBlock Text="{Binding Name}" TextAlignment="Center"/>
+                               VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding Name}" TextAlignment="Center" />
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel/>
+                    <WrapPanel />
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
         </ListBox>
 
-        <Button Content="Add" Margin="0,0,121,21" HorizontalAlignment="Right" Width="94" Height="34" VerticalAlignment="Bottom" Command="{Binding AddShowCommand}"/>
-        <Button Content="Cancel" Margin="0,0,16,21" IsCancel="True" HorizontalAlignment="Right" Width="94" Height="34" VerticalAlignment="Bottom" Command="{Binding CancelCommand}"/>
+        <Button Content="Add" Margin="0,0,121,21" HorizontalAlignment="Right" Width="94" Height="34"
+                VerticalAlignment="Bottom" Command="{Binding AddShowCommand}" />
+        <Button Content="Cancel" Margin="0,0,16,21" IsCancel="True" HorizontalAlignment="Right" Width="94" Height="34"
+                VerticalAlignment="Bottom" Command="{Binding CancelCommand}" />
 
         <TextBlock HorizontalAlignment="Left" Height="23" Margin="45,143,0,0" TextWrapping="Wrap"
                    VerticalAlignment="Top" Width="330" Foreground="#FFE51400" Name="Error" />

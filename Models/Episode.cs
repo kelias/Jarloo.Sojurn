@@ -3,157 +3,156 @@ using System.Runtime.Serialization;
 using System.Windows.Media;
 using Jarloo.Sojurn.Helpers;
 
-namespace Jarloo.Sojurn.Models
+namespace Jarloo.Sojurn.Models;
+
+[DataContract]
+public class Episode : NotifyPropertyChangedBase
 {
-    [DataContract]
-    public class Episode : NotifyPropertyChangedBase
+    private DateTime? airDate;
+    private int episodeNumber;
+    private int episodeNumberThisSeason;
+    private bool hasBeenViewed;
+    private ImageSource imageSource;
+    private string imageUrl;
+    private bool isLoading;
+    private string link;
+    private int seasonNumber;
+    private string showName;
+    private string title;
+    private string summary;
+
+    [DataMember]
+    public string Summary
     {
-        private DateTime? airDate;
-        private int episodeNumber;
-        private int episodeNumberThisSeason;
-        private bool hasBeenViewed;
-        private ImageSource imageSource;
-        private string imageUrl;
-        private bool isLoading;
-        private string link;
-        private int seasonNumber;
-        private string showName;
-        private string title;
-        private string summary;
-
-        [DataMember]
-        public string Summary
+        get => summary;
+        set
         {
-            get => summary;
-            set
-            {
-                summary = value;
-                NotifyOfPropertyChange(() => Summary);
-            }
+            summary = value;
+            NotifyOfPropertyChange(() => Summary);
         }
+    }
 
-        [DataMember]
-        public int EpisodeNumberThisSeason
+    [DataMember]
+    public int EpisodeNumberThisSeason
+    {
+        get => episodeNumberThisSeason;
+        set
         {
-            get => episodeNumberThisSeason;
-            set
-            {
-                episodeNumberThisSeason = value;
-                NotifyOfPropertyChange(() => HasBeenViewed);
-            }
+            episodeNumberThisSeason = value;
+            NotifyOfPropertyChange(() => HasBeenViewed);
         }
+    }
 
-        [DataMember]
-        public bool HasBeenViewed
+    [DataMember]
+    public bool HasBeenViewed
+    {
+        get => hasBeenViewed;
+        set
         {
-            get => hasBeenViewed;
-            set
-            {
-                hasBeenViewed = value;
-                NotifyOfPropertyChange(() => HasBeenViewed);
-            }
+            hasBeenViewed = value;
+            NotifyOfPropertyChange(() => HasBeenViewed);
         }
+    }
 
-        [DataMember]
-        public int SeasonNumber
+    [DataMember]
+    public int SeasonNumber
+    {
+        get => seasonNumber;
+        set
         {
-            get => seasonNumber;
-            set
-            {
-                seasonNumber = value;
-                NotifyOfPropertyChange(() => SeasonNumber);
-            }
+            seasonNumber = value;
+            NotifyOfPropertyChange(() => SeasonNumber);
         }
+    }
 
-        [DataMember]
-        public string ShowName
+    [DataMember]
+    public string ShowName
+    {
+        get => showName;
+        set
         {
-            get => showName;
-            set
-            {
-                showName = value;
-                NotifyOfPropertyChange(() => ShowName);
-            }
+            showName = value;
+            NotifyOfPropertyChange(() => ShowName);
         }
+    }
 
-        [IgnoreDataMember]
-        public bool IsLoading
+    [IgnoreDataMember]
+    public bool IsLoading
+    {
+        get => isLoading;
+        set
         {
-            get => isLoading;
-            set
-            {
-                isLoading = value;
-                NotifyOfPropertyChange(() => IsLoading);
-            }
+            isLoading = value;
+            NotifyOfPropertyChange(() => IsLoading);
         }
+    }
 
-        [IgnoreDataMember]
-        public ImageSource ImageSource
+    [IgnoreDataMember]
+    public ImageSource ImageSource
+    {
+        get => imageSource;
+        set
         {
-            get => imageSource;
-            set
-            {
-                imageSource = value;
-                NotifyOfPropertyChange(() => ImageSource);
-            }
+            imageSource = value;
+            NotifyOfPropertyChange(() => ImageSource);
         }
+    }
 
-        [DataMember]
-        public string ImageUrl
+    [DataMember]
+    public string ImageUrl
+    {
+        get => imageUrl;
+        set
         {
-            get => imageUrl;
-            set
-            {
-                imageUrl = value;
+            imageUrl = value;
 
 
-                NotifyOfPropertyChange(() => ImageUrl);
-                NotifyOfPropertyChange(() => ImageSource);
-            }
+            NotifyOfPropertyChange(() => ImageUrl);
+            NotifyOfPropertyChange(() => ImageSource);
         }
+    }
 
-        [DataMember]
-        public string Link
+    [DataMember]
+    public string Link
+    {
+        get => link;
+        set
         {
-            get => link;
-            set
-            {
-                link = value;
-                NotifyOfPropertyChange(() => Link);
-            }
+            link = value;
+            NotifyOfPropertyChange(() => Link);
         }
+    }
 
-        [DataMember]
-        public DateTime? AirDate
+    [DataMember]
+    public DateTime? AirDate
+    {
+        get => airDate;
+        set
         {
-            get => airDate;
-            set
-            {
-                airDate = value;
-                NotifyOfPropertyChange(() => AirDate);
-            }
+            airDate = value;
+            NotifyOfPropertyChange(() => AirDate);
         }
+    }
 
-        [DataMember]
-        public int EpisodeNumber
+    [DataMember]
+    public int EpisodeNumber
+    {
+        get => episodeNumber;
+        set
         {
-            get => episodeNumber;
-            set
-            {
-                episodeNumber = value;
-                NotifyOfPropertyChange(() => EpisodeNumber);
-            }
+            episodeNumber = value;
+            NotifyOfPropertyChange(() => EpisodeNumber);
         }
+    }
 
-        [DataMember]
-        public string Title
+    [DataMember]
+    public string Title
+    {
+        get => title;
+        set
         {
-            get => title;
-            set
-            {
-                title = value;
-                NotifyOfPropertyChange(() => Title);
-            }
+            title = value;
+            NotifyOfPropertyChange(() => Title);
         }
     }
 }

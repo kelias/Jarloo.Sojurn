@@ -1,8 +1,7 @@
-﻿namespace Jarloo.Sojurn.Data
+﻿namespace Jarloo.Sojurn.Data;
+
+public interface IPersistenceManager
 {
-    public interface IPersistenceManager
-    {
-        void Save<T>(string key, T o);
-        T Retrieve<T>(string key) where T : new();
-    }
+    void Save<T>(string key, T o);
+    T Retrieve<T>(string key) where T : new();
 }

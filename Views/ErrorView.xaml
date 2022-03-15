@@ -4,9 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="ErrorView" Height="441.931" Width="595" 
+        Title="ErrorView" Height="441.931" Width="595"
         Topmost="True"
-        Background="{StaticResource Background}" 
+        Background="{StaticResource Background}"
         Foreground="{StaticResource Foreground}">
     <Grid>
         <TextBlock Height="41" Margin="43,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White"

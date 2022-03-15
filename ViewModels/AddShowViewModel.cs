@@ -9,180 +9,130 @@ using Jarloo.Sojurn.Helpers;
 using Jarloo.Sojurn.InformationProviders;
 using Jarloo.Sojurn.Models;
 
-namespace Jarloo.Sojurn.ViewModels
+namespace Jarloo.Sojurn.ViewModels;
+
+public sealed class AddShowViewModel : ViewModel
 {
+    #region Properties
 
-    public sealed class AddShowViewModel : ViewModel
+    public IInformationProvider InformationProvider;
+    private bool isSearchCompleted;
+    private string showName;
+
+    public ObservableCollection<Show> Shows { get; set; } = new();
+
+    public ICommand AddShowCommand { get; set; }
+    public ICommand CancelCommand { get; set; }
+    public ICommand SearchCommand { get; set; }
+
+    private Show selectedShow;
+    private Show newShow;
+    private string error;
+    public List<Show> CurrentShows;
+    private readonly bool isShowNameFocused = true;
+
+    public string Error
     {
-        #region Properties
-
-        public IInformationProvider InformationProvider;
-        private bool isSearchCompleted;
-        private string showName;
-
-        public ObservableCollection<Show> Shows { get; set; } = new ObservableCollection<Show>();
-
-        public ICommand AddShowCommand { get; set; }
-        public ICommand CancelCommand { get; set; }
-        public ICommand SearchCommand { get; set; }
-
-        private Show selectedShow;
-        private Show newShow;
-        private string error;
-        public List<Show> CurrentShows;
-        private bool isShowNameFocused = true;
-
-        public string Error
+        get => error;
+        set
         {
-            get => error;
-            set
-            {
-                error = value;
-                NotifyOfPropertyChange(() => Error);
-            }
+            error = value;
+            NotifyOfPropertyChange(() => Error);
         }
+    }
 
-        public bool IsShowNameFocused
+    public bool IsShowNameFocused
+    {
+        get => isShowNameFocused;
+        set
         {
-            get => isShowNameFocused;
-            set
-            {
-                isSearchCompleted = value;
-                NotifyOfPropertyChange(() => IsShowNameFocused);
-            }
+            isSearchCompleted = value;
+            NotifyOfPropertyChange(() => IsShowNameFocused);
         }
+    }
 
-        public bool CanAddShow => SelectedShow != null && IsWorking == false;
+    public bool CanAddShow => SelectedShow != null && IsWorking == false;
 
-        public Show NewShow
+    public Show NewShow
+    {
+        get => newShow;
+        set
         {
-            get => newShow;
-            set
-            {
-                newShow = value;
-                NotifyOfPropertyChange(() => NewShow);
-            }
+            newShow = value;
+            NotifyOfPropertyChange(() => NewShow);
         }
+    }
 
-        public Show SelectedShow
+    public Show SelectedShow
+    {
+        get => selectedShow;
+        set
         {
-            get => selectedShow;
-            set
-            {
-                selectedShow = value;
-                NotifyOfPropertyChange(() => SelectedShow);
-                NotifyOfPropertyChange(() => CanAddShow);
-            }
+            selectedShow = value;
+            NotifyOfPropertyChange(() => SelectedShow);
+            NotifyOfPropertyChange(() => CanAddShow);
         }
+    }
 
-        public bool IsSearchCompleted
+    public bool IsSearchCompleted
+    {
+        get => isSearchCompleted;
+        set
         {
-            get => isSearchCompleted;
-            set
-            {
-                isSearchCompleted = value;
-                NotifyOfPropertyChange(() => IsSearchCompleted);
-            }
+            isSearchCompleted = value;
+            NotifyOfPropertyChange(() => IsSearchCompleted);
         }
+    }
 
 
-        public string ShowName
+    public string ShowName
+    {
+        get => showName;
+        set
         {
-            get => showName;
-            set
-            {
-                showName = value;
-                NotifyOfPropertyChange(() => ShowName);
-            }
+            showName = value;
+            NotifyOfPropertyChange(() => ShowName);
         }
+    }
 
-        #endregion
-        
-        public AddShowViewModel()
+    #endregion
+
+    public AddShowViewModel()
+    {
+        BindCommands();
+    }
+
+    private void BindCommands()
+    {
+        try
         {
-            BindCommands();
+            AddShowCommand = new RelayCommand(t => AddShow());
+            CancelCommand = new RelayCommand(t =>
+            {
+                View.DialogResult = false;
+                Close();
+            });
+            SearchCommand = new RelayCommand(t => SearchShow());
         }
-
-        private void BindCommands()
+        catch (Exception ex)
         {
-            try
-            {
-                AddShowCommand = new RelayCommand(t => AddShow());
-                CancelCommand = new RelayCommand(t =>
-                {
-                    View.DialogResult = false;
-                    Close();
-                });
-                SearchCommand = new RelayCommand(t => SearchShow());
-            }
-            catch (Exception ex)
-            {
-                ErrorManager.Log(ex);
-            }
+            ErrorManager.Log(ex);
         }
+    }
 
-        public async void SearchShow()
+    public async void SearchShow()
+    {
+        try
         {
-            try
-            {
-                IsSearchCompleted = false;
-                IsWorking = true;
-
-                var query = ShowName;
-                var shows = await Task.Run(() =>
-                {
-                    try
-                    {
-                        return InformationProvider.GetShows(query);
-                    }
-                    catch
-                    {
-                        return null;
-                    }
-                });
-
-                Shows.Clear();
-                IsSearchCompleted = true;
-
-                if (shows == null)
-                {
-                    Error = "Provider failed to return information.";
-                    return;
-                }
-
-                Error = null;
-
-                Shows.AddRange(shows);
-                
-                IsWorking = false;
-            }
-            catch (Exception ex)
-            {
-                ErrorManager.Log(ex);
-            }
-        }
-
-        public async void AddShow()
-        {
-            if (SelectedShow == null) return;
-
-            if (CurrentShows.Any(w => w.ShowId == SelectedShow.ShowId))
-            {
-                Error = "NewShow is already in your collection.";
-                ShowName = string.Empty;
-                IsSearchCompleted = false;
-                SelectedShow = null;
-                return;
-            }
-
-            IsWorking = true;
             IsSearchCompleted = false;
+            IsWorking = true;
 
-            var ns = await Task.Run(() =>
+            var query = ShowName;
+            var shows = await Task.Run(() =>
             {
                 try
                 {
-                    return InformationProvider.GetFullDetails(SelectedShow.ShowId);
+                    return InformationProvider.GetShows(query);
                 }
                 catch
                 {
@@ -190,23 +140,71 @@ namespace Jarloo.Sojurn.ViewModels
                 }
             });
 
-            NewShow = ns;
+            Shows.Clear();
+            IsSearchCompleted = true;
 
-            if (ns != null)
-            {
-                Error = null;
-                View.DialogResult = true;
-                Close();
-            }
-            else
+            if (shows == null)
             {
                 Error = "Provider failed to return information.";
+                return;
             }
+
+            Error = null;
+
+            Shows.AddRange(shows);
+
+            IsWorking = false;
+        }
+        catch (Exception ex)
+        {
+            ErrorManager.Log(ex);
+        }
+    }
+
+    public async void AddShow()
+    {
+        if (SelectedShow == null) return;
+
+        if (CurrentShows.Any(w => w.ShowId == SelectedShow.ShowId))
+        {
+            Error = "NewShow is already in your collection.";
+            ShowName = string.Empty;
+            IsSearchCompleted = false;
+            SelectedShow = null;
+            return;
         }
 
-        public void TextModified(KeyEventArgs e)
+        IsWorking = true;
+        IsSearchCompleted = false;
+
+        var ns = await Task.Run(() =>
         {
-            if (e.Key == Key.Return) SearchShow();
+            try
+            {
+                return InformationProvider.GetFullDetails(SelectedShow.ShowId);
+            }
+            catch
+            {
+                return null;
+            }
+        });
+
+        NewShow = ns;
+
+        if (ns != null)
+        {
+            Error = null;
+            View.DialogResult = true;
+            Close();
         }
+        else
+        {
+            Error = "Provider failed to return information.";
+        }
+    }
+
+    public void TextModified(KeyEventArgs e)
+    {
+        if (e.Key == Key.Return) SearchShow();
     }
 }
