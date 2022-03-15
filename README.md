@@ -1,7 +1,7 @@
 Jarloo.Sojurn
 =============
 
-![alt tag](/images/mainWindow2.png)
+![alt tag](/images/main.png)
 
 About Sojurn
 ------------
@@ -16,7 +16,7 @@ To add a show just click the + icon in the top left and a new window appears whe
 
 You can view all the seasons and episdoes of a show just by clicking on it.
 
-![alt tag](/images/episodeWindow.png)
+![alt tag](/images/episodes.png)
 
 And Sojurn makes it easy to mark an episode as watched or unwatched. See that little eye icon above a show? Click that and it marks it as watched. Click again and it marks it as unwatched. The episodes that are the dimmed in the image above have been watched already. 
 
