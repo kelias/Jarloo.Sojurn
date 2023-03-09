@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Jarloo.Sojurn.Extensions;
 using Jarloo.Sojurn.Helpers;
 using Jarloo.Sojurn.InformationProviders;
@@ -11,92 +12,40 @@ using Jarloo.Sojurn.Models;
 
 namespace Jarloo.Sojurn.ViewModels;
 
-public sealed class AddShowViewModel : ViewModel
+public partial class AddShowViewModel : ViewModel
 {
-    #region Properties
-
     public IInformationProvider InformationProvider;
-    private bool isSearchCompleted;
-    private string showName;
-
+    
     public ObservableCollection<Show> Shows { get; set; } = new();
 
     public ICommand AddShowCommand { get; set; }
     public ICommand CancelCommand { get; set; }
     public ICommand SearchCommand { get; set; }
 
+    [ObservableProperty]
     private Show selectedShow;
+
+    [ObservableProperty]
     private Show newShow;
+
+    [ObservableProperty]
     private string error;
+
+    [ObservableProperty]
+    private bool isSearchCompleted;
+
+    [ObservableProperty]
+    private string showName;
+
     public List<Show> CurrentShows;
-    private readonly bool isShowNameFocused = true;
 
-    public string Error
-    {
-        get => error;
-        set
-        {
-            error = value;
-            NotifyOfPropertyChange(() => Error);
-        }
-    }
+    [ObservableProperty]
+    private bool isShowNameFocused = true;
 
-    public bool IsShowNameFocused
-    {
-        get => isShowNameFocused;
-        set
-        {
-            isSearchCompleted = value;
-            NotifyOfPropertyChange(() => IsShowNameFocused);
-        }
-    }
-
+    
     public bool CanAddShow => SelectedShow != null && IsWorking == false;
-
-    public Show NewShow
-    {
-        get => newShow;
-        set
-        {
-            newShow = value;
-            NotifyOfPropertyChange(() => NewShow);
-        }
-    }
-
-    public Show SelectedShow
-    {
-        get => selectedShow;
-        set
-        {
-            selectedShow = value;
-            NotifyOfPropertyChange(() => SelectedShow);
-            NotifyOfPropertyChange(() => CanAddShow);
-        }
-    }
-
-    public bool IsSearchCompleted
-    {
-        get => isSearchCompleted;
-        set
-        {
-            isSearchCompleted = value;
-            NotifyOfPropertyChange(() => IsSearchCompleted);
-        }
-    }
-
-
-    public string ShowName
-    {
-        get => showName;
-        set
-        {
-            showName = value;
-            NotifyOfPropertyChange(() => ShowName);
-        }
-    }
-
-    #endregion
-
+    
+    
     public AddShowViewModel()
     {
         BindCommands();

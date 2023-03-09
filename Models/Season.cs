@@ -1,14 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
-using Jarloo.Sojurn.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Jarloo.Sojurn.Models;
 
 [DataContract]
-public class Season : NotifyPropertyChangedBase
+[ObservableObject]
+public partial class Season 
 {
+    [DataMember]
+    [ObservableProperty]
     private int seasonNumber;
 
+    [IgnoreDataMember]
+    [ObservableProperty]
     private Episode selectedEpisode;
 
     public Season()
@@ -16,27 +21,9 @@ public class Season : NotifyPropertyChangedBase
         Episodes = new List<Episode>();
     }
 
-    [DataMember] public List<Episode> Episodes { get; set; }
+    [DataMember] 
+    public List<Episode> Episodes { get; set; }
 
-    [IgnoreDataMember]
-    public Episode SelectedEpisode
-    {
-        get => selectedEpisode;
-        set
-        {
-            selectedEpisode = value;
-            NotifyOfPropertyChange(() => SelectedEpisode);
-        }
-    }
-
-    [DataMember]
-    public int SeasonNumber
-    {
-        get => seasonNumber;
-        set
-        {
-            seasonNumber = value;
-            NotifyOfPropertyChange(() => SeasonNumber);
-        }
-    }
+    
+    
 }

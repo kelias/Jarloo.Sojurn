@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Jarloo.Sojurn.Data;
 using Jarloo.Sojurn.Helpers;
 using Jarloo.Sojurn.InformationProviders;
@@ -15,18 +16,23 @@ using Jarloo.Sojurn.Models;
 
 namespace Jarloo.Sojurn.ViewModels;
 
-public sealed class MainViewModel : ViewModel
+public partial class MainViewModel : ViewModel
 {
-    #region Properties
-
     private readonly IInformationProvider ip;
     private readonly IPersistenceManager pm;
 
     private readonly ObservableCollection<BacklogItem> backlog = new();
     private readonly ObservableCollection<Show> shows = new();
     private readonly ObservableCollection<TimeLineItem> timeLine = new();
+
+    [ObservableProperty]
     private Show selectedShow;
+
+    [ObservableProperty]
     private string version;
+
+    [ObservableProperty]
+    public BacklogItem selectedBackLogItem;
 
     public CollectionViewSource Shows { get; set; }
     public CollectionViewSource TimeLine { get; set; }
@@ -41,40 +47,7 @@ public sealed class MainViewModel : ViewModel
     public ICommand ToggleViewedBackLogCommand { get; set; }
     public ICommand ShowEpisodesCommand { get; set; }
 
-    public BacklogItem selectedBackLogItem;
-
-    public BacklogItem SelectedBackLogItem
-    {
-        get => selectedBackLogItem;
-        set
-        {
-            selectedBackLogItem = value;
-            NotifyOfPropertyChange(() => SelectedBackLogItem);
-        }
-    }
-
-    public string Version
-    {
-        get => version;
-        set
-        {
-            version = value;
-            NotifyOfPropertyChange(() => Version);
-        }
-    }
-
-    public Show SelectedShow
-    {
-        get => selectedShow;
-        set
-        {
-            selectedShow = value;
-            NotifyOfPropertyChange(() => SelectedShow);
-        }
-    }
-
-    #endregion
-
+    
     public MainViewModel()
         : this(
             (IInformationProvider)

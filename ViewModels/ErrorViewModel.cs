@@ -1,29 +1,28 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Data;
-using System.Windows.Input;
-using Jarloo.Sojurn.Helpers;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Jarloo.Sojurn.ViewModels;
 
-internal class ErrorViewModel : ViewModel
+internal partial class ErrorViewModel : ViewModel
 {
-    public ICommand OkCommand { get; set; }
     public ObservableCollection<string> Errors { get; set; }
 
     public ErrorViewModel()
     {
         Errors = new ObservableCollection<string>();
         BindingOperations.EnableCollectionSynchronization(Errors, Errors);
+    }
 
-        OkCommand = new RelayCommand(p =>
+    [RelayCommand]
+    public void Ok()
+    {
+        lock (Errors)
         {
-            lock (Errors)
-            {
-                Errors.Clear();
-            }
+            Errors.Clear();
+        }
 
-            Close();
-        });
+        Close();
     }
 
     public void AddEntry(string entry)

@@ -1,35 +1,21 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using Jarloo.Sojurn.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Jarloo.Sojurn.Models;
 
 [DataContract]
-public class TimeLineItem : NotifyPropertyChangedBase
+[ObservableObject]
+public partial class TimeLineItem 
 {
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(Date))]
     private Episode episode;
+
+    [ObservableProperty]
+    
     private Show show;
 
     public DateTime? Date => episode.AirDate;
-
-    public Episode Episode
-    {
-        get => episode;
-        set
-        {
-            episode = value;
-            NotifyOfPropertyChange(() => Episode);
-            NotifyOfPropertyChange(() => Date);
-        }
-    }
-
-    public Show Show
-    {
-        get => show;
-        set
-        {
-            show = value;
-            NotifyOfPropertyChange(() => Show);
-        }
-    }
 }

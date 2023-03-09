@@ -2,43 +2,28 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Jarloo.Sojurn.Helpers;
 using Jarloo.Sojurn.Views;
 
 namespace Jarloo.Sojurn.ViewModels;
 
-public abstract class ViewModel : NotifyPropertyChangedBase
+public abstract partial class ViewModel : ObservableObject 
 {
-    #region Properties
-
+    
+    [ObservableProperty]
     private string title;
+
+    [ObservableProperty]
     private bool isWorking;
+
+    [ObservableProperty]
     private bool isClosing;
-    private readonly bool shouldCenter;
 
-    public bool IsWorking
-    {
-        get => isWorking;
-        set
-        {
-            isWorking = value;
-            NotifyOfPropertyChange(() => IsWorking);
-        }
-    }
+    [ObservableProperty]
+    private bool shouldCenter;
 
-    public string Title
-    {
-        get => title;
-        set
-        {
-            title = value;
-            View.Title = title;
-            NotifyOfPropertyChange(() => Title);
-        }
-    }
-
-    #endregion
-
+    
     protected ViewModel()
     {
         Register();

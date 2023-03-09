@@ -1,51 +1,28 @@
 ﻿using System.Runtime.Serialization;
-using Jarloo.Sojurn.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Jarloo.Sojurn.Models;
 
 [DataContract]
-public class BacklogItem : NotifyPropertyChangedBase
+[ObservableObject]
+public partial class BacklogItem 
 {
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(EpisodeNumberThisSeason))]
     private Episode episode;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(SeasonNumber))]
     private Season season;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(ShowName))]
     private Show show;
 
-    public string ShowName => show.Name;
+    public string ShowName => Show.Name;
 
-    public int SeasonNumber => season.SeasonNumber;
+    public int SeasonNumber => Season.SeasonNumber;
 
-    public int EpisodeNumberThisSeason => episode.EpisodeNumberThisSeason;
+    public int EpisodeNumberThisSeason => Episode.EpisodeNumberThisSeason;
 
-    public Episode Episode
-    {
-        get => episode;
-        set
-        {
-            episode = value;
-            NotifyOfPropertyChange(() => Episode);
-            NotifyOfPropertyChange(() => EpisodeNumberThisSeason);
-        }
-    }
-
-    public Show Show
-    {
-        get => show;
-        set
-        {
-            show = value;
-            NotifyOfPropertyChange(() => Show);
-            NotifyOfPropertyChange(() => ShowName);
-        }
-    }
-
-    public Season Season
-    {
-        get => season;
-        set
-        {
-            season = value;
-            NotifyOfPropertyChange(() => Season);
-            NotifyOfPropertyChange(() => SeasonNumber);
-        }
-    }
 }

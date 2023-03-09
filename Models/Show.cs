@@ -2,211 +2,82 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Windows.Media;
-using Jarloo.Sojurn.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Jarloo.Sojurn.Models;
 
 [DataContract]
-public class Show : NotifyPropertyChangedBase
+[ObservableObject]
+public partial class Show 
 {
-    private int airTimeHour;
-    private int airTimeMinute;
 
+    [DataMember]
+    [ObservableProperty]
+    private int airTimeHour;
+
+    [DataMember]
+    [ObservableProperty]
+    private int airTimeMinute;
+    
+    [DataMember]
+    [ObservableProperty]
     private string country;
+
+    [DataMember]
+    [ObservableProperty]
     private DateTime? ended;
+    
+    [IgnoreDataMember]
+    [ObservableProperty]
     private ImageSource imageSource;
+
+    [DataMember]
+    [ObservableProperty]
     private string imageUrl;
+
+    [IgnoreDataMember]
+    [ObservableProperty]
     private bool isLoading;
+
+    [DataMember]
+    [ObservableProperty]
     private DateTime? lastUpdated;
+
+    [DataMember]
+    [ObservableProperty]
     private string link;
+
+    [DataMember]
+    [ObservableProperty]
     private string name;
+
+    [IgnoreDataMember]
+    [ObservableProperty]
     private Season selectedSeason;
+
+    [DataMember]
+    [ObservableProperty]
     private int showId;
+
+    [DataMember]
+    [ObservableProperty]
     private DateTime? started;
+
+    [DataMember]
+    [ObservableProperty]
     private string status;
+
+    [DataMember]
     private int timezone;
+
+    [IgnoreDataMember]
+    [ObservableProperty]
     private int unwatchedCount;
+
+    [DataMember] public List<Season> Seasons { get; set; }
 
     public Show()
     {
         Seasons = new List<Season>();
-    }
-
-    [DataMember] public List<Season> Seasons { get; set; }
-
-    [IgnoreDataMember]
-    public int UnwatchedCount
-    {
-        get => unwatchedCount;
-        set
-        {
-            unwatchedCount = value;
-            NotifyOfPropertyChange(() => UnwatchedCount);
-        }
-    }
-
-    [DataMember]
-    public DateTime? LastUpdated
-    {
-        get => lastUpdated;
-        set
-        {
-            lastUpdated = value;
-            NotifyOfPropertyChange(() => LastUpdated);
-        }
-    }
-
-    [DataMember]
-    public int Timezone
-    {
-        get => timezone;
-        set
-        {
-            timezone = value;
-            NotifyOfPropertyChange(() => Timezone);
-        }
-    }
-
-    [DataMember]
-    public int AirTimeMinute
-    {
-        get => airTimeMinute;
-        set
-        {
-            airTimeMinute = value;
-            NotifyOfPropertyChange(() => AirTimeMinute);
-        }
-    }
-
-    [DataMember]
-    public int AirTimeHour
-    {
-        get => airTimeHour;
-        set
-        {
-            airTimeHour = value;
-            NotifyOfPropertyChange(() => AirTimeHour);
-        }
-    }
-
-    [IgnoreDataMember]
-    public Season SelectedSeason
-    {
-        get => selectedSeason;
-        set
-        {
-            selectedSeason = value;
-            NotifyOfPropertyChange(() => SelectedSeason);
-        }
-    }
-
-    [IgnoreDataMember]
-    public bool IsLoading
-    {
-        get => isLoading;
-        set
-        {
-            isLoading = value;
-            NotifyOfPropertyChange(() => IsLoading);
-        }
-    }
-
-    [DataMember]
-    public string ImageUrl
-    {
-        get => imageUrl;
-        set
-        {
-            imageUrl = value;
-            NotifyOfPropertyChange(() => ImageUrl);
-        }
-    }
-
-    [DataMember]
-    public DateTime? Started
-    {
-        get => started;
-        set
-        {
-            started = value;
-            NotifyOfPropertyChange(() => Started);
-        }
-    }
-
-    [DataMember]
-    public DateTime? Ended
-    {
-        get => ended;
-        set
-        {
-            ended = value;
-            NotifyOfPropertyChange(() => Ended);
-        }
-    }
-
-    [IgnoreDataMember]
-    public ImageSource ImageSource
-    {
-        get => imageSource;
-        set
-        {
-            imageSource = value;
-            NotifyOfPropertyChange(() => ImageSource);
-        }
-    }
-
-    [DataMember]
-    public string Status
-    {
-        get => status;
-        set
-        {
-            status = value;
-            NotifyOfPropertyChange(() => Status);
-        }
-    }
-
-    [DataMember]
-    public string Country
-    {
-        get => country;
-        set
-        {
-            country = value;
-            NotifyOfPropertyChange(() => Country);
-        }
-    }
-
-    [DataMember]
-    public string Link
-    {
-        get => link;
-        set
-        {
-            link = value;
-            NotifyOfPropertyChange(() => Link);
-        }
-    }
-
-    [DataMember]
-    public string Name
-    {
-        get => name;
-        set
-        {
-            name = value;
-            NotifyOfPropertyChange(() => Name);
-        }
-    }
-
-    [DataMember]
-    public int ShowId
-    {
-        get => showId;
-        set
-        {
-            showId = value;
-            NotifyOfPropertyChange(() => ShowId);
-        }
     }
 }
