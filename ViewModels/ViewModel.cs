@@ -37,7 +37,7 @@ public abstract partial class ViewModel : ObservableObject
 
     public virtual void Show()
     {
-        if (shouldCenter) View.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        if (ShouldCenter) View.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         View.Show();
     }
 
@@ -81,16 +81,16 @@ public abstract partial class ViewModel : ObservableObject
         }
 
         View = null;
-        isClosing = true;
+        IsClosing = true;
     }
 
     public void Close()
     {
-        if (isClosing) return;
+        if (IsClosing) return;
 
         View?.Close();
 
-        isClosing = true;
+        IsClosing = true;
     }
 
     protected virtual bool TryClosing()
