@@ -7,12 +7,13 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
-using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Jarloo.Sojurn.Data;
 using Jarloo.Sojurn.Helpers;
 using Jarloo.Sojurn.InformationProviders;
 using Jarloo.Sojurn.Models;
+
 
 namespace Jarloo.Sojurn.ViewModels;
 
@@ -37,16 +38,7 @@ public partial class MainViewModel : ViewModel
     public CollectionViewSource Shows { get; set; }
     public CollectionViewSource TimeLine { get; set; }
     public CollectionViewSource Backlog { get; set; }
-
-    public ICommand AddShowCommand { get; set; }
-    public ICommand RefreshAllShowsCommand { get; set; }
-    public ICommand RefreshShowCommand { get; set; }
-    public ICommand DeleteShowCommand { get; set; }
-    public ICommand MarkAllEpisodesAsWatchedCommand { get; set; }
-    public ICommand MarkAllEpisodesAsUnWatchedCommand { get; set; }
-    public ICommand ToggleViewedBackLogCommand { get; set; }
-    public ICommand ShowEpisodesCommand { get; set; }
-
+    
     
     public MainViewModel()
         : this(
@@ -82,8 +74,6 @@ public partial class MainViewModel : ViewModel
                 new SortDescription("EpisodeNumberThisSeason", ListSortDirection.Ascending));
 
             Version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-
-            BindCommands();
         }
         catch (Exception ex)
         {
@@ -114,25 +104,7 @@ public partial class MainViewModel : ViewModel
         SaveShows();
     }
 
-    public void BindCommands()
-    {
-        try
-        {
-            AddShowCommand = new RelayCommand(_ => AddShow());
-            RefreshAllShowsCommand = new RelayCommand(_ => RefreshAllShows());
-            RefreshShowCommand = new RelayCommand(t => RefreshShow(t as Show));
-            DeleteShowCommand = new RelayCommand(t => RemoveShow(t as Show));
-            MarkAllEpisodesAsUnWatchedCommand = new RelayCommand(t => MarkAllAsNotViewed(t as Show));
-            MarkAllEpisodesAsWatchedCommand = new RelayCommand(t => MarkAllAsViewed(t as Show));
-            ToggleViewedBackLogCommand = new RelayCommand(t => ToggleViewedBacklog(t as BacklogItem));
-            ShowEpisodesCommand = new RelayCommand(t => ShowEpisodes(t as Show));
-        }
-        catch (Exception ex)
-        {
-            ErrorManager.Log(ex);
-        }
-    }
-
+    [RelayCommand]
     private void ShowEpisodes(Show show)
     {
         try
@@ -149,6 +121,7 @@ public partial class MainViewModel : ViewModel
         }
     }
 
+    [RelayCommand]
     private void AddShow()
     {
         try
@@ -280,6 +253,7 @@ public partial class MainViewModel : ViewModel
         }
     }
 
+    [RelayCommand]
     public void RefreshAllShows()
     {
         try
@@ -298,6 +272,7 @@ public partial class MainViewModel : ViewModel
         }
     }
 
+    [RelayCommand]
     public async void RefreshShow(Show oldShow)
     {
         try
@@ -361,7 +336,8 @@ public partial class MainViewModel : ViewModel
         }
     }
 
-    public void RemoveShow(Show s)
+    [RelayCommand]
+    public void DeleteShow(Show s)
     {
         try
         {
@@ -410,6 +386,7 @@ public partial class MainViewModel : ViewModel
         }
     }
 
+    [RelayCommand]
     public void MarkAllAsViewed(Show s)
     {
         try
@@ -431,6 +408,7 @@ public partial class MainViewModel : ViewModel
         }
     }
 
+    [RelayCommand]
     public void MarkAllAsNotViewed(Show s)
     {
         try
@@ -488,7 +466,8 @@ public partial class MainViewModel : ViewModel
         }
     }
 
-    public void ToggleViewedBacklog(BacklogItem i)
+    [RelayCommand]
+    public void ToggleViewedBackLog(BacklogItem i)
     {
         try
         {

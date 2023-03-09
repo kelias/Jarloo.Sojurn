@@ -3,24 +3,22 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 using Jarloo.Sojurn.Helpers;
 using Jarloo.Sojurn.Models;
 
 namespace Jarloo.Sojurn.ViewModels;
 
-public class SeasonViewModel : ViewModel
+public partial class SeasonViewModel : ViewModel
 {
     public CollectionViewSource Seasons { get; set; }
     private Action<Episode> callback;
-
-    public ICommand ToggleViewedCommand { get; set; }
-
+    
     public SeasonViewModel()
     {
         try
         {
             Seasons = new CollectionViewSource();
-            ToggleViewedCommand = new RelayCommand(t => ToggleViewed(t as Episode));
         }
         catch (Exception ex)
         {
@@ -52,6 +50,7 @@ public class SeasonViewModel : ViewModel
         }
     }
 
+    [RelayCommand]
     private void ToggleViewed(Episode e)
     {
         try

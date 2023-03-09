@@ -170,7 +170,7 @@
                             </Button>
                             <Button Height="24" Width="24" Cursor="Hand"
                                     VerticalAlignment="Top" ToolTip="Mark All Episodes as Watched"
-                                    Command="{Binding DataContext.MarkAllEpisodesAsWatchedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"
+                                    Command="{Binding DataContext.MarkAllAsViewedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"
                                     CommandParameter="{Binding .}">
                                 <Button.Template>
                                     <ControlTemplate>
@@ -181,7 +181,7 @@
 
                             <Button Height="24" Width="24" Cursor="Hand"
                                     VerticalAlignment="Top" ToolTip="Mark All Episodes as Unwatched"
-                                    Command="{Binding DataContext.MarkAllEpisodesAsUnWatchedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"
+                                    Command="{Binding DataContext.MarkAllAsNotViewedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"
                                     CommandParameter="{Binding .}">
                                 <Button.Template>
                                     <ControlTemplate>

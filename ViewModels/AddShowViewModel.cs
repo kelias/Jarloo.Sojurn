@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Jarloo.Sojurn.Extensions;
-using Jarloo.Sojurn.Helpers;
 using Jarloo.Sojurn.InformationProviders;
 using Jarloo.Sojurn.Models;
 
@@ -17,11 +16,7 @@ public partial class AddShowViewModel : ViewModel
     public IInformationProvider InformationProvider;
     
     public ObservableCollection<Show> Shows { get; set; } = new();
-
-    public ICommand AddShowCommand { get; set; }
-    public ICommand CancelCommand { get; set; }
-    public ICommand SearchCommand { get; set; }
-
+    
     [ObservableProperty]
     private Show selectedShow;
 
@@ -41,35 +36,9 @@ public partial class AddShowViewModel : ViewModel
 
     [ObservableProperty]
     private bool isShowNameFocused = true;
-
     
-    public bool CanAddShow => SelectedShow != null && IsWorking == false;
-    
-    
-    public AddShowViewModel()
-    {
-        BindCommands();
-    }
-
-    private void BindCommands()
-    {
-        try
-        {
-            AddShowCommand = new RelayCommand(t => AddShow());
-            CancelCommand = new RelayCommand(t =>
-            {
-                View.DialogResult = false;
-                Close();
-            });
-            SearchCommand = new RelayCommand(t => SearchShow());
-        }
-        catch (Exception ex)
-        {
-            ErrorManager.Log(ex);
-        }
-    }
-
-    public async void SearchShow()
+    [RelayCommand]
+    public async void Search()
     {
         try
         {
@@ -110,6 +79,7 @@ public partial class AddShowViewModel : ViewModel
         }
     }
 
+    [RelayCommand]
     public async void AddShow()
     {
         if (SelectedShow == null) return;
@@ -152,8 +122,10 @@ public partial class AddShowViewModel : ViewModel
         }
     }
 
-    public void TextModified(KeyEventArgs e)
+    [RelayCommand]
+    private void Cancel()
     {
-        if (e.Key == Key.Return) SearchShow();
+        View.DialogResult = false;
+        Close();
     }
 }
