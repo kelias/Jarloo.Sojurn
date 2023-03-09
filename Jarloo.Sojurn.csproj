@@ -5,27 +5,9 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Images\logo.ico</ApplicationIcon>
-	  <AssemblyVersion>3.0.0.0</AssemblyVersion>
-	  <FileVersion>3.0.0.0</FileVersion>
+	  <AssemblyVersion>3.0.1.0</AssemblyVersion>
+	  <FileVersion>3.0.1.0</FileVersion>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Images\appbar.add.png" />
-    <None Remove="Images\appbar.close.png" />
-    <None Remove="Images\appbar.eye.hide.png" />
-    <None Remove="Images\appbar.eye.png" />
-    <None Remove="Images\appbar.monitor.play.png" />
-    <None Remove="Images\appbar.page.search.png" />
-    <None Remove="Images\appbar.refresh.clockwise.down.png" />
-    <None Remove="Images\appbar.settings.png" />
-    <None Remove="Images\appbar.sort.alphabetical.png" />
-    <None Remove="Images\episodeWindow.png" />
-    <None Remove="Images\image_episode.png" />
-    <None Remove="Images\image_show.png" />
-    <None Remove="Images\logo.ico" />
-    <None Remove="Images\mainWindow2.png" />
-    <None Remove="Images\splash.png" />
-  </ItemGroup>
 
   <ItemGroup>
     <Content Include="Images\*">
