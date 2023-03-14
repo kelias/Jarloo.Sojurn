@@ -13,7 +13,8 @@
             GlowBrush="{StaticResource AccentColorBrush}"
             Height="1000" Width="1800"
             Background="{StaticResource Background}" Foreground="{StaticResource Foreground}"
-            d:DataContext="{d:DesignInstance {x:Type viewModels:MainViewModel}}">
+            d:DataContext="{d:DesignInstance {x:Type viewModels:MainViewModel}}"
+            Title="Sojurn">
 
     <Window.Resources>
         <converters:BoolToVisHiddenConverter x:Key="BoolToVisHiddenConverter" />
