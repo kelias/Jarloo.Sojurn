@@ -5,10 +5,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-
-                <ResourceDictionary Source="/MahApps.Metro;component/Styles/Controls.xaml" />
-                <ResourceDictionary Source="/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="/MahApps.Metro;component/Styles/themes/dark.blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/PresentationFramework.Fluent;component/Themes/Fluent.xaml" />
 
                 <ResourceDictionary Source="/Jarloo.Sojurn;component/Resources/ColorResources.xaml" />
                 <ResourceDictionary Source="/Jarloo.Sojurn;component/Resources/ImageResources.xaml" />

@@ -8,8 +8,6 @@
             xmlns:converters="clr-namespace:Jarloo.Sojurn.Converters"
             xmlns:viewModels="clr-namespace:Jarloo.Sojurn.ViewModels"
             mc:Ignorable="d"
-            GlowBrush="{StaticResource AccentColorBrush}"
-            Background="{StaticResource Background}" Foreground="{StaticResource Foreground}"
             d:DataContext="{d:DesignInstance {x:Type viewModels:SeasonViewModel}}"
             Height="726.316" Width="1400">
 
@@ -26,7 +24,7 @@
                             <StackPanel Orientation="Horizontal" Margin="0,30,10,0">
                                 <TextBlock
                                     Text="{Binding SeasonNumber, Converter={StaticResource NumberExtensionConverter}}"
-                                    FontSize="50" Margin="20,-20,0,0" />
+                                    FontSize="50" Margin="20,-20,0,0"  Foreground="{DynamicResource TextFillColorPrimaryBrush}"/>
                                 <TextBlock Text="Season" FontSize="16" Margin="10,0,0,0" />
                             </StackPanel>
 

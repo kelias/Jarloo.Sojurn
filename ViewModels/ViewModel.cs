@@ -29,7 +29,6 @@ public abstract partial class ViewModel : ObservableObject
         Register();
         View.Icon = (BitmapImage)View.FindResource("Logo");
         Title = "Sojurn";
-        View.TitleCharacterCasing = CharacterCasing.Normal;
         shouldCenter = true;
     }
 

@@ -5,9 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="ErrorView" Height="441.931" Width="595"
-        Topmost="True"
-        Background="{StaticResource Background}"
-        Foreground="{StaticResource Foreground}">
+        Topmost="True">
     <Grid>
         <TextBlock Height="41" Margin="43,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White"
                    FontSize="26.667" HorizontalAlignment="Left" Width="507" Text="Well #$#% something happened..." />

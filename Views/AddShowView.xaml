@@ -3,14 +3,11 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-            xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
             xmlns:views="clr-namespace:Jarloo.Sojurn.Views"
             xmlns:converters="clr-namespace:Jarloo.Sojurn.Converters"
             xmlns:extensions="clr-namespace:Jarloo.Sojurn.Extensions"
-            mc:Ignorable="d" Width="723" Height="703"
-            BorderBrush="{DynamicResource AccentColorBrush}"
-            BorderThickness="1"
-            Background="{StaticResource Background}" Foreground="{StaticResource Foreground}">
+            xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+            mc:Ignorable="d" Width="723" Height="703">
 
     <Window.Resources>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisConverter" />
@@ -31,7 +28,7 @@
             </Button.Template>
         </Button>
 
-        <TextBox HorizontalAlignment="Left" Height="26" Margin="45,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top"
+        <TextBox HorizontalAlignment="Left" Height="36" Margin="45,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top"
                  Width="330" TabIndex="0" Text="{Binding ShowName, UpdateSourceTrigger=PropertyChanged}"
                  extensions:FocusExtension.IsFocused="{Binding IsShowNameFocused}" />
 
@@ -62,10 +59,10 @@
         <Button Content="Cancel" Margin="0,0,16,21" IsCancel="True" HorizontalAlignment="Right" Width="94" Height="34"
                 VerticalAlignment="Bottom" Command="{Binding CancelCommand}" />
 
-        <TextBlock HorizontalAlignment="Left" Height="23" Margin="45,143,0,0" TextWrapping="Wrap"
+        <TextBlock HorizontalAlignment="Left" Height="37" Margin="45,143,0,0" TextWrapping="Wrap"
                    VerticalAlignment="Top" Width="330" Foreground="#FFE51400" Name="Error" />
 
-        <Controls:ProgressRing IsActive="{Binding IsWorking}" d:IsHidden="true" />
+        <mah:ProgressRing IsActive="{Binding IsWorking}" d:IsHidden="true" />
 
     </Grid>
 </views:View>

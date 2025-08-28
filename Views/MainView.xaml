@@ -10,9 +10,7 @@
             xmlns:converters="clr-namespace:Jarloo.Sojurn.Converters"
             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
             mc:Ignorable="d"
-            GlowBrush="{StaticResource AccentColorBrush}"
             Height="1000" Width="1800"
-            Background="{StaticResource Background}" Foreground="{StaticResource Foreground}"
             d:DataContext="{d:DesignInstance {x:Type viewModels:MainViewModel}}"
             Title="Sojurn">
 
@@ -120,13 +118,13 @@
                                 <Ellipse Fill="{StaticResource UnwatchedStickerBackgroundBrush}" Height="80" Width="80"
                                          Opacity="0.7" />
                                 <TextBlock Text="{Binding UnwatchedCount}" FontSize="45" TextAlignment="Center"
-                                           VerticalAlignment="Center" />
+                                           VerticalAlignment="Center"  Foreground="{DynamicResource TextFillColorPrimaryBrush}"/>
                             </Grid>
 
                             <controls:ProgressRing IsActive="{Binding IsLoading}" />
                         </Grid>
                         <TextBlock Text="{Binding Name}" FontSize="14" TextAlignment="Center"
-                                   TextTrimming="CharacterEllipsis" Width="150" />
+                                   TextTrimming="CharacterEllipsis" Width="150"  Foreground="{DynamicResource TextFillColorPrimaryBrush}"/>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock Text="Status: " FontSize="12" Style="{StaticResource StatusStyle}" />
@@ -233,9 +231,8 @@
                                     <ControlTemplate TargetType="{x:Type GroupItem}">
                                         <StackPanel Margin="5,5,5,5">
                                             <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="{Binding Name, StringFormat=\{0:ddd\}}" FontSize="40" />
-                                                <TextBlock Text="{Binding Name, StringFormat=\{0:MMM dd\}}"
-                                                           Margin="10,20,0,0" FontSize="14" />
+                                                <TextBlock Text="{Binding Name, StringFormat=\{0:ddd\}}" FontSize="40"  Foreground="{DynamicResource TextFillColorPrimaryBrush}"/>
+                                                <TextBlock Text="{Binding Name, StringFormat=\{0:MMM dd\}}" Margin="10,20,0,0" FontSize="14"  Foreground="{DynamicResource TextFillColorPrimaryBrush}"/>
                                             </StackPanel>
                                             <ItemsPresenter />
                                         </StackPanel>
@@ -262,11 +259,10 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Show.AirTimeHour, StringFormat=\{0:00\}}" />
-                        <TextBlock Text=":" />
-                        <TextBlock Text="{Binding Show.AirTimeMinute, StringFormat=\{0:00\}}" />
-                        <TextBlock Text="{Binding Show.Name}" Margin="20,0,0,0" TextWrapping="NoWrap"
-                                   TextTrimming="CharacterEllipsis" />
+                        <TextBlock Text="{Binding Show.AirTimeHour, StringFormat=\{0:00\}}"  Foreground="{DynamicResource TextFillColorPrimaryBrush}"/>
+                        <TextBlock Text=":"  Foreground="{DynamicResource TextFillColorPrimaryBrush}"/>
+                        <TextBlock Text="{Binding Show.AirTimeMinute, StringFormat=\{0:00\}}"  Foreground="{DynamicResource TextFillColorPrimaryBrush}"/>
+                        <TextBlock Text="{Binding Show.Name}" Margin="20,0,0,0" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"  Foreground="{DynamicResource TextFillColorPrimaryBrush}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -322,7 +318,7 @@
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type GroupItem}">
                                         <StackPanel Margin="5,5,5,5">
-                                            <TextBlock Text="{Binding Name}" FontSize="20" Margin="0,0,0,5" />
+                                            <TextBlock Text="{Binding Name}" FontSize="20" Margin="0,0,0,5" Foreground="{DynamicResource TextFillColorPrimaryBrush}"/>
                                             <ItemsPresenter />
                                         </StackPanel>
                                     </ControlTemplate>
@@ -389,11 +385,10 @@
                                                 CommandParameter="{Binding .Show}" />
                                         </b:EventTrigger>
                                     </b:Interaction.Triggers>
-                                    <TextBlock Text="S" FontSize="14" />
-                                    <TextBlock Text="{Binding SeasonNumber, StringFormat=\{0:00\}}" FontSize="14" />
-                                    <TextBlock Text="E" FontSize="14" />
-                                    <TextBlock Text="{Binding EpisodeNumberThisSeason, StringFormat=\{0:00\}}"
-                                               FontSize="14" />
+                                    <TextBlock Text="S" FontSize="14" Foreground="{DynamicResource TextFillColorPrimaryBrush}"/>
+                                    <TextBlock Text="{Binding SeasonNumber, StringFormat=\{0:00\}}" FontSize="14" Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+                                    <TextBlock Text="E" FontSize="14"  Foreground="{DynamicResource TextFillColorPrimaryBrush}"/>
+                                    <TextBlock Text="{Binding EpisodeNumberThisSeason, StringFormat=\{0:00\}}" FontSize="14" Foreground="{DynamicResource TextFillColorPrimaryBrush}"/>
                                 </StackPanel>
                             </StackPanel>
 
@@ -405,9 +400,8 @@
                                             CommandParameter="{Binding .Show}" />
                                     </b:EventTrigger>
                                 </b:Interaction.Triggers>
-                                <TextBlock Text="{Binding Path=Episode.Title}" FontSize="12" Margin="32,0,0,0" />
-                                <TextBlock Text="{Binding Episode.AirDate, StringFormat=D}" FontSize="9"
-                                           Margin="32,8,0,0" Opacity="0.8" />
+                                <TextBlock Text="{Binding Path=Episode.Title}" FontSize="12" Margin="32,0,0,0" Foreground="{DynamicResource TextFillColorPrimaryBrush}"/>
+                                <TextBlock Text="{Binding Episode.AirDate, StringFormat=D}" FontSize="9" Margin="32,8,0,0" Opacity="0.8" Foreground="{DynamicResource TextFillColorPrimaryBrush}"/>
                             </StackPanel>
                         </StackPanel>
                     </Grid>
@@ -453,10 +447,10 @@
         </ListBox>
 
         <TextBlock Grid.Column="1" Height="43" Margin="50,10,53,0" Grid.Row="1" TextWrapping="Wrap" Text="backlog"
-                   VerticalAlignment="Top" FontSize="32" TextAlignment="Center" />
+                   VerticalAlignment="Top" FontSize="32" TextAlignment="Center" Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
         <TextBlock Grid.Column="2" Height="43" Margin="49,10,49,0" Grid.Row="1" TextWrapping="Wrap" Text="timeline"
-                   VerticalAlignment="Top" FontSize="32" TextAlignment="Center" />
+                   VerticalAlignment="Top" FontSize="32" TextAlignment="Center" Foreground="{DynamicResource TextFillColorPrimaryBrush}"/>
         <TextBlock Grid.Row="0" Grid.Column="2" Margin="0,10,10,0" VerticalAlignment="Top" TextAlignment="Right"
-                   HorizontalAlignment="Right" Width="199" Height="16" Text="{Binding Version}" />
+                   HorizontalAlignment="Right" Width="199" Height="16" Text="{Binding Version}" Foreground="{DynamicResource TextFillColorPrimaryBrush}"/>
     </Grid>
 </views:View>

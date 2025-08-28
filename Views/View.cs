@@ -1,9 +1,9 @@
-﻿using Jarloo.Sojurn.ViewModels;
-using MahApps.Metro.Controls;
+﻿using System.Windows;
+using Jarloo.Sojurn.ViewModels;
 
 namespace Jarloo.Sojurn.Views;
 
-public class View : MetroWindow
+public class View : Window
 {
     public ViewModel ViewModel { get; set; }
 }

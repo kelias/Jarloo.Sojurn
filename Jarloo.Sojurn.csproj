@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net9.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Images\logo.ico</ApplicationIcon>
 	  <AssemblyVersion>3.0.1.0</AssemblyVersion>
@@ -16,16 +16,44 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Images\add.svg" />
+    <Content Remove="Images\close.svg" />
+    <Content Remove="Images\eye.svg" />
+    <Content Remove="Images\eyeOff.svg" />
+    <Content Remove="Images\play.svg" />
+    <Content Remove="Images\refresh.svg" />
+    <Content Remove="Images\settings.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\play.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="MahApps.Metro" Version="2.4.10" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="SharpVectors" Version="1.8.5" />
   </ItemGroup>
+
+  
 
   <ItemGroup>
     <Content Include="Images\logo.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  
+
+  <ItemGroup>
+    <Resource Include="Images\add.svg" />
+    <Resource Include="Images\close.svg" />
+    <Resource Include="Images\refresh.svg" />
+    <Resource Include="Images\settings.svg" />
+    <Resource Include="Images\eye.svg" />
+    <Resource Include="Images\eyeOff.svg" />
   </ItemGroup>
 
   <ItemGroup>
